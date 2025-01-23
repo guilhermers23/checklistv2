@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&display=swap');
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --font-Oswald: 'Oswald', sans-serif;
+    --font-Barlow: 'Barlow', sans-serif;
+    --font-Kanit: 'Kanit', sans-serif;
+    --font-Noto: 'Noto Sans', sans-serif;
+}
+
+@layer components{
+    body{
+        font-family: var(--font-Barlow);
+    }
+
+    .login_button{
+        @apply bg-sky-600 py-1 px-5 rounded-lg font-Kanit active:bg-green-400 hover:shadow-md hover:shadow-gray-400 hover:animate-pulse hover:bg-gradient-to-r hover:from-sky-300 cursor-pointer;
+    }
+
+    .login_input{
+        @apply bg-sky-100 mt-1 px-1 py-2 pl-3 rounded-xl w-full text-xl outline-none dark:text-gray-900 dark:bg-slate-300 placeholder:font-Oswald focus:border-green-300 focus:border-2 invalid:focus:border-red-500
+    }
+}
