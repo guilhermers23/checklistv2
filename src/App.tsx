@@ -1,11 +1,7 @@
-import Header from "./Components/Header";
-import Login from "./Pages/Login";
+import CadastrarGrupo from "./Components/Form/AddGrupo";
 
 export default function App() {
   return (
-    <>
-      <Header />
-      <Login />
-    </>
+    <CadastrarGrupo/>
   );
-}
+};
