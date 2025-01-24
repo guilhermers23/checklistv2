@@ -12,10 +12,10 @@ export default function AddGrupo() {
   };
 
   return (
-    <div className="m-auto mt-20 flex bg-gray-100 w-10/12 p-2 rounded-lg lg:w-7/12 dark:bg-gray-800 justify-center">
+    <div>
       <form
         onSubmit={handeSubmit}
-        className="w-10/12 flex flex-col items-center justify-center gap-6"
+        className="flex flex-col items-center justify-center gap-6"
       >
         <h1>Cadastrar Grupo</h1>
         <Input
@@ -29,4 +29,4 @@ export default function AddGrupo() {
       </form>
     </div>
   );
-};
+}

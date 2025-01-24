@@ -1,5 +1,6 @@
 import { FormEvent, useState } from "react";
 import Input from "../../Input";
+import Button from "../../Button";
 
 export default function AddSubGrupo() {
   const [subGrupo, setSubGrupo] = useState("");
@@ -27,8 +28,9 @@ export default function AddSubGrupo() {
         <div className="flex gap-4">
           <select name="" id=""></select>
         </div>
+
+        <Button type="submit">Adicionar SubGrupo</Button>
       </form>
     </div>
   );
 };
-
