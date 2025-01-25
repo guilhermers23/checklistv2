@@ -6,6 +6,7 @@ import AddGrupo from "./Components/Form/AddGrupo";
 import AddSubGrupo from "./Components/Form/AddSubGrupo";
 import Login from "./Pages/Login";
 import RegisterForm from "./Pages/Register";
+import ListaDeTestes from "./Components/ListaDeTestes";
 
 export const Routes = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ export const Routes = createBrowserRouter([
       { path: "/addSubGrupo", element: <AddSubGrupo /> },
       { path: "/login", element: <Login /> },
       { path: "/register", element: <RegisterForm /> },
+      { path: "/listaTestes", element: <ListaDeTestes /> },
     ],
   },
 ]);

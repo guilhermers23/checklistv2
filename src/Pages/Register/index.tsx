@@ -1,18 +1,38 @@
 import { FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Input from "../../Components/Input";
 import foto from "./assets/telaLogin.png";
 import Button from "../../Components/Button";
+import { registerUser } from "../../Services/loogerUserService";
 
 export default function RegisterForm() {
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
+  const [password, setPassword] = useState("");
   const [confirmaSenha, setConfirmaSenha] = useState("");
+  const [error, setError] = useState("");
 
-  const handeSubmit = (event: FormEvent): void => {
+  const navigate = useNavigate();
+
+  const handeSubmit = async (event: FormEvent): Promise<void> => {
     event.preventDefault();
     event.stopPropagation();
-    console.log({ email, senha, username, confirmaSenha });
+    console.log({ email, password, name, confirmaSenha });
+
+    if (password !== confirmaSenha) {
+      setError("As senhas não coincidem");
+      return;
+    };
+
+    try {
+      const response = await registerUser({ name, email, password });
+      console.log(response);
+      alert("Usuário cadastrado com sucesso");
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+      setError("Erro ao cadastrar usuário");
+    };
   };
 
   return (
@@ -30,14 +50,16 @@ export default function RegisterForm() {
           Cadastrar Usuário
         </h1>
         <Input
+          id="name"
           label="Nome"
           type="text"
           placeholder="Insira seu nome..."
-          setValor={setUsername}
-          value={username}
+          setValor={setName}
+          value={name}
         />
 
         <Input
+          id="email"
           label="E-Mail"
           type="email"
           placeholder="Insira seu email..."
@@ -46,23 +68,25 @@ export default function RegisterForm() {
         />
 
         <Input
+          id="password"
           label="Senha"
           type="password"
           placeholder="Insira sua senha..."
-          setValor={setSenha}
-          value={senha}
+          setValor={setPassword}
+          value={password}
         />
 
         <Input
-          key="confirmaSenha"
+          id="confirmaSenha"
           label="Confirmar Senha"
           type="password"
           placeholder="Confirme sua senha..."
           setValor={setConfirmaSenha}
           value={confirmaSenha}
         />
+        {error && <p className="text-red-500">{error}</p>}
         <Button type="submit">Cadastrar</Button>
       </form>
     </div>
   );
-}
+};

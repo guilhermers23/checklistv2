@@ -15,6 +15,9 @@ export default function Home() {
       <Link to="/register">
         <h1>Tela de Cadastro</h1>
       </Link>
+      <Link to="/listaTestes">
+        <h1>Lista de Testes</h1>
+      </Link>
     </div>
   );
 }

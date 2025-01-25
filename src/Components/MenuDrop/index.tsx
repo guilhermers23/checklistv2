@@ -1,7 +1,7 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { Bars4Icon, H1Icon } from "@heroicons/react/20/solid";
 import { ArrowLeftEndOnRectangleIcon } from "@heroicons/react/24/solid";
-import ItemLink from "./ItemLink";
+import { Link } from "react-router-dom";
 
 export default function MenuDrop() {
   const logOut = () => {
@@ -19,23 +19,30 @@ export default function MenuDrop() {
         </MenuButton>
       </div>
 
-      <MenuItems
-        transition
-        className="menuDrop_menuItems"
-      >
+      <MenuItems transition className="menuDrop_menuItems">
         <div className="py-1">
           <MenuItem>
-            <ItemLink to="/addGrupo">
-              <H1Icon className="size-5" />
-              Cadastrar Grupo
-            </ItemLink>
+            <Link
+              to="/addGrupo"
+              className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+            >
+              <span className="flex items-center gap-2">
+                <H1Icon className="size-5" />
+                Cadastrar Grupo
+              </span>
+            </Link>
           </MenuItem>
 
           <MenuItem>
-            <ItemLink to="/addSubGrupo">
-              <H1Icon className="size-5" />
-              Cadastrar SubGrupo
-            </ItemLink>
+            <Link
+              to="/addSubGrupo"
+              className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+            >
+              <span className="flex items-center gap-2">
+                <H1Icon className="size-5" />
+                Cadastrar SubGrupo
+              </span>
+            </Link>
           </MenuItem>
         </div>
 
@@ -93,4 +100,4 @@ export default function MenuDrop() {
       </MenuItems>
     </Menu>
   );
-};
+}

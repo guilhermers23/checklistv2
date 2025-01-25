@@ -1,25 +1,35 @@
 import { FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Input from "../../Components/Input";
 import foto from "./assets/telaLogin.png";
 import Button from "../../Components/Button";
+import { loginUser } from "../../Services/loogerUserService";
 
 export default function Login() {
   const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-  const handeSubmit = (event: FormEvent): void => {
+  const handeSubmit = async (event: FormEvent): Promise<void> => {
     event.preventDefault();
     event.stopPropagation();
-    console.log({ email, senha });
+    const data = { email, password };
+
+    try {
+      const response = await loginUser(data);
+      console.log(response);
+      alert("Usuário logado com sucesso");
+      navigate("/");
+
+    } catch (e) {
+      console.error(e);
+      setError("Erro ao logar usuário");
+    };
   };
 
   return (
     <div className="m-auto mt-20 flex bg-gray-100 w-10/12 p-2 rounded-lg lg:w-7/12 dark:bg-gray-800 justify-center">
-      <img
-        src={foto}
-        alt="Imagem de uma tela de login"
-        className="w-6/12  hidden md:block rounded-xl"
-      />
       <form
         onSubmit={handeSubmit}
         className="12/12 md:w-6/12 flex flex-col items-center justify-center gap-6"
@@ -28,22 +38,31 @@ export default function Login() {
           LOGIN
         </h1>
         <Input
+          id="email"
           label="E-Mail"
           type="email"
           placeholder="Insira seu email..."
           setValor={setEmail}
           value={email}
         />
-
         <Input
+          id="password"
           label="Senha"
           type="password"
           placeholder="Insira sua senha..."
-          setValor={setSenha}
-          value={senha}
+          setValor={setPassword}
+          value={password}
         />
+
+        {error && <p className="text-red-500">{error}</p>}
         <Button type="submit">Entrar</Button>
       </form>
+
+      <img
+        src={foto}
+        alt="Imagem de uma tela de login"
+        className="w-6/12  hidden md:block rounded-xl"
+      />
     </div>
   );
 }

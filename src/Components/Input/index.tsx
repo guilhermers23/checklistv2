@@ -1,4 +1,5 @@
 interface Props {
+    id: string;
     type: "email" | "password" | "text";
     placeholder: string;
     label: string;
@@ -11,9 +12,9 @@ interface Props {
       <div className="md:w-9/12">
         <label htmlFor={props.type} className="block font-Oswald dark:text-gray-400">{props.label}</label>
         <input className="login_input"
+          id={props.id}
           type={props.type}
           placeholder={props.placeholder}
-          id={props.type}
           value={props.value}
           onChange={(event) => props.setValor(event.target.value)}
           required
