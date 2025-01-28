@@ -19,6 +19,7 @@ export default function AddGrupo() {
       >
         <h1>Cadastrar Grupo</h1>
         <Input
+          id="grupo"
           label="Grupo"
           placeholder="Adicione um grupo..."
           type="text"

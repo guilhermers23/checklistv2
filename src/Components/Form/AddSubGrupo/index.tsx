@@ -19,6 +19,7 @@ export default function AddSubGrupo() {
       >
         <h1>Cadastrar SubGrupo</h1>
         <Input
+          id="subGrupo"
           label="SubGrupo"
           placeholder="Adicionar subgrupo..."
           type="text"

@@ -6,7 +6,8 @@ export interface IGrupo {
   export interface ISubGrupo {
     _id: string;
     nome: string;
-    grupo: string; // Assumindo que 'grupo' é uma referência ao ID do grupo
+    grupoId: string; // Assumindo que 'grupo' é uma referência ao ID do grupo
+    grupo: IGrupo
   }
   
   export interface ITeste {
@@ -15,6 +16,6 @@ export interface IGrupo {
     subGrupo: ISubGrupo;
     description: string;
     resultado: string;
-    completed: string[]; // Tipo 'any' por enquanto, ajuste conforme necessário
+    completed: string[];
     observacao: string;
   }
