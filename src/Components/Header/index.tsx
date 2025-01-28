@@ -8,7 +8,7 @@ export default function Header() {
     <>
       <header className="flex h-20 self-center justify-between bg-sky-500 text-white px-4 w-full items-center">
         <Link to="/" className="flex items-center gap-2">
-          <h1 className="text-2xl font-bold">CHECKLIST</h1>
+          <h1 className="text-2xl font-bold">CHECKLIST V2.0</h1>
         </Link>
         <nav>
           <section className="flex items-center gap-10">

@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getAllListaTestes } from "../../Services/testesServices";
-import { IGrupo, ISubGrupo, ITeste } from "../../Interfaces/Testes";
+import { IGrupo, ISubGrupo, ITeste } from "../../Interfaces/ITestes";
 import { getAllGrupos, getAllSubGrupos } from "../../Services/gruposServices";
 import InputFilter from "../InputFilter";
 import TableListTests from "../TableListTests";
@@ -39,16 +39,41 @@ export default function ListaDeTestes() {
   };
 
   // Filtrar os subgrupos com base no grupo selecionado
-  const subGruposFiltrados = subGrupos.filter(subgrupo =>
-    subgrupo.grupoId === grupoSelecionado || (subgrupo.grupo && subgrupo.grupo._id === grupoSelecionado)
-  );
+  const subGruposFiltrados = useMemo(() => {
+    return subGrupos.filter(subgrupo =>
+      subgrupo.grupoId === grupoSelecionado || (subgrupo.grupo && subgrupo.grupo._id === grupoSelecionado)
+    );
+  }, [subGrupos, grupoSelecionado]);
 
   // Filtragem de itens baseada nos valores dos selects de grupo e subgrupo
-  const testesFiltrados = testes.filter((item) => {
-    const grupoValido = grupoSelecionado ? item.grupo._id === grupoSelecionado : true;
-    const subGrupoValido = subGrupoSelecionado ? item.subGrupo._id === subGrupoSelecionado : true;
-    return grupoValido && subGrupoValido;
-  });
+  const testesFiltrados = testes.filter(({ grupo, subGrupo }) =>
+    (!grupoSelecionado || grupo._id === grupoSelecionado) &&
+    (!subGrupoSelecionado || subGrupo._id === subGrupoSelecionado)
+  );
+
+  // Função para mudar campo de resultados de um teste
+  const handleChange = async (id: string, e: React.ChangeEvent<HTMLSelectElement>) => {
+    try {
+      setTestes((prevTestes) =>
+        prevTestes.map((teste) =>
+          teste._id === id ? { ...teste, resultado: e.target.value } : teste
+        ));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Função para mudar campo de observaçao de um teste
+  const handleChangeObs = async (id: string, e: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      setTestes((prevTestes) =>
+        prevTestes.map((teste) =>
+          teste._id === id ? { ...teste, observacao: e.target.value } : teste
+        ));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     findAllTestAttributes();
@@ -59,14 +84,16 @@ export default function ListaDeTestes() {
       title="Lista de Testes"
       listaCabecalho={HEAD_TABLE}
       listaDe={testesFiltrados}
+      onchangeResult={handleChange}
+      onchangeObservation={handleChangeObs}
       opcoes={
-        <>
-          <button className="bg-sky-400 rounded-lg px-2 text-zinc-50">Salvar</button>
-          <button className="bg-red-400 rounded-lg px-2 text-zinc-50">Excluir</button>
-        </>
+        <span className="flex gap-2">
+          <button className="bg-green-400 rounded-lg px-3 py-1 text-zinc-50">Salvar</button>
+          <button className="bg-red-400 rounded-lg px-3 py-1 text-zinc-50">Excluir</button>
+        </span>
       }>
 
-      <div className="max-w-sm m-2 flex gap-5">
+      <div className="max-w-md m-2 flex gap-5">
         <InputFilter id="grupo"
           labelTitulo="Grupo"
           listaDe={grupos}

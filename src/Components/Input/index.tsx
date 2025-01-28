@@ -5,6 +5,7 @@ interface PropsInput {
   label: string;
   value: string;
   setValor: (e: string) => void;
+  onchangeObservation?: (id: string, e: React.ChangeEvent<HTMLSelectElement>) => Promise<void> | undefined;
 };
 
 export default function Input(props: PropsInput) {
@@ -19,7 +20,7 @@ export default function Input(props: PropsInput) {
         type={props.type}
         placeholder={props.placeholder}
         value={props.value}
-        onChange={(event) => props.setValor(event.target.value)}
+        onChange={(event) => props.setValor && props.setValor(event.target.value)}
         required
       />
     </div>
