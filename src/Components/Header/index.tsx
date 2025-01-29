@@ -45,7 +45,13 @@ export default function Header() {
             <ModoDark />
             <span className="flex items-center gap-2">
               <h1 className="text-2xl">Olá, {user?.name || "Técnico(a)"}</h1>
-              <MenuDrop onClick={userLogout} />
+              {user !== null ?
+                <MenuDrop onClick={userLogout} /> :
+                <button onClick={() => navigate("/login")}
+                  className="bg-sky-100 py-1 px-5 rounded-lg text-gray-900 font-Kanit active:bg-green-400 hover:shadow-md hover:shadow-gray-400 hover:animate-pulse hover:bg-gradient-to-r hover:from-sky-300 cursor-pointer">
+                  Entrar
+                </button>
+              }
             </span>
           </section>
         </nav>

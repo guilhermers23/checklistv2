@@ -1,13 +1,13 @@
 export interface IGrupo {
-    _id: string;
+    _id?: string;
     nome: string;
   }
   
   export interface ISubGrupo {
-    _id: string;
+    _id?: string;
     nome: string;
     grupoId: string; // Assumindo que 'grupo' é uma referência ao ID do grupo
-    grupo: IGrupo
+    grupo?: IGrupo
   }
   
   export interface ITeste {

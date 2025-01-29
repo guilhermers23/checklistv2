@@ -16,7 +16,7 @@
     }
 
     .login_button{
-        @apply bg-sky-600 py-1 px-5 rounded-lg font-Kanit active:bg-green-400 hover:shadow-md hover:shadow-gray-400 hover:animate-pulse hover:bg-gradient-to-r hover:from-sky-300 cursor-pointer;
+        @apply bg-sky-600 py-1 px-5 rounded-lg font-Kanit active:bg-green-400 hover:shadow-md hover:shadow-gray-400 hover:animate-pulse hover:bg-gradient-to-r hover:from-sky-300  cursor-pointer;
     }
 
     .login_input{

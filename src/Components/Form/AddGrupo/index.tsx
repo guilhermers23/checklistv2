@@ -1,14 +1,25 @@
 import { FormEvent, useState } from "react";
+import { postGrupo } from "../../../API/gruposServices";
 import Button from "../../Button";
 import Input from "../../Input";
 
 export default function AddGrupo() {
   const [grupo, setGrupo] = useState("");
 
-  const handeSubmit = (event: FormEvent): void => {
+  const handeSubmit = async (event: FormEvent): Promise<void> => {
     event.preventDefault();
     event.stopPropagation();
-    console.log({ grupo });
+
+    try {
+      const resGrupoNome = { nome: grupo[0].toUpperCase() + grupo.substring(1) };
+      console.log(resGrupoNome);
+      await postGrupo(resGrupoNome);
+      alert('Grupo cadastrado com sucesso!');
+      setGrupo("");
+    } catch (error) {
+      console.error(error)
+      alert("Ocorreu erro ao cadastrar o grupo!")
+    }
   };
 
   return (
