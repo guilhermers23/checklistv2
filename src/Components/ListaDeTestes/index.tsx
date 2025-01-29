@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
-import { getAllListaTestes } from "../../Services/testesServices";
+import { getAllListaTestes } from "../../API/testesServices";
 import { IGrupo, ISubGrupo, ITeste } from "../../Interfaces/ITestes";
-import { getAllGrupos, getAllSubGrupos } from "../../Services/gruposServices";
+import { getAllGrupos, getAllSubGrupos } from "../../API/gruposServices";
 import InputFilter from "../InputFilter";
 import TableListTests from "../TableListTests";
 

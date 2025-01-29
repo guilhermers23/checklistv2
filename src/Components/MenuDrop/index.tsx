@@ -3,10 +3,11 @@ import { Bars4Icon, H1Icon } from "@heroicons/react/20/solid";
 import { ArrowLeftEndOnRectangleIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 
-export default function MenuDrop() {
-  const logOut = () => {
-    alert("Sair");
-  };
+interface PropsMenuDrop {
+  onClick: () => void;
+};
+
+export default function MenuDrop({ onClick }: PropsMenuDrop) {
 
   return (
     <Menu as="div" className="relative inline-block text-left">
@@ -88,7 +89,7 @@ export default function MenuDrop() {
           <MenuItem>
             <button
               className="block px-4 py-2 w-full text-sm text-gray-700 data-focus:text-gray-900 data-focus:outline-hidden cursor-pointer hover:bg-red-400"
-              onClick={logOut}
+              onClick={onClick}
             >
               <span className="flex items-center gap-2">
                 <ArrowLeftEndOnRectangleIcon className="size-5" />

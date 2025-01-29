@@ -1,8 +1,8 @@
 export default function Footer() {
     return (
-        <footer className="shadow-sm m-1 bg-gray-800">
+        <footer className="shadow-sm m-1 bg-gray-800 fixed bottom-0 left-0 right-0">
             <div className="w-full mx-auto max-w-screen p-4 md:flex md:items-center md:justify-between">
-                <span className="text-sm text-gray-100 sm:text-center dark:text-gray-400">© 2025 <a href="https://flowbite.com/" className="hover:underline">Guilherme R.Silva</a>. All Rights Reserved.
+                <span className="text-sm text-gray-100 sm:text-center dark:text-gray-400">© 2025 <a href="https://github.com/GuilhermeRS23" className="hover:underline">Guilherme R.Silva</a>. All Rights Reserved.
                 </span>
                 <ul className="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
                     <li>

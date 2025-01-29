@@ -1,9 +1,10 @@
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../API/loogerUserService";
 import Input from "../../Components/Input";
 import foto from "./assets/telaLogin.png";
 import Button from "../../Components/Button";
-import { loginUser } from "../../Services/loogerUserService";
+import Cookies from "js-cookie";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -18,7 +19,7 @@ export default function Login() {
 
     try {
       const response = await loginUser(data);
-      console.log(response);
+      Cookies.set("token", response.data.token, { expires: 1 });
       alert("Usuário logado com sucesso");
       navigate("/");
 

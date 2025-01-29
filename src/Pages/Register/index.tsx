@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Input from "../../Components/Input";
 import foto from "./assets/telaLogin.png";
 import Button from "../../Components/Button";
-import { registerUser } from "../../Services/loogerUserService";
+import { registerUser } from "../../API/loogerUserService";
 
 export default function RegisterForm() {
   const [name, setName] = useState("");
