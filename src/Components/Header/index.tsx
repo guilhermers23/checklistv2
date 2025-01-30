@@ -30,7 +30,6 @@ export default function Header() {
 
   useEffect(() => {
     if (Cookies.get("token")) userLogged();
-    if (!Cookies.get("token")) userLogout();
   }, []);
 
   return (
