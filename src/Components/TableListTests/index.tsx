@@ -1,5 +1,6 @@
 import { ReactNode } from "react"
 import { ITeste } from "../../Interfaces/ITestes";
+import ModalCadastro from "../ModalCadastros";
 
 interface PropsTableDefault {
     children?: ReactNode;
@@ -13,8 +14,11 @@ interface PropsTableDefault {
 
 export default function TableListTests({ children, listaCabecalho, listaDe, opcoes, title, onchangeResult, onchangeObservation }: PropsTableDefault) {
     return (
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-9/10 m-auto my-10">
-            <h1 className="p-3 text-xl">{title}</h1>
+        <main className="relative overflow-x-auto shadow-md sm:rounded-lg w-9/10 m-auto my-10">
+            <div className="flex justify-between items-center m-2">
+            <h1 className="text-xl">{title}</h1>
+            <ModalCadastro />
+            </div>
             {children}
 
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -70,6 +74,6 @@ export default function TableListTests({ children, listaCabecalho, listaDe, opco
                     ))}
                 </tbody>
             </table>
-        </div>
+        </main>
     )
 };

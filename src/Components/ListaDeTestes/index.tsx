@@ -80,36 +80,36 @@ export default function ListaDeTestes() {
   }, []);
 
   return (
-    <TableListTests
-      title="Lista de Testes"
-      listaCabecalho={HEAD_TABLE}
-      listaDe={testesFiltrados}
-      onchangeResult={handleChange}
-      onchangeObservation={handleChangeObs}
-      opcoes={
-        <span className="flex gap-2">
-          <button className="bg-green-400 rounded-lg px-3 py-1 text-zinc-50">Salvar</button>
-          <button className="bg-red-400 rounded-lg px-3 py-1 text-zinc-50">Excluir</button>
-        </span>
-      }>
+      <TableListTests
+        title="Lista de Testes"
+        listaCabecalho={HEAD_TABLE}
+        listaDe={testesFiltrados}
+        onchangeResult={handleChange}
+        onchangeObservation={handleChangeObs}
+        opcoes={
+          <span className="flex gap-2">
+            <button className="bg-green-400 rounded-lg px-3 py-1 text-zinc-50">Salvar</button>
+            <button className="bg-red-400 rounded-lg px-3 py-1 text-zinc-50">Excluir</button>
+          </span>
+        }>
 
-      <div className="max-w-md m-2 flex gap-5">
-        <InputFilter id="grupo"
-          labelTitulo="Grupo"
-          listaDe={grupos}
-          selectText="Todos os Grupos..."
-          value={grupoSelecionado}
-          setValor={handleGrupoSelecionado} />
+        <div className="max-w-md m-2 flex gap-5">
+          <InputFilter id="grupo"
+            labelTitulo="Grupo"
+            listaDe={grupos}
+            selectText="Todos os Grupos..."
+            value={grupoSelecionado}
+            setValor={handleGrupoSelecionado} />
 
-        <InputFilter id="subGrupo"
-          labelTitulo="SubGrupo"
-          listaDe={subGruposFiltrados}
-          selectText="Todos subgrupos..."
-          value={subGrupoSelecionado}
-          setValor={handleSubGrupoSelecionado}
-          disabled={!grupoSelecionado} />
-      </div>
+          <InputFilter id="subGrupo"
+            labelTitulo="SubGrupo"
+            listaDe={subGruposFiltrados}
+            selectText="Todos subgrupos..."
+            value={subGrupoSelecionado}
+            setValor={handleSubGrupoSelecionado}
+            disabled={!grupoSelecionado} />
+        </div>
 
-    </TableListTests>
+      </TableListTests>
   );
 };

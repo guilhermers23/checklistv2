@@ -23,12 +23,12 @@ export default function AddGrupo() {
   };
 
   return (
-    <div>
+    <div className="my-5 shadow-md pb-5">
       <form
         onSubmit={handeSubmit}
         className="flex flex-col items-center justify-center gap-6"
       >
-        <h1>Cadastrar Grupo</h1>
+        <h1 className="dark:text-gray-800">Cadastrar Grupo</h1>
         <Input
           id="grupo"
           label="Grupo"

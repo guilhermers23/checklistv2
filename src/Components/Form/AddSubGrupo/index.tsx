@@ -3,7 +3,6 @@ import { getAllGrupos, postSubGrupo } from "../../../API/gruposServices";
 import { IGrupo } from "../../../Interfaces/ITestes";
 import Input from "../../Input";
 import Button from "../../Button";
-import { ChevronDoubleRightIcon } from "@heroicons/react/24/solid";
 
 export default function AddSubGrupo() {
   const [subGrupo, setSubGrupo] = useState("");
@@ -13,6 +12,11 @@ export default function AddSubGrupo() {
   const handleSubmit = async (event: FormEvent): Promise<void> => {
     event.preventDefault();
     event.stopPropagation();
+
+    if (!grupoId) {
+      alert("Campo Grupo não pode está vazio!");
+      return;
+    }
 
     try {
       const resSubGrupoNome = { nome: subGrupo[0].toUpperCase() + subGrupo.substring(1), grupoId };
@@ -41,14 +45,13 @@ export default function AddSubGrupo() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center my-5 m-auto mx-10 content-center">
-      <h1>Cadastrar SubGrupo</h1>
-
+    <div className="my-5">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col  md:flex-row items-center justify-center gap-6 my-5"
+        className="flex flex-col items-center justify-center gap-6 my-5"
       >
 
+        <h1 className="dark:text-gray-900">Cadastrar SubGrupo</h1>
         <Input
           id="subGrupo"
           label="SubGrupo"
@@ -58,9 +61,7 @@ export default function AddSubGrupo() {
           value={subGrupo}
         />
 
-        <ChevronDoubleRightIcon className="size-10 pt-4 md:block hidden"/>
-
-        <div className="w-6/10">
+        <div className="w-10/12">
           <label htmlFor="grupo" className="block font-Oswald dark:text-gray-400">
             Associe a um Grupo
           </label>
@@ -74,7 +75,7 @@ export default function AddSubGrupo() {
             ))}
           </select>
         </div>
-        <Button type="submit">Adicionar</Button>
+        <Button type="submit">Adicionar Subgrupo</Button>
       </form>
     </div>
   );

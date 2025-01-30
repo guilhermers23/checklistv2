@@ -10,7 +10,7 @@ interface PropsInput {
 
 export default function Input(props: PropsInput) {
   return (
-    <div className="md:w-9/12">
+    <div className="w-10/12">
       <label htmlFor={props.type}
         className="block font-Oswald dark:text-gray-400">
         {props.label}
@@ -21,6 +21,7 @@ export default function Input(props: PropsInput) {
         placeholder={props.placeholder}
         value={props.value}
         onChange={(event) => props.setValor && props.setValor(event.target.value)}
+        minLength={3}
         required
       />
     </div>

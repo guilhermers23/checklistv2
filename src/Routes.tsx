@@ -7,6 +7,7 @@ import AddSubGrupo from "./Components/Form/AddSubGrupo";
 import Login from "./Pages/Login";
 import RegisterForm from "./Pages/Register";
 import ListaDeTestes from "./Components/ListaDeTestes";
+import ModalCadastro from "./Components/ModalCadastros";
 
 export const Routes = createBrowserRouter([
   {
@@ -17,9 +18,10 @@ export const Routes = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/addGrupo", element: <AddGrupo /> },
       { path: "/addSubGrupo", element: <AddSubGrupo /> },
-      { path: "/login", element: <Login /> },
       { path: "/register", element: <RegisterForm /> },
       { path: "/listaTestes", element: <ListaDeTestes /> },
     ],
   },
+    { path: "/login", element: <Login /> },
+    { path: "/modal", element: <ModalCadastro /> }
 ]);

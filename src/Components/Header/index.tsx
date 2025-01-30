@@ -22,7 +22,6 @@ export default function Header() {
       const response = await loggedUser();
       delete response.data.password;
       setUser(response.data);
-      navigate("/");
     } catch (error) {
       console.error(error);
       alert("Ocorreu erro ao buscar Usuário!")
