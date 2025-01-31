@@ -1,10 +1,13 @@
 import { useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import { PlusIcon } from '@heroicons/react/24/solid'
-import AddGrupo from '../Form/AddGrupo'
-import AddSubGrupo from '../Form/AddSubGrupo'
 
-export default function ModalCadastro() {
+interface PropsModal{
+    title: string;
+    children: React.ReactNode
+};
+
+export default function ModalCadastro({title, children} : PropsModal) {
     const [open, setOpen] = useState(false)
 
     return (
@@ -12,7 +15,7 @@ export default function ModalCadastro() {
             <button className="login_button" type="button" onClick={() => setOpen(true)}>
                 <span className='flex gap-1 items-center'>
                     <PlusIcon className='size-5' />
-                    Adicionar Grupos
+                    {title}
                 </span>
             </button>
 
@@ -28,14 +31,13 @@ export default function ModalCadastro() {
                             transition
                             className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg data-closed:sm:translate-y-0 data-closed:sm:scale-95"
                         >
-                            <AddGrupo />
-                            <AddSubGrupo />
+                          {children}
 
                             <div className="px-4 pb-2 sm:flex sm:flex-row-reverse sm:px-6">
                                 <button
                                     type="button"
                                     onClick={() => setOpen(false)}
-                                    className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 sm:ml-3 sm:w-auto"
+                                    className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 sm:ml-3 sm:w-auto cursor-pointer"
                                 >
                                     Cancelar
                                 </button>

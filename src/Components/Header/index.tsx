@@ -41,6 +41,9 @@ export default function Header() {
         <nav>
           <section className="flex items-center gap-10">
             <ModoDark />
+            {user?.admin &&
+              <p className="font-bold text-red-400 px-2 bg-sky-300 rounded-2xl">Admin</p>
+            }
             <span className="flex items-center gap-2">
               <h1 className="text-2xl">Olá, {user?.name || "Técnico(a)"}</h1>
               {user !== null ?

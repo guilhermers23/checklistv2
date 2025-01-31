@@ -1,9 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { getAllListaTestes } from "../../API/testesServices";
 import { IGrupo, ISubGrupo, ITeste } from "../../Interfaces/ITestes";
 import { getAllGrupos, getAllSubGrupos } from "../../API/gruposServices";
 import InputFilter from "../InputFilter";
 import TableListTests from "../TableListTests";
+import ModalCadastro from "../ModalCadastros";
+import AddTeste from "../Form/AddTeste";
+import { UserContext } from "../../Hooks/Context/UserContex";
 
 export default function ListaDeTestes() {
   const [testes, setTestes] = useState<ITeste[]>([]);
@@ -11,6 +14,7 @@ export default function ListaDeTestes() {
   const [subGrupos, setSubGrupos] = useState<ISubGrupo[]>([]);
   const [grupoSelecionado, setGrupoSelecionado] = useState<string>("");
   const [subGrupoSelecionado, setSubGrupoSelecionado] = useState<string>("");
+  const { user } = useContext(UserContext);
 
   const HEAD_TABLE = [
     "Grupo", "Casos de Uso", "Resultado", "Observações", "Ações"
@@ -75,41 +79,58 @@ export default function ListaDeTestes() {
     }
   };
 
+  const saveTask = () => {
+    alert("Você sabe apertar um botão! WHOUL!!!")
+  };
+
   useEffect(() => {
     findAllTestAttributes();
   }, []);
 
   return (
-      <TableListTests
-        title="Lista de Testes"
-        listaCabecalho={HEAD_TABLE}
-        listaDe={testesFiltrados}
-        onchangeResult={handleChange}
-        onchangeObservation={handleChangeObs}
-        opcoes={
-          <span className="flex gap-2">
-            <button className="bg-green-400 rounded-lg px-3 py-1 text-zinc-50">Salvar</button>
-            <button className="bg-red-400 rounded-lg px-3 py-1 text-zinc-50">Excluir</button>
-          </span>
-        }>
+    <TableListTests
+      title="Lista de Testes"
+      listaCabecalho={HEAD_TABLE}
+      listaDe={testesFiltrados}
+      onchangeResult={handleChange}
+      onchangeObservation={handleChangeObs}
+      opcoes={
+        <span className="flex gap-2 justify-around">
+          <button className="bg-green-400 rounded-lg px-3 py-1 text-zinc-50 cursor-pointer" onClick={() => saveTask()}>Salvar</button>
+          {user?.admin &&
+            <button className="bg-red-400 rounded-lg px-3 py-1 text-zinc-50 cursor-pointer" onClick={() => saveTask()}>Excluir</button>
+          }
+        </span>
+      }>
 
-        <div className="max-w-md m-2 flex gap-5">
-          <InputFilter id="grupo"
-            labelTitulo="Grupo"
-            listaDe={grupos}
-            selectText="Todos os Grupos..."
-            value={grupoSelecionado}
-            setValor={handleGrupoSelecionado} />
+      <div className="max-w-xl m-2 flex gap-5">
+        <InputFilter id="grupo"
+          labelTitulo="Grupo"
+          listaDe={grupos}
+          selectText="Todos os Grupos..."
+          value={grupoSelecionado}
+          setValor={handleGrupoSelecionado} />
 
-          <InputFilter id="subGrupo"
-            labelTitulo="SubGrupo"
-            listaDe={subGruposFiltrados}
-            selectText="Todos subgrupos..."
-            value={subGrupoSelecionado}
-            setValor={handleSubGrupoSelecionado}
-            disabled={!grupoSelecionado} />
+        <InputFilter id="subGrupo"
+          labelTitulo="SubGrupo"
+          listaDe={subGruposFiltrados}
+          selectText="Todos subgrupos..."
+          value={subGrupoSelecionado}
+          setValor={handleSubGrupoSelecionado}
+          disabled={!grupoSelecionado} />
+
+        <div className="w-full content-center">
+          {subGrupoSelecionado &&
+            <ModalCadastro title="Adicionar Teste">
+              <AddTeste
+                grupo={grupoSelecionado}
+                subgrupo={subGrupoSelecionado}
+              />
+            </ModalCadastro>
+          }
         </div>
+      </div>
 
-      </TableListTests>
+    </TableListTests>
   );
 };

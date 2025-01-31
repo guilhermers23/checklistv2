@@ -11,11 +11,11 @@ export interface IGrupo {
   }
   
   export interface ITeste {
-    _id: string;
+    _id: string ;
     grupo: IGrupo;
     subGrupo: ISubGrupo;
     description: string;
     resultado: string;
-    completed: string[];
-    observacao: string;
+    completed?: string[];
+    observacao?: string;
   }
