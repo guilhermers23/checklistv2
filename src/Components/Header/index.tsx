@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import MenuDrop from "../MenuDrop";
 import ModoDark from "../ModoDark";
 import Footer from "../Footer";
+import { CheckBadgeIcon } from "@heroicons/react/20/solid";
 
 export default function Header() {
   const { user, setUser } = useContext(UserContext);
@@ -36,7 +37,8 @@ export default function Header() {
     <>
       <header className="flex h-20 self-center justify-between bg-sky-500 text-white px-4 w-full items-center">
         <Link to="/" className="flex items-center gap-2">
-          <h1 className="text-2xl font-bold">CHECKLIST V2.0</h1>
+          <CheckBadgeIcon className="size-10" />
+          <h1 className="text-2xl font-bold text-nowrap">CHECKLIST V2.0</h1>
         </Link>
         <nav>
           <section className="flex items-center gap-10">
