@@ -1,9 +1,9 @@
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { registerUser } from "../../API/loogerUserService";
 import Input from "../../Components/Input";
 import foto from "./assets/telaLogin.png";
-import Button from "../../Components/Button";
-import { registerUser } from "../../API/loogerUserService";
+import FormUser from "../../Components/Form/FormUser";
 
 export default function RegisterForm() {
   const [name, setName] = useState("");
@@ -36,57 +36,48 @@ export default function RegisterForm() {
   };
 
   return (
-    <div className="m-auto mt-20 content-center flex bg-gray-100 w-10/12 p-2 rounded-lg lg:w-7/12 dark:bg-gray-800 justify-center">
-      <img
-        src={foto}
-        alt="Imagem de uma tela de login"
-        className="w-6/12  hidden md:block rounded-xl"
+    <FormUser title="CADASTRAR USUÁRIO"
+      onsubmit={handeSubmit}
+      foto={foto}
+      error={error}
+      buttonTitle="Cadastrar"
+    >
+
+      <Input
+        id="name"
+        label="Nome"
+        type="text"
+        placeholder="Insira seu nome..."
+        setValor={setName}
+        value={name}
       />
-      <form
-        onSubmit={handeSubmit}
-        className="12/12 md:w-6/12 flex flex-col items-center justify-center gap-6"
-      >
-        <h1 className="font-Oswald font-bold text-lg dark:text-gray-100">
-          Cadastrar Usuário
-        </h1>
-        <Input
-          id="name"
-          label="Nome"
-          type="text"
-          placeholder="Insira seu nome..."
-          setValor={setName}
-          value={name}
-        />
 
-        <Input
-          id="email"
-          label="E-Mail"
-          type="email"
-          placeholder="Insira seu email..."
-          setValor={setEmail}
-          value={email}
-        />
+      <Input
+        id="email"
+        label="E-Mail"
+        type="email"
+        placeholder="Insira seu email..."
+        setValor={setEmail}
+        value={email}
+      />
 
-        <Input
-          id="password"
-          label="Senha"
-          type="password"
-          placeholder="Insira sua senha..."
-          setValor={setPassword}
-          value={password}
-        />
+      <Input
+        id="password"
+        label="Senha"
+        type="password"
+        placeholder="Insira sua senha..."
+        setValor={setPassword}
+        value={password}
+      />
 
-        <Input
-          id="confirmaSenha"
-          label="Confirmar Senha"
-          type="password"
-          placeholder="Confirme sua senha..."
-          setValor={setConfirmaSenha}
-          value={confirmaSenha}
-        />
-        {error && <p className="text-red-500">{error}</p>}
-        <Button type="submit">Cadastrar</Button>
-      </form>
-    </div>
+      <Input
+        id="confirmaSenha"
+        label="Confirmar Senha"
+        type="password"
+        placeholder="Confirme sua senha..."
+        setValor={setConfirmaSenha}
+        value={confirmaSenha}
+      />
+    </FormUser>
   );
 };
