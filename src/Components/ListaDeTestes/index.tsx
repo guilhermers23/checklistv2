@@ -1,5 +1,5 @@
 import { useContext, useEffect, useMemo, useState } from "react";
-import { getAllListaTestes } from "../../API/testesServices";
+import { deleteTeste, getAllListaTestes, updateTeste } from "../../API/testesServices";
 import { IGrupo, ISubGrupo, ITeste } from "../../Interfaces/ITestes";
 import { getAllGrupos, getAllSubGrupos } from "../../API/gruposServices";
 import { UserContext } from "../../Hooks/Context/UserContex";
@@ -15,6 +15,7 @@ export default function ListaDeTestes() {
   const [subGrupos, setSubGrupos] = useState<ISubGrupo[]>([]);
   const [grupoSelecionado, setGrupoSelecionado] = useState<string>("");
   const [subGrupoSelecionado, setSubGrupoSelecionado] = useState<string>("");
+  const [update, setUpdate] = useState(false);
   const { user } = useContext(UserContext);
 
   const HEAD_TABLE = [
@@ -80,13 +81,38 @@ export default function ListaDeTestes() {
     }
   };
 
-  const saveTask = () => {
-    alert("Você sabe apertar um botão! WHOUL!!!")
+  const resetarTestes = () => {
+    setTestes((prevTestes) =>
+        prevTestes.map((teste) => ({ ...teste, resultado: 'Não Testado', observacao: '' }))
+    );
+};
+
+  const functionSaveTest = async (id: string, resultado: string, observacao: string | undefined) => {
+    try {
+      const data = { resultado, observacao }
+      await updateTeste(id, data);
+      alert("Teste salvo com Sucesso!");
+    } catch (error) {
+      console.error(error)
+      alert("Ocorreu erro ao salvar o Teste!")
+    }
+  };
+
+  const functionDeleteTest = async (id: string) => {
+    setUpdate(false);
+    try {
+      await deleteTeste(id);
+      alert("Teste excluido com Sucesso!")
+      setUpdate(true);
+    } catch (error) {
+      console.error(error);
+      alert("Ocorreu erro ao excluir o teste!");
+    }
   };
 
   useEffect(() => {
     findAllTestAttributes();
-  }, []);
+  }, [update]);
 
   return (
     <TableListTests
@@ -94,23 +120,13 @@ export default function ListaDeTestes() {
       listaCabecalho={HEAD_TABLE}
       listaDe={testesFiltrados}
       hasUser={!user}
+      admin={!user?.admin}
       onchangeResult={handleChange}
       onchangeObservation={handleChangeObs}
-      opcoes={
-        <span className="flex gap-2 justify-around">
-          <button className=" disabled:bg-green-400/25 disabled:cursor-not-allowed bg-green-400 rounded-lg px-3 py-1 text-zinc-50 cursor-pointer"
-            onClick={() => saveTask()}
-            disabled={!user}
-          >
-            Salvar
-          </button>
-          {user?.admin &&
-            <button className="bg-red-400 rounded-lg px-3 py-1 text-zinc-50 cursor-pointer"
-              onClick={() => saveTask()}>
-              Excluir</button>
-          }
-        </span>
-      }>
+      buttonSave={functionSaveTest}
+      buttonDelete={functionDeleteTest}
+      onchangeReset={resetarTestes}
+    >
 
       <div className="max-w-xl m-2 flex gap-5">
         <InputFilter id="grupo"

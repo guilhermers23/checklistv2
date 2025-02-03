@@ -2,24 +2,29 @@ import { ReactNode } from "react"
 import { ITeste } from "../../Interfaces/ITestes";
 import ModalCadastro from "../ModalCadastros";
 import AddGrupo from "../Form/AddGrupo";
-import AddSubGrupo from "../Form/AddSubGrupo";;
+import AddSubGrupo from "../Form/AddSubGrupo";
 
 interface PropsTableDefault {
     children?: ReactNode;
     listaCabecalho: string[];
     listaDe: ITeste[];
-    opcoes: ReactNode;
     title: string;
     hasUser: boolean;
+    admin: boolean;
     onchangeResult?: (id: string, e: React.ChangeEvent<HTMLSelectElement>) => Promise<void> | undefined;
     onchangeObservation?: (id: string, e: React.ChangeEvent<HTMLInputElement>) => Promise<void> | undefined;
+    onchangeReset?: () => void | undefined;
+    buttonSave: (id: string, resultado: string, observacao: string | undefined) => void;
+    buttonDelete: (id: string) => void;
 };
 
-export default function TableListTests({ children, listaCabecalho, listaDe, opcoes, title, hasUser, onchangeResult, onchangeObservation }: PropsTableDefault) {
+export default function TableListTests(
+    { children, listaCabecalho, listaDe, buttonSave, title, hasUser, admin, buttonDelete, onchangeResult, onchangeObservation, onchangeReset }: PropsTableDefault) {
     return (
-        <main className="relative overflow-x-auto shadow-md sm:rounded-lg w-9/10 m-auto my-10">
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-9/10 m-auto my-10">
             <div className="flex justify-between items-center m-2">
                 <h1 className="text-xl">{title}</h1>
+
 
                 {!hasUser &&
                     <ModalCadastro title="Adicionar Grupos">
@@ -30,6 +35,16 @@ export default function TableListTests({ children, listaCabecalho, listaDe, opco
             </div>
 
             {children}
+
+            <div className="m-2 flex gap-5">
+                <button className="button bg-green-500"
+                    onClick={() => onchangeReset && onchangeReset()}>Iniciar Testes</button>
+
+                <button className="button bg-yellow-400"
+                    onClick={() => onchangeReset && onchangeReset()}>Resetar Testes</button>
+
+            </div>
+
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
@@ -77,12 +92,21 @@ export default function TableListTests({ children, listaCabecalho, listaDe, opco
 
                             </td>
                             <td className="py-4 px-2 w-15">
-                                {opcoes}
+                                <span className="flex gap-2 justify-around">
+                                    <button className="button disabled:bg-green-400/25 disabled:cursor-not-allowed bg-green-400"
+                                        onClick={() => buttonSave(item._id, item.resultado, item.observacao)}
+                                        disabled={hasUser}>Salvar</button>
+
+                                    {!admin &&
+                                        <button className="button bg-red-400"
+                                            onClick={() => buttonDelete(item._id)}>Excluir</button>
+                                    }
+                                </span>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-        </main>
+        </div>
     )
 };

@@ -59,8 +59,9 @@ export default function Header() {
           </section>
         </nav>
       </header>
-
-      <Outlet />
+      <main className="flex-grow">
+        <Outlet />
+      </main>
 
       <Footer />
     </>

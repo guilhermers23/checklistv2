@@ -24,12 +24,12 @@ export default function MenuDrop({ onClick }: PropsMenuDrop) {
         <div className="py-1">
           <MenuItem>
             <Link
-              to="/addGrupo"
+              to="/register"
               className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
             >
               <span className="flex items-center gap-2">
                 <SquaresPlusIcon className="size-5" />
-                Cadastrar Grupo
+                Cadastrar Técnico
               </span>
             </Link>
           </MenuItem>
@@ -41,7 +41,7 @@ export default function MenuDrop({ onClick }: PropsMenuDrop) {
             >
               <span className="flex items-center gap-2">
                 <DocumentPlusIcon className="size-5" />
-                Cadastrar SubGrupo
+                Lista de Técnicos
               </span>
             </Link>
           </MenuItem>
