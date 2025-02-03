@@ -14,7 +14,7 @@ export default function AddTeste(body: { grupo: string, subgrupo: string }) {
             subGrupoID: body.subgrupo, // Nome do subgrupo
             description: description[0].toUpperCase() + description.substring(1),
             resultado: "Não Testado", // Campo fixo
-            observacao:""
+            observacao: ""
         };
 
         try {
@@ -28,7 +28,7 @@ export default function AddTeste(body: { grupo: string, subgrupo: string }) {
 
     return (
         <>
-            <div className="my-5 shadow-md pb-5">
+            <div className="my-5 pb-5">
                 <form
                     onSubmit={handeSubmit}
                     className="flex flex-col items-center justify-center gap-6"

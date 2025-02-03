@@ -10,20 +10,23 @@ interface PropsTableDefault {
     listaDe: ITeste[];
     opcoes: ReactNode;
     title: string;
+    hasUser: boolean;
     onchangeResult?: (id: string, e: React.ChangeEvent<HTMLSelectElement>) => Promise<void> | undefined;
     onchangeObservation?: (id: string, e: React.ChangeEvent<HTMLInputElement>) => Promise<void> | undefined;
 };
 
-export default function TableListTests({ children, listaCabecalho, listaDe, opcoes, title, onchangeResult, onchangeObservation }: PropsTableDefault) {
+export default function TableListTests({ children, listaCabecalho, listaDe, opcoes, title, hasUser, onchangeResult, onchangeObservation }: PropsTableDefault) {
     return (
         <main className="relative overflow-x-auto shadow-md sm:rounded-lg w-9/10 m-auto my-10">
             <div className="flex justify-between items-center m-2">
                 <h1 className="text-xl">{title}</h1>
 
-                <ModalCadastro title="Adicionar Grupos">
-                    <AddGrupo />
-                    <AddSubGrupo />
-                </ModalCadastro>
+                {!hasUser &&
+                    <ModalCadastro title="Adicionar Grupos">
+                        <AddGrupo />
+                        <AddSubGrupo />
+                    </ModalCadastro>
+                }
             </div>
 
             {children}

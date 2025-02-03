@@ -1,5 +1,6 @@
 import { FormEvent } from "react";
 import Button from "../../Button";
+import { ArrowPathIcon } from "@heroicons/react/24/solid";
 
 interface PropsFormUser {
     title: string;
@@ -27,6 +28,7 @@ export default function FormUser({ title, children, onsubmit, buttonTitle, error
 
                         {error && <p className="text-red-500">{error}</p>}
                         <Button type="submit">{buttonTitle}</Button>
+                        <ArrowPathIcon className="size-5 animate-spin" />
                     </form>
 
                     <img

@@ -2,11 +2,12 @@ import { useContext, useEffect, useMemo, useState } from "react";
 import { getAllListaTestes } from "../../API/testesServices";
 import { IGrupo, ISubGrupo, ITeste } from "../../Interfaces/ITestes";
 import { getAllGrupos, getAllSubGrupos } from "../../API/gruposServices";
+import { UserContext } from "../../Hooks/Context/UserContex";
 import InputFilter from "../InputFilter";
 import TableListTests from "../TableListTests";
 import ModalCadastro from "../ModalCadastros";
 import AddTeste from "../Form/AddTeste";
-import { UserContext } from "../../Hooks/Context/UserContex";
+import AlertErro from "../../Pages/Error/AlertError";
 
 export default function ListaDeTestes() {
   const [testes, setTestes] = useState<ITeste[]>([]);
@@ -92,13 +93,21 @@ export default function ListaDeTestes() {
       title="Lista de Testes"
       listaCabecalho={HEAD_TABLE}
       listaDe={testesFiltrados}
+      hasUser={!user}
       onchangeResult={handleChange}
       onchangeObservation={handleChangeObs}
       opcoes={
         <span className="flex gap-2 justify-around">
-          <button className="bg-green-400 rounded-lg px-3 py-1 text-zinc-50 cursor-pointer" onClick={() => saveTask()}>Salvar</button>
+          <button className=" disabled:bg-green-400/25 disabled:cursor-not-allowed bg-green-400 rounded-lg px-3 py-1 text-zinc-50 cursor-pointer"
+            onClick={() => saveTask()}
+            disabled={!user}
+          >
+            Salvar
+          </button>
           {user?.admin &&
-            <button className="bg-red-400 rounded-lg px-3 py-1 text-zinc-50 cursor-pointer" onClick={() => saveTask()}>Excluir</button>
+            <button className="bg-red-400 rounded-lg px-3 py-1 text-zinc-50 cursor-pointer"
+              onClick={() => saveTask()}>
+              Excluir</button>
           }
         </span>
       }>
@@ -122,10 +131,13 @@ export default function ListaDeTestes() {
         <div className="w-full content-center">
           {subGrupoSelecionado &&
             <ModalCadastro title="Adicionar Teste">
-              <AddTeste
-                grupo={grupoSelecionado}
-                subgrupo={subGrupoSelecionado}
-              />
+              {user ?
+                <AddTeste
+                  grupo={grupoSelecionado}
+                  subgrupo={subGrupoSelecionado}
+                /> :
+                <AlertErro />
+              }
             </ModalCadastro>
           }
         </div>
