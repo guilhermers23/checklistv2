@@ -5,20 +5,24 @@ import Input from "../../Input";
 
 export default function AddGrupo() {
   const [grupo, setGrupo] = useState("");
+  const [loading, setLoading] = useState(false);
+  console.log(loading)
 
   const handeSubmit = async (event: FormEvent): Promise<void> => {
     event.preventDefault();
     event.stopPropagation();
+    setLoading(true);
 
     try {
       const resGrupoNome = { nome: grupo[0].toUpperCase() + grupo.substring(1) };
-      console.log(resGrupoNome);
       await postGrupo(resGrupoNome);
       alert('Grupo cadastrado com sucesso!');
       setGrupo("");
     } catch (error) {
       console.error(error)
       alert("Ocorreu erro ao cadastrar o grupo!")
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -37,7 +41,9 @@ export default function AddGrupo() {
           setValor={setGrupo}
           value={grupo}
         />
-        <Button type="submit">Adicionar Grupo</Button>
+        <Button type="submit" disabled={loading}>
+          Adicionar Grupo
+        </Button>
       </form>
     </div>
   );

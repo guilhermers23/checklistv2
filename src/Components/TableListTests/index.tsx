@@ -11,6 +11,7 @@ interface PropsTableDefault {
     title: string;
     hasUser: boolean;
     admin: boolean;
+    hasGruposSelecionado: string;
     onchangeResult?: (id: string, e: React.ChangeEvent<HTMLSelectElement>) => Promise<void> | undefined;
     onchangeObservation?: (id: string, e: React.ChangeEvent<HTMLInputElement>) => Promise<void> | undefined;
     onchangeReset?: () => void | undefined;
@@ -19,12 +20,11 @@ interface PropsTableDefault {
 };
 
 export default function TableListTests(
-    { children, listaCabecalho, listaDe, buttonSave, title, hasUser, admin, buttonDelete, onchangeResult, onchangeObservation, onchangeReset }: PropsTableDefault) {
+    { children, listaCabecalho, listaDe, buttonSave, title, hasUser, admin, hasGruposSelecionado, buttonDelete, onchangeResult, onchangeObservation, onchangeReset }: PropsTableDefault) {
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-9/10 m-auto my-10">
             <div className="flex justify-between items-center m-2">
                 <h1 className="text-xl">{title}</h1>
-
 
                 {!hasUser &&
                     <ModalCadastro title="Adicionar Grupos">
@@ -37,12 +37,13 @@ export default function TableListTests(
             {children}
 
             <div className="m-2 flex gap-5">
-                <button className="button bg-green-500"
+                <button className="button bg-green-500 disabled:bg-green-300"
+                    disabled={!hasGruposSelecionado}
                     onClick={() => onchangeReset && onchangeReset()}>Iniciar Testes</button>
 
-                <button className="button bg-yellow-400"
+                <button className="button bg-yellow-500 disabled:bg-yellow-300"
+                    disabled={!hasGruposSelecionado}
                     onClick={() => onchangeReset && onchangeReset()}>Resetar Testes</button>
-
             </div>
 
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -56,8 +57,9 @@ export default function TableListTests(
                 </thead>
                 <tbody>
                     {listaDe.map((item) => (
-                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white" key={item._id}>
+                        <tr key={item._id}
+                            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white" >
                                 {item.grupo.nome}
                             </th>
                             <td className="px-6 py-4">

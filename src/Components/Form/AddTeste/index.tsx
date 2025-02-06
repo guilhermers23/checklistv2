@@ -1,14 +1,17 @@
 import { FormEvent, useState } from "react";
+import { postTeste } from "../../../API/testesServices";
 import Button from "../../Button";
 import Input from "../../Input";
-import { postTeste } from "../../../API/testesServices";
 
 export default function AddTeste(body: { grupo: string, subgrupo: string }) {
     const [description, setDescription] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handeSubmit = async (event: FormEvent) => {
         event.preventDefault();
         event.stopPropagation();
+        setLoading(true);
+
         const testeData = {
             grupoID: body.grupo, // Nome do grupo
             subGrupoID: body.subgrupo, // Nome do subgrupo
@@ -23,6 +26,8 @@ export default function AddTeste(body: { grupo: string, subgrupo: string }) {
             setDescription('');
         } catch (error) {
             console.error(error)
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -41,7 +46,10 @@ export default function AddTeste(body: { grupo: string, subgrupo: string }) {
                         setValor={setDescription}
                         value={description}
                     />
-                    <Button type="submit">Adicionar Teste</Button>
+                    <Button type="submit"
+                        disabled={loading}>
+                        Adicionar Teste
+                    </Button>
                 </form>
             </div>
         </>

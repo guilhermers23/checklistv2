@@ -9,9 +9,10 @@ interface PropsFormUser {
     buttonTitle: string;
     error: string;
     foto: string;
+    loading: boolean;
 };
 
-export default function FormUser({ title, children, onsubmit, buttonTitle, error, foto }: PropsFormUser) {
+export default function FormUser({ title, children, onsubmit, buttonTitle, error, foto, loading }: PropsFormUser) {
     return (
         <div className="flex items-center justify-center h-screen bg-gray-100 dark:bg-gray-800"> {/* Centraliza na tela */}
             <div className="w-10/12 p-2 rounded-lg lg:w-7/12 bg-white dark:bg-gray-700 shadow-md"> {/* Card com fundo branco/escuro e sombra */}
@@ -27,8 +28,15 @@ export default function FormUser({ title, children, onsubmit, buttonTitle, error
                         {children}
 
                         {error && <p className="text-red-500">{error}</p>}
-                        <Button type="submit">{buttonTitle}</Button>
-                        <ArrowPathIcon className="size-5 animate-spin" />
+                        <Button type="submit"
+                            disabled={!loading}>
+                            {loading ? buttonTitle : (
+                                <>
+                                    <ArrowPathIcon className="size-5 animate-spin" />
+                                    Carregando...
+                                </>
+                            )}
+                        </Button>
                     </form>
 
                     <img

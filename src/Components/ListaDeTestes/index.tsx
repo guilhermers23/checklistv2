@@ -121,6 +121,7 @@ export default function ListaDeTestes() {
       listaDe={testesFiltrados}
       hasUser={!user}
       admin={!user?.admin}
+      hasGruposSelecionado={subGrupoSelecionado}
       onchangeResult={handleChange}
       onchangeObservation={handleChangeObs}
       buttonSave={functionSaveTest}

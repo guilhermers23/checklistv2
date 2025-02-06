@@ -10,12 +10,14 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handeSubmit = async (event: FormEvent): Promise<void> => {
     event.preventDefault();
     event.stopPropagation();
     const data = { email, password };
+    setLoading(true);
 
     try {
       const response = await loginUser(data);
@@ -26,7 +28,9 @@ export default function Login() {
     } catch (e) {
       console.error(e);
       setError("Erro ao logar usuário");
-    };
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -34,7 +38,8 @@ export default function Login() {
       onsubmit={handeSubmit}
       foto={foto}
       error={error}
-      buttonTitle="Entrar">
+      buttonTitle="Entrar"
+      loading={!loading}>
 
       <Input
         id="email"
