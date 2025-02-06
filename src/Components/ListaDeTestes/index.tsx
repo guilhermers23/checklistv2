@@ -3,6 +3,7 @@ import { deleteTeste, getAllListaTestes, updateTeste } from "../../API/testesSer
 import { IGrupo, ISubGrupo, ITeste } from "../../Interfaces/ITestes";
 import { getAllGrupos, getAllSubGrupos } from "../../API/gruposServices";
 import { UserContext } from "../../Hooks/Context/UserContex";
+import { DadosSessao, postSession } from "../../API/sessionService";
 import InputFilter from "../InputFilter";
 import TableListTests from "../TableListTests";
 import ModalCadastro from "../ModalCadastros";
@@ -16,6 +17,8 @@ export default function ListaDeTestes() {
   const [grupoSelecionado, setGrupoSelecionado] = useState<string>("");
   const [subGrupoSelecionado, setSubGrupoSelecionado] = useState<string>("");
   const [update, setUpdate] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [sessionAtiva, setSessionAtiva] = useState<DadosSessao>();
   const { user } = useContext(UserContext);
 
   const HEAD_TABLE = [
@@ -23,6 +26,7 @@ export default function ListaDeTestes() {
   ];
 
   const findAllTestAttributes = async () => {
+    setLoading(true);
     try {
       const dataGrupos = await getAllGrupos();
       const dataSubGrupos = await getAllSubGrupos();
@@ -33,16 +37,13 @@ export default function ListaDeTestes() {
       setTestes(dataTests.data);
     } catch (error) {
       console.error("Ocorreu um erro ao obter as informações! ", error)
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleGrupoSelecionado = (newValue: string) => {
-    setGrupoSelecionado(newValue);
-  };
-
-  const handleSubGrupoSelecionado = (newValue: string) => {
-    setSubGrupoSelecionado(newValue);
-  };
+  const handleGrupoSelecionado = (newValue: string) => setGrupoSelecionado(newValue);
+  const handleSubGrupoSelecionado = (newValue: string) => setSubGrupoSelecionado(newValue);
 
   // Filtrar os subgrupos com base no grupo selecionado
   const subGruposFiltrados = useMemo(() => {
@@ -83,9 +84,9 @@ export default function ListaDeTestes() {
 
   const resetarTestes = () => {
     setTestes((prevTestes) =>
-        prevTestes.map((teste) => ({ ...teste, resultado: 'Não Testado', observacao: '' }))
+      prevTestes.map((teste) => ({ ...teste, resultado: 'Não Testado', observacao: '' }))
     );
-};
+  };
 
   const functionSaveTest = async (id: string, resultado: string, observacao: string | undefined) => {
     try {
@@ -110,6 +111,18 @@ export default function ListaDeTestes() {
     }
   };
 
+  const iniciarTestes = async () => {
+    try {
+      const response = { grupoID: grupoSelecionado, subGrupoID: subGrupoSelecionado, tecnico: user?._id, testes: testesFiltrados };
+      await postSession(response);
+      console.log(response);
+      setSessionAtiva(response); // Armazena a sessão iniciada
+      alert('Sessão de testes iniciada!');
+    } catch (error) {
+      console.error('Erro ao iniciar a sessão de testes:', error);
+    }
+  };
+
   useEffect(() => {
     findAllTestAttributes();
   }, [update]);
@@ -121,12 +134,14 @@ export default function ListaDeTestes() {
       listaDe={testesFiltrados}
       hasUser={!user}
       admin={!user?.admin}
+      loading={loading}
       hasGruposSelecionado={subGrupoSelecionado}
       onchangeResult={handleChange}
       onchangeObservation={handleChangeObs}
       buttonSave={functionSaveTest}
       buttonDelete={functionDeleteTest}
       onchangeReset={resetarTestes}
+      startSession={iniciarTestes}
     >
 
       <div className="max-w-xl m-2 flex gap-5">
@@ -145,6 +160,7 @@ export default function ListaDeTestes() {
           setValor={handleSubGrupoSelecionado}
           disabled={!grupoSelecionado} />
 
+
         <div className="w-full content-center">
           {subGrupoSelecionado &&
             <ModalCadastro title="Adicionar Teste">
@@ -159,7 +175,6 @@ export default function ListaDeTestes() {
           }
         </div>
       </div>
-
     </TableListTests>
   );
 };

@@ -32,26 +32,24 @@ export default function AddTeste(body: { grupo: string, subgrupo: string }) {
     };
 
     return (
-        <>
-            <div className="my-5 pb-5">
-                <form
-                    onSubmit={handeSubmit}
-                    className="flex flex-col items-center justify-center gap-6"
-                >
-                    <h1 className="dark:text-gray-800">Adicionar Teste</h1>
-                    <Input id="teste"
-                        type="text"
-                        label="Casos de Uso"
-                        placeholder="Descreva o testa a ser feito..."
-                        setValor={setDescription}
-                        value={description}
-                    />
-                    <Button type="submit"
-                        disabled={loading}>
-                        Adicionar Teste
-                    </Button>
-                </form>
-            </div>
-        </>
+        <div className="my-5 pb-5">
+            <form
+                onSubmit={handeSubmit}
+                className="flex flex-col items-center justify-center gap-6"
+            >
+                <h1 className="dark:text-gray-800">Adicionar Teste</h1>
+                <Input id="teste"
+                    type="text"
+                    label="Casos de Uso"
+                    placeholder="Descreva o testa a ser feito..."
+                    setValor={setDescription}
+                    value={description}
+                />
+                <Button type="submit"
+                    disabled={loading}>
+                    Adicionar Teste
+                </Button>
+            </form>
+        </div>
     )
 };

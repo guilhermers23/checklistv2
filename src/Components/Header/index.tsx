@@ -2,11 +2,11 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../../Hooks/Context/UserContex";
 import { loggedUser } from "../../API/loogerUserService";
+import { CheckBadgeIcon } from "@heroicons/react/20/solid";
 import Cookies from "js-cookie";
 import MenuDrop from "../MenuDrop";
 import ModoDark from "../ModoDark";
 import Footer from "../Footer";
-import { CheckBadgeIcon } from "@heroicons/react/20/solid";
 
 export default function Header() {
   const { user, setUser } = useContext(UserContext);
