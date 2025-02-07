@@ -3,7 +3,7 @@ import { deleteTeste, getAllListaTestes, updateTeste } from "../../API/testesSer
 import { IGrupo, ISubGrupo, ITeste } from "../../Interfaces/ITestes";
 import { getAllGrupos, getAllSubGrupos } from "../../API/gruposServices";
 import { UserContext } from "../../Hooks/Context/UserContex";
-import { DadosSessao, postSession } from "../../API/sessionService";
+import { DadosSessao, finishSession, postSession } from "../../API/sessionService";
 import InputFilter from "../InputFilter";
 import TableListTests from "../TableListTests";
 import ModalCadastro from "../ModalCadastros";
@@ -113,13 +113,34 @@ export default function ListaDeTestes() {
 
   const iniciarTestes = async () => {
     try {
-      const response = { grupoID: grupoSelecionado, subGrupoID: subGrupoSelecionado, tecnico: user?._id, testes: testesFiltrados };
-      await postSession(response);
-      console.log(response);
-      setSessionAtiva(response); // Armazena a sessão iniciada
+      const dadosSession = { grupoId: grupoSelecionado, subGrupoId: subGrupoSelecionado, tecnico: user?._id, testes: testesFiltrados };
+      const response = await postSession(dadosSession);
+      setSessionAtiva(response.data); // Armazena a sessão iniciada
       alert('Sessão de testes iniciada!');
     } catch (error) {
       console.error('Erro ao iniciar a sessão de testes:', error);
+      alert("Ocorreu erro ao tentar inicia essa sessão!");
+    }
+  };
+
+  const finalizarTestes = async () => {
+    try {
+      if (!sessionAtiva) return;
+
+      const sessionId = sessionAtiva._id; // ID da sessão ativa
+      const testesAtualizados = testesFiltrados.map(teste => ({
+        _id: teste._id,
+        resultado: teste.resultado,
+        observacao: teste.observacao,
+      }));
+      console.log(sessionId, testesAtualizados);
+      await finishSession(sessionId, testesAtualizados);
+      alert('Sessão de testes finalizada!');
+      setSessionAtiva(undefined); // Reseta a sessão ativa
+
+    } catch (error) {
+      console.error('Erro ao finalizar a sessão de testes:', error);
+      alert("Erro ao finalizar a sessão.");
     }
   };
 
@@ -135,6 +156,7 @@ export default function ListaDeTestes() {
       hasUser={!user}
       admin={!user?.admin}
       loading={loading}
+      hasSession={sessionAtiva}
       hasGruposSelecionado={subGrupoSelecionado}
       onchangeResult={handleChange}
       onchangeObservation={handleChangeObs}
@@ -142,6 +164,7 @@ export default function ListaDeTestes() {
       buttonDelete={functionDeleteTest}
       onchangeReset={resetarTestes}
       startSession={iniciarTestes}
+      finishTest={finalizarTestes}
     >
 
       <div className="max-w-xl m-2 flex gap-5">

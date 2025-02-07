@@ -4,6 +4,7 @@ import ModalCadastro from "../ModalCadastros";
 import AddGrupo from "../Form/AddGrupo";
 import AddSubGrupo from "../Form/AddSubGrupo";
 import Loading from "../../../public/loading.png";
+import { DadosSessao } from "../../API/sessionService";
 
 interface PropsTableDefault {
     children?: ReactNode;
@@ -14,16 +15,18 @@ interface PropsTableDefault {
     admin: boolean;
     hasGruposSelecionado: string;
     loading: boolean;
+    hasSession: DadosSessao | undefined;
     onchangeResult?: (id: string, e: React.ChangeEvent<HTMLSelectElement>) => Promise<void> | undefined;
     onchangeObservation?: (id: string, e: React.ChangeEvent<HTMLInputElement>) => Promise<void> | undefined;
     onchangeReset?: () => void | undefined;
     buttonSave: (id: string, resultado: string, observacao: string | undefined) => void;
     buttonDelete: (id: string) => void;
     startSession: () => void;
+    finishTest: () => void;
 };
 
 export default function TableListTests(
-    { children, listaCabecalho, listaDe, buttonSave, title, hasUser, admin, hasGruposSelecionado, buttonDelete, onchangeResult, onchangeObservation, onchangeReset, loading, startSession }: PropsTableDefault) {
+    { children, listaCabecalho, listaDe, buttonSave, title, hasUser, admin, hasGruposSelecionado, buttonDelete, onchangeResult, onchangeObservation, onchangeReset, loading, startSession, finishTest, hasSession }: PropsTableDefault) {
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-9/10 m-auto my-10">
             <div className="flex justify-between items-center m-2">
@@ -41,11 +44,11 @@ export default function TableListTests(
 
             <div className="m-2 flex gap-5">
                 <button className="button bg-green-500 disabled:bg-green-300"
-                    disabled={!hasGruposSelecionado}
+                    disabled={!hasGruposSelecionado || hasUser || listaDe.length === 0}
                     onClick={() => startSession()}>Iniciar Testes</button>
 
                 <button className="button bg-yellow-500 disabled:bg-yellow-300"
-                    disabled={!hasGruposSelecionado}
+                    disabled={!hasGruposSelecionado || hasUser || listaDe.length === 0}
                     onClick={() => onchangeReset && onchangeReset()}>Resetar Testes</button>
             </div>
 
@@ -121,6 +124,11 @@ export default function TableListTests(
                         <p className="text-2xl m-5 flex justify-center">Nenhum teste encontrado</p>
                     }
                 </table>
+            }
+
+            {hasSession &&
+                <button className="button bg-red-500 mt-2"
+                    onClick={() => finishTest()}>Finalizar Teste</button>
             }
         </div>
     )
