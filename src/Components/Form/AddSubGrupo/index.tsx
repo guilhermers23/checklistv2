@@ -75,7 +75,9 @@ export default function AddSubGrupo() {
             ))}
           </select>
         </div>
-        <Button type="submit">Adicionar Subgrupo</Button>
+        <Button type="submit"
+          disabled={false}
+        >Adicionar Subgrupo</Button>
       </form>
     </div>
   );
