@@ -1,13 +1,14 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { Bars4Icon } from "@heroicons/react/20/solid";
-import { ArrowLeftEndOnRectangleIcon, DocumentPlusIcon, SquaresPlusIcon } from "@heroicons/react/24/solid";
+import { ArrowLeftEndOnRectangleIcon, LockClosedIcon, UserPlusIcon, UsersIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 
 interface PropsMenuDrop {
   onClick: () => void;
+  hasAdmin: boolean;
 };
 
-export default function MenuDrop({ onClick }: PropsMenuDrop) {
+export default function MenuDrop({ onClick, hasAdmin }: PropsMenuDrop) {
 
   return (
     <Menu as="div" className="relative inline-block text-left">
@@ -25,29 +26,37 @@ export default function MenuDrop({ onClick }: PropsMenuDrop) {
           <MenuItem>
             <Link
               to="/register"
-              className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+              className="block text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
             >
-              <span className="flex items-center gap-2">
-                <SquaresPlusIcon className="size-5" />
-                Cadastrar Técnico
-              </span>
+              <button className="justify-between px-4 py-2 flex items-center w-full gap-2 cursor-pointer disabled:cursor-not-allowed disabled:bg-red-100"
+                disabled={hasAdmin}>
+                <span className="flex gap-1">
+                  <UserPlusIcon className="size-5" />
+                  Cadastrar Técnico
+                </span>
+                {hasAdmin && <LockClosedIcon className="size-5" />}
+              </button>
             </Link>
           </MenuItem>
 
           <MenuItem>
             <Link
               to="/addSubGrupo"
-              className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+              className="block text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
             >
-              <span className="flex items-center gap-2">
-                <DocumentPlusIcon className="size-5" />
-                Lista de Técnicos
-              </span>
+              <button className="justify-between px-4 py-2 flex items-center w-full gap-2 cursor-pointer disabled:cursor-not-allowed disabled:bg-red-100"
+                disabled={hasAdmin}>
+                <span className="flex gap-1">
+                  <UsersIcon className="size-5" />
+                  Lista de Técnicos
+                </span>
+                {hasAdmin && <LockClosedIcon className="size-5 ml-5" />}
+              </button>
             </Link>
           </MenuItem>
         </div>
 
-        <div className="py-1">
+        {/* <div className="py-1">
           <MenuItem>
             <a
               href="#"
@@ -64,26 +73,7 @@ export default function MenuDrop({ onClick }: PropsMenuDrop) {
               Move
             </a>
           </MenuItem>
-        </div>
-
-        <div className="py-1">
-          <MenuItem>
-            <a
-              href="#"
-              className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
-            >
-              Share
-            </a>
-          </MenuItem>
-          <MenuItem>
-            <a
-              href="#"
-              className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
-            >
-              Add to favorites
-            </a>
-          </MenuItem>
-        </div>
+        </div> */}
 
         <div className="py-1">
           <MenuItem>

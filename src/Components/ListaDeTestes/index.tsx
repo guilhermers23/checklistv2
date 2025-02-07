@@ -126,14 +126,17 @@ export default function ListaDeTestes() {
   const finalizarTestes = async () => {
     try {
       if (!sessionAtiva) return;
+      if (testesFiltrados.find(teste => teste.resultado === "Não Testado")) {
+        alert("Não é possivel finalizar teste com Resultado como Não Testado")
+        return;
+      };
 
-      const sessionId = sessionAtiva._id; // ID da sessão ativa
       const testesAtualizados = testesFiltrados.map(teste => ({
         _id: teste._id,
         resultado: teste.resultado,
         observacao: teste.observacao,
       }));
-      console.log(sessionId, testesAtualizados);
+      const sessionId = sessionAtiva._id; // ID da sessão ativa
       await finishSession(sessionId, testesAtualizados);
       alert('Sessão de testes finalizada!');
       setSessionAtiva(undefined); // Reseta a sessão ativa
