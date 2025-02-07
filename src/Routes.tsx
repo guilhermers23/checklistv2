@@ -6,7 +6,7 @@ import Login from "./Pages/Login";
 import RegisterForm from "./Pages/Register";
 import TableUsers from "./Components/Tables/TableUsers";
 
-export default function Rotas() {
+export default function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>

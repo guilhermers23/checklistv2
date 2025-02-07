@@ -1,8 +1,7 @@
-import "./index.css";
-import Rotas from "./Routes";
+import AppRoutes from "./Routes";
 
 export default function App() {
   return (
-    <Rotas />
+    <AppRoutes />
   );
 };
