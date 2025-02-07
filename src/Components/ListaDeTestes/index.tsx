@@ -5,7 +5,7 @@ import { getAllGrupos, getAllSubGrupos } from "../../API/gruposServices";
 import { UserContext } from "../../Hooks/Context/UserContex";
 import { DadosSessao, finishSession, postSession } from "../../API/sessionService";
 import InputFilter from "../InputFilter";
-import TableListTests from "../TableListTests";
+import TableListTests from "../Tables/TableListTests";
 import ModalCadastro from "../ModalCadastros";
 import AddTeste from "../Form/AddTeste";
 import AlertErro from "../../Pages/Error/AlertError";

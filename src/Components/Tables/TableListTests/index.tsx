@@ -1,10 +1,10 @@
 import { ReactNode } from "react"
-import { ITeste } from "../../Interfaces/ITestes";
-import ModalCadastro from "../ModalCadastros";
-import AddGrupo from "../Form/AddGrupo";
-import AddSubGrupo from "../Form/AddSubGrupo";
-import Loading from "../../../public/loading.png";
-import { DadosSessao } from "../../API/sessionService";
+import { ITeste } from "../../../Interfaces/ITestes";
+import { DadosSessao } from "../../../API/sessionService";
+import ModalCadastro from "../../ModalCadastros";
+import AddGrupo from "../../Form/AddGrupo";
+import AddSubGrupo from "../../Form/AddSubGrupo";
+import Loading from "../../../../public/loading.png";
 
 interface PropsTableDefault {
     children?: ReactNode;
@@ -26,7 +26,10 @@ interface PropsTableDefault {
 };
 
 export default function TableListTests(
-    { children, listaCabecalho, listaDe, buttonSave, title, hasUser, admin, hasGruposSelecionado, buttonDelete, onchangeResult, onchangeObservation, onchangeReset, loading, startSession, finishTest, hasSession }: PropsTableDefault) {
+    { children, listaCabecalho, listaDe, hasSession,
+        loading, title, hasUser, admin, hasGruposSelecionado,
+        buttonDelete, onchangeResult, onchangeObservation,
+        onchangeReset, buttonSave, startSession, finishTest }: PropsTableDefault) {
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-9/10 m-auto my-10">
             <div className="flex justify-between items-center m-2">

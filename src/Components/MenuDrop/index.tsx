@@ -41,7 +41,7 @@ export default function MenuDrop({ onClick, hasAdmin }: PropsMenuDrop) {
 
           <MenuItem>
             <Link
-              to="/addSubGrupo"
+              to="/users"
               className="block text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
             >
               <button className="justify-between px-4 py-2 flex items-center w-full gap-2 cursor-pointer disabled:cursor-not-allowed disabled:bg-red-100"

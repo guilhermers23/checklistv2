@@ -1,6 +1,8 @@
 import "./index.css";
-import { Outlet } from "react-router-dom";
+import Rotas from "./Routes";
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <Rotas />
+  );
 };
