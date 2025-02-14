@@ -27,3 +27,10 @@ export const loggedUser = async () => {
 
   return response;
 };
+
+export const getAllUser = async () => {
+  const response = axios.get(`${baseURL}/user/`, {
+    headers: { Authorization: `Bearer ${Cookies.get("token")}` },
+  });
+  return response;
+};

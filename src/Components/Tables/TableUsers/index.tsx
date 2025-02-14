@@ -1,6 +1,10 @@
-import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import { MagnifyingGlassIcon, UserCircleIcon } from "@heroicons/react/20/solid";
+import { IUser } from "../../../Interfaces/IUser";
+interface PropsTable {
+    users: IUser[]
+};
 
-export default function TableUsers() {
+export default function TableUsers({ users }: PropsTable) {
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-9/10 mx-auto mt-5">
             <div className="flex items-center justify-end flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 p-4 bg-white dark:bg-gray-900">
@@ -18,7 +22,7 @@ export default function TableUsers() {
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" className="px-6 py-3">
-                            Name
+                            Nome
                         </th>
                         <th scope="col" className="px-6 py-3">
                             Position
@@ -32,26 +36,30 @@ export default function TableUsers() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                            <img className="w-10 h-10 rounded-full" src="http://github.com/guilhermeRS23.png" alt="Imagem Guilherme" />
-                            <div className="ps-3">
-                                <div className="text-base font-semibold">Guilherme</div>
-                                <div className="font-normal text-gray-500">suporte15@brajan.com</div>
-                            </div>
-                        </th>
-                        <td className="px-6 py-4">
-                            Admin
-                        </td>
-                        <td className="px-6 py-4">
-                            <div className="flex items-center">
-                                <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> Online
-                            </div>
-                        </td>
-                        <td className="px-6 py-4">
-                            <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user</a>
-                        </td>
-                    </tr>
+                    {users.map((user) => (
+
+                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                                <UserCircleIcon className="size-10"/>
+                                <div className="ps-3">
+                                    <div className="text-base font-semibold">{user.name}</div>
+                                    <div className="font-normal text-gray-500">{user.email}</div>
+                                </div>
+                            </th>
+                            <td className="px-6 py-4">
+                                {user.admin ? "Admin" : "Técnico"}
+                            </td>
+                            <td className="px-6 py-4">
+                                <div className="flex items-center">
+                                    <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> Online
+                                </div>
+                            </td>
+                            <td className="px-6 py-4">
+                                <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user</a>
+                            </td>
+                        </tr>
+                    ))}
+
                 </tbody>
             </table>
         </div>
