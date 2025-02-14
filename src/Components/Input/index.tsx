@@ -1,9 +1,10 @@
 interface PropsInput {
   id: string;
-  type: "email" | "password" | "text";
+  type: "email" | "password" | "text" | "file";
   placeholder: string;
   label: string;
   value: string;
+  accept?: string;
   setValor: (e: string) => void;
   onchangeObservation?: (id: string, e: React.ChangeEvent<HTMLSelectElement>) => Promise<void> | undefined;
 };
@@ -22,6 +23,7 @@ export default function Input(props: PropsInput) {
         value={props.value}
         onChange={(event) => props.setValor && props.setValor(event.target.value)}
         minLength={3}
+        accept={props.accept}
         required
       />
     </div>

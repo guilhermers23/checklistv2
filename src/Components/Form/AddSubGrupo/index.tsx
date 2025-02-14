@@ -20,7 +20,6 @@ export default function AddSubGrupo() {
 
     try {
       const resSubGrupoNome = { nome: subGrupo[0].toUpperCase() + subGrupo.substring(1), grupoId };
-      console.log(resSubGrupoNome);
       await postSubGrupo(resSubGrupoNome);
       alert('SubGrupo cadastrado com sucesso!');
       setGrupoId("");

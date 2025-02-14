@@ -5,6 +5,7 @@ import Input from "../../Input";
 
 export default function AddTeste(body: { grupo: string, subgrupo: string }) {
     const [description, setDescription] = useState("");
+    const [files, setFiles] = useState("");
     const [loading, setLoading] = useState(false);
 
     const handeSubmit = async (event: FormEvent) => {
@@ -13,11 +14,12 @@ export default function AddTeste(body: { grupo: string, subgrupo: string }) {
         setLoading(true);
 
         const testeData = {
-            grupoID: body.grupo, // Nome do grupo
-            subGrupoID: body.subgrupo, // Nome do subgrupo
+            grupoID: body.grupo,
+            subGrupoID: body.subgrupo,
             description: description[0].toUpperCase() + description.substring(1),
             resultado: "Não Testado", // Campo fixo
-            observacao: ""
+            observacao: "",
+            files: files
         };
 
         try {
@@ -45,6 +47,15 @@ export default function AddTeste(body: { grupo: string, subgrupo: string }) {
                     setValor={setDescription}
                     value={description}
                 />
+                <Input id="upload"
+                    label="Anexos"
+                    placeholder="Anexos.."
+                    type="file"
+                    setValor={setFiles}
+                    value={files}
+                    accept="application/pdf"
+                >
+                </Input>
                 <Button type="submit"
                     disabled={loading}>
                     Adicionar Teste
