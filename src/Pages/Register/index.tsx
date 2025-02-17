@@ -30,7 +30,6 @@ export default function RegisterForm() {
     try {
       const response = { name, email, password };
       await registerUser(response);
-      console.log(response);
       alert("Usuário cadastrado com sucesso");
       navigate("/");
     } catch (error) {
