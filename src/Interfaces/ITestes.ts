@@ -18,4 +18,5 @@ export interface IGrupo {
     resultado: string;
     completed?: string[];
     observacao?: string;
+    files: string
   }

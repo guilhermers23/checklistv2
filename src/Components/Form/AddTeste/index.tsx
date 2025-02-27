@@ -47,14 +47,15 @@ export default function AddTeste(body: { grupo: string, subgrupo: string }) {
                     setValor={setDescription}
                     value={description}
                 />
-                <Input id="upload"
-                    label="Anexos"
-                    placeholder="Anexos.."
-                    type="file"
+
+                <Input id="link"
+                    label="Link"
+                    placeholder="Link para manual..."
+                    type="text"
                     setValor={setFiles}
                     value={files}
-                    accept="application/pdf"
                 >
+
                 </Input>
                 <Button type="submit"
                     disabled={loading}>
