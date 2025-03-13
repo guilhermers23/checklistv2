@@ -8,6 +8,7 @@ interface DataTestes {
   description: string;
   resultado: string;
   observacao: string;
+  files: string;
 }
 
 export const getAllListaTestes = () => {

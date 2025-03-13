@@ -27,3 +27,17 @@ export const loggedUser = async () => {
 
   return response;
 };
+
+export const getAllUser = async () => {
+  const response = axios.get(`${baseURL}/user/`, {
+    headers: { Authorization: `Bearer ${Cookies.get("token")}` },
+  });
+  return response;
+};
+
+export const deleteUser = async (id: string) => {
+  const response = axios.delete(`${baseURL}/user/${id}/delete`, {
+    headers: { Authorization: `Bearer ${Cookies.get("token")}` },
+  });
+  return response;
+};

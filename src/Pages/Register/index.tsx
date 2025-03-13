@@ -27,11 +27,10 @@ export default function RegisterForm() {
     };
     
     setLoading(true);
-
+    
     try {
       const response = { name, email, password };
       await registerUser(response);
-      console.log(response);
       alert("Usuário cadastrado com sucesso");
       navigate("/");
     } catch (error) {

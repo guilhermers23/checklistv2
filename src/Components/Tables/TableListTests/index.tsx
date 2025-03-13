@@ -5,6 +5,7 @@ import ModalCadastro from "../../ModalCadastros";
 import AddGrupo from "../../Form/AddGrupo";
 import AddSubGrupo from "../../Form/AddSubGrupo";
 import Loading from "../../../../public/loading.png";
+import { DocumentArrowDownIcon } from "@heroicons/react/24/solid";
 
 interface PropsTableDefault {
     children?: ReactNode;
@@ -106,8 +107,15 @@ export default function TableListTests(
                                             onChange={(e) => onchangeObservation && onchangeObservation(item._id, e)}
                                         />
                                     </div>
-
                                 </td>
+
+                                <td className="py-4 w-10">
+                                    <a href={item.files} target="_blank" rel="noopener noreferrer"
+                                        title="Instrução" className="mx-auto">
+                                        <DocumentArrowDownIcon className="size-5" />
+                                    </a>
+                                </td>
+
                                 <td className="py-4 px-2 w-15">
                                     <span className="flex gap-2 justify-around">
                                         <button className="button disabled:bg-green-400/25 disabled:cursor-not-allowed bg-green-400"

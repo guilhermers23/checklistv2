@@ -1,28 +1,30 @@
 interface PropsInput {
   id: string;
-  type: "email" | "password" | "text";
+  type: "email" | "password" | "text" | "file";
   placeholder: string;
   label: string;
   value: string;
+  required?: boolean;
   setValor: (e: string) => void;
   onchangeObservation?: (id: string, e: React.ChangeEvent<HTMLSelectElement>) => Promise<void> | undefined;
 };
 
-export default function Input(props: PropsInput) {
+export default function Input({ id, type, placeholder, label, value, required = true, setValor,
+}: PropsInput) {
   return (
     <div className="w-10/12">
-      <label htmlFor={props.type}
+      <label htmlFor={type}
         className="block font-Oswald dark:text-gray-400">
-        {props.label}
+        {label}
       </label>
       <input className="login_input"
-        id={props.id}
-        type={props.type}
-        placeholder={props.placeholder}
-        value={props.value}
-        onChange={(event) => props.setValor && props.setValor(event.target.value)}
+        id={id}
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        onChange={(event) => setValor && setValor(event.target.value)}
         minLength={3}
-        required
+        required={required}
       />
     </div>
   );

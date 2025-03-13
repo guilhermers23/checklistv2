@@ -22,7 +22,7 @@ export default function ListaDeTestes() {
   const { user } = useContext(UserContext);
 
   const HEAD_TABLE = [
-    "Grupo", "Casos de Uso", "Resultado", "Observações", "Ações"
+    "Grupo", "Casos de Uso", "Resultado", "Observações","", "Ações"
   ];
 
   const findAllTestAttributes = async () => {
