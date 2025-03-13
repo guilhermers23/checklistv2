@@ -4,11 +4,11 @@ import { IGrupo, ISubGrupo, ITeste } from "../../Interfaces/ITestes";
 import { getAllGrupos, getAllSubGrupos } from "../../API/gruposServices";
 import { UserContext } from "../../Hooks/Context/UserContex";
 import { DadosSessao, finishSession, postSession } from "../../API/sessionService";
-import InputFilter from "../InputFilter";
-import TableListTests from "../Tables/TableListTests";
-import ModalCadastro from "../ModalCadastros";
-import AddTeste from "../Form/AddTeste";
-import AlertErro from "../../Pages/Error/AlertError";
+import InputFilter from "../../Components/InputFilter";
+import TableListTests from "../../Components/Tables/TableListTests";
+import ModalCadastro from "../../Components/ModalCadastros";
+import AddTeste from "../../Components/Form/AddTeste";
+import AlertErro from "../Error/AlertError";
 
 export default function ListaDeTestes() {
   const [testes, setTestes] = useState<ITeste[]>([]);
@@ -22,7 +22,7 @@ export default function ListaDeTestes() {
   const { user } = useContext(UserContext);
 
   const HEAD_TABLE = [
-    "Grupo", "Casos de Uso", "Resultado", "Observações","", "Ações"
+    "Grupo", "Casos de Uso", "Resultado", "Observações", "", "Ações"
   ];
 
   const findAllTestAttributes = async () => {
@@ -42,8 +42,14 @@ export default function ListaDeTestes() {
     }
   };
 
-  const handleGrupoSelecionado = (newValue: string) => setGrupoSelecionado(newValue);
-  const handleSubGrupoSelecionado = (newValue: string) => setSubGrupoSelecionado(newValue);
+  const handleGrupoSelecionado = (newValue: string) => {
+    localStorage.setItem("grupoSelecionado", newValue);
+    setGrupoSelecionado(newValue);
+  };
+  const handleSubGrupoSelecionado = (newValue: string) => {
+    localStorage.setItem("subgrupoSelecionado", newValue);
+    setSubGrupoSelecionado(newValue)
+  };
 
   // Filtrar os subgrupos com base no grupo selecionado
   const subGruposFiltrados = useMemo(() => {
@@ -149,6 +155,14 @@ export default function ListaDeTestes() {
 
   useEffect(() => {
     findAllTestAttributes();
+    const grupoTemp = localStorage.getItem("grupoSelecionado");
+    const subgrupoTemp = localStorage.getItem("subgrupoSelecionado");
+    setGrupoSelecionado(grupoTemp || "");
+    if (grupoTemp) {
+      setSubGrupoSelecionado(subgrupoTemp || "");
+    } else {
+      localStorage.removeItem("subgrupoSelecionado");
+    }
   }, [update]);
 
   return (

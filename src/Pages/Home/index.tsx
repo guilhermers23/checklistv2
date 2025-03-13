@@ -1,4 +1,4 @@
-import ListaDeTestes from "../../Components/ListaDeTestes";
+import ListaDeTestes from "../ListaDeTestes";
 
 export default function Home() {
   return (

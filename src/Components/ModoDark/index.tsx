@@ -1,17 +1,24 @@
 import { MoonIcon, SunIcon } from "@heroicons/react/24/solid";
-//import { useEffect } from "react";
+import { useEffect } from "react";
 
 export default function DarkMode() {
   const elementDocumento: DOMTokenList = document.documentElement.classList;
 
   const toggleMode = (): void => {
-    elementDocumento.toggle("dark");
+    const modoAtivo = elementDocumento.toggle("dark");
+    if (modoAtivo) {
+      localStorage.setItem("modoDark", "dark");
+    } else {
+      localStorage.setItem("modoDark", "");
+    }
   };
 
-  // useEffect(() => {
-  //   if (window.matchMedia("(prefers-color-scheme: dark)").matches)
-  //     elementDocumento.add("dark");
-  // }, []);
+  useEffect(() => {
+    const modo = localStorage.getItem("modoDark");
+    if (modo) {
+      elementDocumento.add(modo);
+    }
+  });
 
   return (
     <span className="hidden sm:block cursor-pointer" onClick={toggleMode}>
