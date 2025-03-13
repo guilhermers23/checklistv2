@@ -6,6 +6,7 @@ import AddGrupo from "../../Form/AddGrupo";
 import AddSubGrupo from "../../Form/AddSubGrupo";
 import Loading from "../../../../public/loading.png";
 import { DocumentArrowDownIcon } from "@heroicons/react/24/solid";
+import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 
 interface PropsTableDefault {
     children?: ReactNode;
@@ -110,10 +111,12 @@ export default function TableListTests(
                                 </td>
 
                                 <td className="py-4 w-10">
-                                    <a href={item.files} target="_blank" rel="noopener noreferrer"
-                                        title="Instrução" className="mx-auto">
-                                        <DocumentArrowDownIcon className="size-5" />
-                                    </a>
+                                    {item.files ?
+                                        <a href={item.files} target="_blank" rel="noopener noreferrer"
+                                            title="Instrução" className="mx-auto">
+                                            <DocumentArrowDownIcon className="size-5" />
+                                        </a> :
+                                        <ExclamationCircleIcon className="size-5" title="Instrução indisponivel para esse teste" />}
                                 </td>
 
                                 <td className="py-4 px-2 w-15">

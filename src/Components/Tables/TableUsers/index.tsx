@@ -7,7 +7,7 @@ interface PropsTable {
 
 export default function TableUsers({ users, buttonDelete }: PropsTable) {
     return (
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-9/10 mx-auto mt-5">
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-9/10 mx-auto my-5">
             <div className="flex items-center justify-end flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 p-4 bg-white dark:bg-gray-900">
 
                 <label htmlFor="table-search" className="sr-only">Search</label>
