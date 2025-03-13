@@ -26,6 +26,7 @@ export default function AddTeste(body: { grupo: string, subgrupo: string }) {
             await postTeste(testeData);
             alert("Teste adicionado com Sucesso!")
             setDescription('');
+            setFiles('');
         } catch (error) {
             console.error(error)
         } finally {
@@ -54,6 +55,7 @@ export default function AddTeste(body: { grupo: string, subgrupo: string }) {
                     type="text"
                     setValor={setFiles}
                     value={files}
+                    required={false}
                 >
 
                 </Input>

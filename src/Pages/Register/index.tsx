@@ -20,13 +20,14 @@ export default function RegisterForm() {
   const handeSubmit = async (event: FormEvent): Promise<void> => {
     event.preventDefault();
     event.stopPropagation();
-    setLoading(true);
-
+    
     if (password !== confirmaSenha) {
       setError("As senhas não coincidem");
       return;
     };
-
+    
+    setLoading(true);
+    
     try {
       const response = { name, email, password };
       await registerUser(response);

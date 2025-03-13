@@ -110,7 +110,8 @@ export default function TableListTests(
                                 </td>
 
                                 <td className="py-4 w-10">
-                                    <a href={item.files} title="Instrução" className="mx-auto">
+                                    <a href={item.files} target="_blank" rel="noopener noreferrer"
+                                        title="Instrução" className="mx-auto">
                                         <DocumentArrowDownIcon className="size-5" />
                                     </a>
                                 </td>
