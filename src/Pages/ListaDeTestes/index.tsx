@@ -183,8 +183,8 @@ export default function ListaDeTestes() {
       startSession={iniciarTestes}
       finishTest={finalizarTestes}
     >
-
-      <div className="max-w-xl m-2 flex gap-5">
+      
+      <div className="m-2 flex gap-5 justify-between">
         <InputFilter id="grupo"
           labelTitulo="Grupo"
           listaDe={grupos}
@@ -200,7 +200,6 @@ export default function ListaDeTestes() {
           setValor={handleSubGrupoSelecionado}
           disabled={!grupoSelecionado} />
 
-
         <div className="w-full content-center">
           {subGrupoSelecionado &&
             <ModalCadastro title="Adicionar Teste">
@@ -214,6 +213,7 @@ export default function ListaDeTestes() {
             </ModalCadastro>
           }
         </div>
+          <span className="w-full content-center text-xl font-Oswald dark:text-blue-50">Total de Testes: {testesFiltrados.length}</span>
       </div>
     </TableListTests>
   );

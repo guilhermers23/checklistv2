@@ -4,7 +4,7 @@ import { DadosSessao } from "../../../API/sessionService";
 import ModalCadastro from "../../ModalCadastros";
 import AddGrupo from "../../Form/AddGrupo";
 import AddSubGrupo from "../../Form/AddSubGrupo";
-import Loading from "../../../../public/loading.png";
+import Loading from "/loading.png";
 import { DocumentArrowDownIcon } from "@heroicons/react/24/solid";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 
