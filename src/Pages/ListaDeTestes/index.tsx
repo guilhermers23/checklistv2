@@ -3,12 +3,13 @@ import { deleteTeste, getAllListaTestes, updateTeste } from "../../API/testesSer
 import { IGrupo, ISubGrupo, ITeste } from "../../Interfaces/ITestes";
 import { getAllGrupos, getAllSubGrupos } from "../../API/gruposServices";
 import { UserContext } from "../../Hooks/Context/UserContex";
-import { DadosSessao, finishSession, postSession } from "../../API/sessionService";
+import { finishSession, postSession } from "../../API/sessionService";
 import InputFilter from "../../Components/InputFilter";
 import TableListTests from "../../Components/Tables/TableListTests";
 import ModalCadastro from "../../Components/ModalCadastros";
 import AddTeste from "../../Components/Form/AddTeste";
 import AlertErro from "../Error/AlertError";
+import { IDadosSessao } from "../../Interfaces/ISessions";
 
 export default function ListaDeTestes() {
   const [testes, setTestes] = useState<ITeste[]>([]);
@@ -18,7 +19,7 @@ export default function ListaDeTestes() {
   const [subGrupoSelecionado, setSubGrupoSelecionado] = useState<string>("");
   const [update, setUpdate] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [sessionAtiva, setSessionAtiva] = useState<DadosSessao>();
+  const [sessionAtiva, setSessionAtiva] = useState<IDadosSessao>();
   const { user } = useContext(UserContext);
 
   const HEAD_TABLE = [
@@ -183,7 +184,7 @@ export default function ListaDeTestes() {
       startSession={iniciarTestes}
       finishTest={finalizarTestes}
     >
-      
+
       <div className="m-2 flex gap-5 justify-between">
         <InputFilter id="grupo"
           labelTitulo="Grupo"
@@ -213,7 +214,7 @@ export default function ListaDeTestes() {
             </ModalCadastro>
           }
         </div>
-          <span className="w-full content-center text-xl font-Oswald dark:text-blue-50">Total de Testes: {testesFiltrados.length}</span>
+        <span className="w-full content-center text-xl font-Oswald dark:text-blue-50">Total de Testes: {testesFiltrados.length}</span>
       </div>
     </TableListTests>
   );

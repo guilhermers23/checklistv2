@@ -1,17 +1,9 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import { baseURL } from "./baseURL";
-import { ITeste } from "../Interfaces/ITestes";
+import { IDadosSessao } from "../Interfaces/ISessions";
 
-export interface DadosSessao {
-  _id?: string;
-  grupoId: string;
-  subGrupoId: string;
-  tecnico: string | undefined;
-  testes: ITeste[];
-}
-
-export const postSession = (dados: DadosSessao) => {
+export const postSession = (dados: IDadosSessao) => {
   const response = axios.post(`${baseURL}/session/start`, dados, {
     headers: { Authorization: `Bearer ${Cookies.get("token")}` },
   });
