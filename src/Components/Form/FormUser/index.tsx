@@ -12,7 +12,7 @@ interface PropsFormUser {
     loading: boolean;
 };
 
-export default function FormUser({ title, children, onsubmit, buttonTitle, error, foto, loading }: PropsFormUser) {
+const FormUser = ({ title, children, onsubmit, buttonTitle, error, foto, loading }: PropsFormUser) => {
     return (
         <div className="flex items-center justify-center h-screen bg-gray-100 dark:bg-gray-800"> {/* Centraliza na tela */}
             <div className="w-10/12 p-2 rounded-lg lg:w-7/12 bg-white dark:bg-gray-700 shadow-md"> {/* Card com fundo branco/escuro e sombra */}
@@ -49,3 +49,5 @@ export default function FormUser({ title, children, onsubmit, buttonTitle, error
         </div>
     )
 };
+
+export default FormUser;

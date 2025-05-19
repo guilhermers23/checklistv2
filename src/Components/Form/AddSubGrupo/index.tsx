@@ -4,7 +4,7 @@ import { IGrupo } from "../../../Interfaces/ITestes";
 import Input from "../../Input";
 import Button from "../../Button";
 
-export default function AddSubGrupo() {
+const AddSubGrupo = () => {
   const [subGrupo, setSubGrupo] = useState("");
   const [grupoId, setGrupoId] = useState("");
   const [grupos, setGrupos] = useState<IGrupo[]>([]);
@@ -81,3 +81,5 @@ export default function AddSubGrupo() {
     </div>
   );
 };
+
+export default AddSubGrupo;

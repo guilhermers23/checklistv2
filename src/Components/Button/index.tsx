@@ -4,7 +4,7 @@ interface Props {
   disabled: boolean;
 };
 
-export default function Button(props: Props) {
+const Button = (props: Props) => {
   return (
     <button className="login_button flex gap-2 disabled:cursor-progress disabled:bg-sky-300" type={props.type}
       disabled={props.disabled}>
@@ -12,3 +12,5 @@ export default function Button(props: Props) {
     </button>
   );
 };
+
+export default Button;

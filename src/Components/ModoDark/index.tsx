@@ -1,7 +1,7 @@
 import { MoonIcon, SunIcon } from "@heroicons/react/24/solid";
 import { useEffect } from "react";
 
-export default function DarkMode() {
+const DarkMode = () => {
   const elementDocumento: DOMTokenList = document.documentElement.classList;
 
   const toggleMode = (): void => {
@@ -27,3 +27,5 @@ export default function DarkMode() {
     </span>
   );
 };
+
+export default DarkMode;

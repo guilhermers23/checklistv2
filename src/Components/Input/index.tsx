@@ -9,8 +9,8 @@ interface PropsInput {
   onchangeObservation?: (id: string, e: React.ChangeEvent<HTMLSelectElement>) => Promise<void> | undefined;
 };
 
-export default function Input({ id, type, placeholder, label, value, required = true, setValor,
-}: PropsInput) {
+const Input = ({ id, type, placeholder, label, value, required = true, setValor,
+}: PropsInput) => {
   return (
     <div className="w-10/12">
       <label htmlFor={type}
@@ -29,3 +29,5 @@ export default function Input({ id, type, placeholder, label, value, required = 
     </div>
   );
 };
+
+export default Input;

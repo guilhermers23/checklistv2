@@ -1,4 +1,4 @@
-export default function Footer() {
+const Footer = () => {
     return (
         <footer className="shadow-sm bg-gray-800">
             <div className="w-full mx-auto max-w-screen p-4 md:flex md:items-center md:justify-between">
@@ -13,3 +13,5 @@ export default function Footer() {
         </footer>
     )
 };
+
+export default Footer;

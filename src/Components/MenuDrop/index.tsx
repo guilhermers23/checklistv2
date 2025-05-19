@@ -8,7 +8,7 @@ interface PropsMenuDrop {
   hasAdmin: boolean;
 };
 
-export default function MenuDrop({ onClick, hasAdmin }: PropsMenuDrop) {
+const MenuDrop = ({ onClick, hasAdmin }: PropsMenuDrop) => {
 
   return (
     <Menu as="div" className="relative inline-block text-left">
@@ -72,3 +72,5 @@ export default function MenuDrop({ onClick, hasAdmin }: PropsMenuDrop) {
     </Menu>
   );
 };
+
+export default MenuDrop;

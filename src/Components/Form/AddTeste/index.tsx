@@ -3,7 +3,7 @@ import { postTeste } from "../../../API/testesServices";
 import Button from "../../Button";
 import Input from "../../Input";
 
-export default function AddTeste(body: { grupo: string, subgrupo: string }) {
+const AddTeste = (body: { grupo: string, subgrupo: string }) => {
     const [description, setDescription] = useState("");
     const [files, setFiles] = useState("");
     const [loading, setLoading] = useState(false);
@@ -27,7 +27,7 @@ export default function AddTeste(body: { grupo: string, subgrupo: string }) {
             alert("Teste adicionado com Sucesso!")
             setDescription('');
             setFiles('');
-            
+
         } catch (error) {
             console.error(error)
         } finally {
@@ -68,3 +68,5 @@ export default function AddTeste(body: { grupo: string, subgrupo: string }) {
         </div>
     )
 };
+
+export default AddTeste;

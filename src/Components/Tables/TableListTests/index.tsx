@@ -27,11 +27,11 @@ interface PropsTableDefault {
     finishTest: () => void;
 };
 
-export default function TableListTests(
+const TableListTests = (
     { children, listaCabecalho, listaDe, hasSession,
         loading, title, hasUser, admin, hasGruposSelecionado,
         buttonDelete, onchangeResult, onchangeObservation,
-        onchangeReset, buttonSave, startSession, finishTest }: PropsTableDefault) {
+        onchangeReset, buttonSave, startSession, finishTest }: PropsTableDefault) => {
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-9/10 m-auto my-10">
             <div className="flex justify-between items-center m-2">
@@ -147,3 +147,5 @@ export default function TableListTests(
         </div>
     )
 };
+
+export default TableListTests;

@@ -3,7 +3,7 @@ import { postGrupo } from "../../../API/gruposServices";
 import Button from "../../Button";
 import Input from "../../Input";
 
-export default function AddGrupo() {
+const AddGrupo = () => {
   const [grupo, setGrupo] = useState("");
   const [loading, setLoading] = useState(false);
   console.log(loading)
@@ -47,4 +47,6 @@ export default function AddGrupo() {
       </form>
     </div>
   );
-}
+};
+
+export default AddGrupo;
