@@ -6,6 +6,7 @@ interface PropsTable {
 };
 
 const TableSessions = ({ listaCabecalho, listaSessoes }: PropsTable) => {
+
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-9/10 m-auto my-10">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -27,18 +28,17 @@ const TableSessions = ({ listaCabecalho, listaSessoes }: PropsTable) => {
                             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {sessao.tecnico}
                             </th>
-
                             <td className="px-6 py-4">
-                                {sessao.grupoId}
+                                {sessao.grupo}
                             </td>
                             <td className="px-6 py-4">
-                                {sessao.subGrupoId}
+                                {sessao.subgrupo}
                             </td>
                             <td className="px-6 py-4">
-                                18:30
+                                {sessao.dataInicio}
                             </td>
                             <td className="px-6 py-4">
-                                19:00
+                                {sessao.dataFim}
                             </td>
                         </tr>
                     ))}

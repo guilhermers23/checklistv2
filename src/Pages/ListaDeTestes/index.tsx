@@ -65,6 +65,18 @@ export default function ListaDeTestes() {
     (!subGrupoSelecionado || subGrupo._id === subGrupoSelecionado)
   );
 
+  const nomeGrupo = () => {
+    const grupo = grupos.filter(grupo => grupo._id === grupoSelecionado);
+    const nome = grupo.map(i => i.nome);
+    return nome.toString();
+  };
+
+  const nomeSubGrupo = () => {
+    const subgrupo = subGrupos.filter(subgrupo => subgrupo._id === subGrupoSelecionado)
+    const nome = subgrupo.map(i => i.nome);
+    return nome.toString();
+  };
+
   // Função para mudar campo de resultados de um teste
   const handleChange = async (id: string, e: React.ChangeEvent<HTMLSelectElement>) => {
     try {
@@ -120,7 +132,7 @@ export default function ListaDeTestes() {
 
   const iniciarTestes = async () => {
     try {
-      const dadosSession = { grupoId: grupoSelecionado, subGrupoId: subGrupoSelecionado, tecnico: user?._id, testes: testesFiltrados };
+      const dadosSession = { grupo: nomeGrupo(), subgrupo: nomeSubGrupo(), tecnico: user?._id, testes: testesFiltrados };
       const response = await postSession(dadosSession);
       setSessionAtiva(response.data); // Armazena a sessão iniciada
       alert('Sessão de testes iniciada!');
