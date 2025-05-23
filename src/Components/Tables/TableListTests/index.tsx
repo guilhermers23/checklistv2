@@ -1,12 +1,12 @@
 import { ReactNode } from "react"
 import { ITeste } from "../../../Interfaces/ITestes";
-import { DadosSessao } from "../../../API/sessionService";
 import ModalCadastro from "../../ModalCadastros";
 import AddGrupo from "../../Form/AddGrupo";
 import AddSubGrupo from "../../Form/AddSubGrupo";
 import Loading from "/loading.png";
 import { DocumentArrowDownIcon } from "@heroicons/react/24/solid";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
+import { IDadosSessao } from "../../../Interfaces/ISessions";
 
 interface PropsTableDefault {
     children?: ReactNode;
@@ -17,7 +17,7 @@ interface PropsTableDefault {
     admin: boolean;
     hasGruposSelecionado: string;
     loading: boolean;
-    hasSession: DadosSessao | undefined;
+    hasSession: IDadosSessao | undefined;
     onchangeResult?: (id: string, e: React.ChangeEvent<HTMLSelectElement>) => Promise<void> | undefined;
     onchangeObservation?: (id: string, e: React.ChangeEvent<HTMLInputElement>) => Promise<void> | undefined;
     onchangeReset?: () => void | undefined;
@@ -27,11 +27,11 @@ interface PropsTableDefault {
     finishTest: () => void;
 };
 
-export default function TableListTests(
+const TableListTests = (
     { children, listaCabecalho, listaDe, hasSession,
         loading, title, hasUser, admin, hasGruposSelecionado,
         buttonDelete, onchangeResult, onchangeObservation,
-        onchangeReset, buttonSave, startSession, finishTest }: PropsTableDefault) {
+        onchangeReset, buttonSave, startSession, finishTest }: PropsTableDefault) => {
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-9/10 m-auto my-10">
             <div className="flex justify-between items-center m-2">
@@ -134,10 +134,11 @@ export default function TableListTests(
                             </tr>
                         ))}
                     </tbody>
-                    {listaDe.length === 0 &&
-                        <p className="text-2xl m-5 flex justify-center">Nenhum teste encontrado</p>
-                    }
                 </table>
+            }
+
+            {loading || listaDe.length === 0 &&
+                <p className="text-2xl m-5 dark:text-gray-200 flex justify-center">Nenhum teste encontrado</p>
             }
 
             {hasSession &&
@@ -147,3 +148,5 @@ export default function TableListTests(
         </div>
     )
 };
+
+export default TableListTests;

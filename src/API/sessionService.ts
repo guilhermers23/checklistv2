@@ -3,10 +3,9 @@ import Cookies from "js-cookie";
 import { baseURL } from "./baseURL";
 import { ITeste } from "../Interfaces/ITestes";
 
-export interface DadosSessao {
-  _id?: string;
-  grupoId: string;
-  subGrupoId: string;
+interface DadosSessao {
+  grupo: string;
+  subGrupo: string;
   tecnico: string | undefined;
   testes: ITeste[];
 }

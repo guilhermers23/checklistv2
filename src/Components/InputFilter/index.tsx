@@ -10,7 +10,7 @@ interface PropsInputFilter {
     setValor: (e: string) => void;
 };
 
-export default function InputFilter({ listaDe, selectText, labelTitulo, id, setValor, disabled, value }: PropsInputFilter) {
+const InputFilter = ({ listaDe, selectText, labelTitulo, id, setValor, disabled, value }: PropsInputFilter) => {
     return (
         <div className="w-full">
             <label htmlFor={id} className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -29,3 +29,5 @@ export default function InputFilter({ listaDe, selectText, labelTitulo, id, setV
         </div>
     )
 };
+
+export default InputFilter;

@@ -2,12 +2,12 @@ import { useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import { PlusIcon } from '@heroicons/react/24/solid'
 
-interface PropsModal{
+interface PropsModal {
     title: string;
     children: React.ReactNode
 };
 
-export default function ModalCadastro({title, children} : PropsModal) {
+const ModalCadastro = ({ title, children }: PropsModal) => {
     const [open, setOpen] = useState(false)
 
     return (
@@ -31,7 +31,7 @@ export default function ModalCadastro({title, children} : PropsModal) {
                             transition
                             className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg data-closed:sm:translate-y-0 data-closed:sm:scale-95"
                         >
-                          {children}
+                            {children}
 
                             <div className="px-4 pb-2 sm:flex sm:flex-row-reverse sm:px-6">
                                 <button
@@ -50,3 +50,5 @@ export default function ModalCadastro({title, children} : PropsModal) {
         </>
     )
 };
+
+export default ModalCadastro;

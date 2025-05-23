@@ -5,7 +5,7 @@ interface PropsTable {
     buttonDelete: (id: string) => void;
 };
 
-export default function TableUsers({ users, buttonDelete }: PropsTable) {
+const TableUsers = ({ users, buttonDelete }: PropsTable) => {
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-9/10 mx-auto my-5">
             <div className="flex items-center justify-end flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 p-4 bg-white dark:bg-gray-900">
@@ -38,8 +38,7 @@ export default function TableUsers({ users, buttonDelete }: PropsTable) {
                 </thead>
                 <tbody>
                     {users.map((user) => (
-
-                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <tr key={user._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
                                 <UserCircleIcon className="size-10" />
                                 <div className="ps-3">
@@ -68,3 +67,5 @@ export default function TableUsers({ users, buttonDelete }: PropsTable) {
         </div>
     )
 };
+
+export default TableUsers;

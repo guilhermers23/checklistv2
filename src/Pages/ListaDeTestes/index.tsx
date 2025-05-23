@@ -3,12 +3,13 @@ import { deleteTeste, getAllListaTestes, updateTeste } from "../../API/testesSer
 import { IGrupo, ISubGrupo, ITeste } from "../../Interfaces/ITestes";
 import { getAllGrupos, getAllSubGrupos } from "../../API/gruposServices";
 import { UserContext } from "../../Hooks/Context/UserContex";
-import { DadosSessao, finishSession, postSession } from "../../API/sessionService";
+import { finishSession, postSession } from "../../API/sessionService";
 import InputFilter from "../../Components/InputFilter";
 import TableListTests from "../../Components/Tables/TableListTests";
 import ModalCadastro from "../../Components/ModalCadastros";
 import AddTeste from "../../Components/Form/AddTeste";
 import AlertErro from "../Error/AlertError";
+import { IDadosSessao } from "../../Interfaces/ISessions";
 
 export default function ListaDeTestes() {
   const [testes, setTestes] = useState<ITeste[]>([]);
@@ -16,9 +17,9 @@ export default function ListaDeTestes() {
   const [subGrupos, setSubGrupos] = useState<ISubGrupo[]>([]);
   const [grupoSelecionado, setGrupoSelecionado] = useState<string>("");
   const [subGrupoSelecionado, setSubGrupoSelecionado] = useState<string>("");
+  const [sessionAtiva, setSessionAtiva] = useState<IDadosSessao>();
   const [update, setUpdate] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [sessionAtiva, setSessionAtiva] = useState<DadosSessao>();
   const { user } = useContext(UserContext);
 
   const HEAD_TABLE = [
@@ -63,6 +64,18 @@ export default function ListaDeTestes() {
     (!grupoSelecionado || grupo._id === grupoSelecionado) &&
     (!subGrupoSelecionado || subGrupo._id === subGrupoSelecionado)
   );
+
+  const nomeGrupo = () => {
+    const grupo = grupos.filter(grupo => grupo._id === grupoSelecionado);
+    const nome = grupo.map(i => i.nome);
+    return nome.toString();
+  };
+
+  const nomeSubGrupo = () => {
+    const subgrupo = subGrupos.filter(subgrupo => subgrupo._id === subGrupoSelecionado)
+    const nome = subgrupo.map(i => i.nome);
+    return nome.toString();
+  };
 
   // Função para mudar campo de resultados de um teste
   const handleChange = async (id: string, e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -119,7 +132,8 @@ export default function ListaDeTestes() {
 
   const iniciarTestes = async () => {
     try {
-      const dadosSession = { grupoId: grupoSelecionado, subGrupoId: subGrupoSelecionado, tecnico: user?._id, testes: testesFiltrados };
+      const dadosSession = { grupo: nomeGrupo(), subGrupo: nomeSubGrupo(), tecnico: user?._id, testes: testesFiltrados };
+      console.log(dadosSession)
       const response = await postSession(dadosSession);
       setSessionAtiva(response.data); // Armazena a sessão iniciada
       alert('Sessão de testes iniciada!');
@@ -183,7 +197,7 @@ export default function ListaDeTestes() {
       startSession={iniciarTestes}
       finishTest={finalizarTestes}
     >
-      
+
       <div className="m-2 flex gap-5 justify-between">
         <InputFilter id="grupo"
           labelTitulo="Grupo"
@@ -213,7 +227,7 @@ export default function ListaDeTestes() {
             </ModalCadastro>
           }
         </div>
-          <span className="w-full content-center text-xl font-Oswald dark:text-blue-50">Total de Testes: {testesFiltrados.length}</span>
+        <span className="w-full content-center text-xl font-Oswald dark:text-blue-50">Total de Testes: {testesFiltrados.length}</span>
       </div>
     </TableListTests>
   );
