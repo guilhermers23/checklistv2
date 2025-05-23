@@ -134,10 +134,10 @@ const TableListTests = (
                             </tr>
                         ))}
                     </tbody>
-                    {listaDe.length === 0 &&
-                        <p className="text-2xl m-5 flex justify-center">Nenhum teste encontrado</p>
-                    }
                 </table>
+            }
+            {listaDe.length === 0 &&
+                <p className="text-2xl m-5 dark:text-gray-200 flex justify-center">Nenhum teste encontrado</p>
             }
 
             {hasSession &&

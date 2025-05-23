@@ -17,9 +17,9 @@ export default function ListaDeTestes() {
   const [subGrupos, setSubGrupos] = useState<ISubGrupo[]>([]);
   const [grupoSelecionado, setGrupoSelecionado] = useState<string>("");
   const [subGrupoSelecionado, setSubGrupoSelecionado] = useState<string>("");
+  const [sessionAtiva, setSessionAtiva] = useState<IDadosSessao>();
   const [update, setUpdate] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [sessionAtiva, setSessionAtiva] = useState<IDadosSessao>();
   const { user } = useContext(UserContext);
 
   const HEAD_TABLE = [
@@ -108,12 +108,10 @@ export default function ListaDeTestes() {
   };
 
   const functionSaveTest = async (id: string, resultado: string, observacao: string | undefined) => {
-    setUpdate(false);
     try {
       const data = { resultado, observacao }
       await updateTeste(id, data);
       alert("Teste salvo com Sucesso!");
-      setLoading(true);
     } catch (error) {
       console.error(error)
       alert("Ocorreu erro ao salvar o Teste!")
@@ -134,10 +132,9 @@ export default function ListaDeTestes() {
 
   const iniciarTestes = async () => {
     try {
-      const dadosSession = { grupo: nomeGrupo(), subgrupo: nomeSubGrupo(), tecnico: user?._id, testes: testesFiltrados };
+      const dadosSession = { grupo: nomeGrupo(), subGrupo: nomeSubGrupo(), tecnico: user?._id, testes: testesFiltrados };
+      console.log(dadosSession)
       const response = await postSession(dadosSession);
-      console.log(dadosSession);
-      console.log(response);
       setSessionAtiva(response.data); // Armazena a sessão iniciada
       alert('Sessão de testes iniciada!');
     } catch (error) {
