@@ -1,6 +1,6 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { Bars4Icon } from "@heroicons/react/20/solid";
-import { ArrowLeftEndOnRectangleIcon, LockClosedIcon, UserPlusIcon, UsersIcon } from "@heroicons/react/24/solid";
+import { ArrowLeftEndOnRectangleIcon, LockClosedIcon, RectangleStackIcon, UserPlusIcon, UsersIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 
 interface PropsMenuDrop {
@@ -54,7 +54,24 @@ const MenuDrop = ({ onClick, hasAdmin }: PropsMenuDrop) => {
               </button>
             </Link>
           </MenuItem>
+
+          <MenuItem>
+            <Link
+              to="/sessions"
+              className="block text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+            >
+              <button className="justify-between px-4 py-2 flex items-center w-full gap-2 cursor-pointer disabled:cursor-not-allowed disabled:bg-red-100"
+                disabled={hasAdmin}>
+                <span className="flex gap-1">
+                  <RectangleStackIcon className="size-5" />
+                  Lista de Sessões
+                </span>
+                {hasAdmin && <LockClosedIcon className="size-5 ml-5" />}
+              </button>
+            </Link>
+          </MenuItem>
         </div>
+
         <div className="py-1">
           <MenuItem>
             <button
