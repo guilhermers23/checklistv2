@@ -7,6 +7,6 @@ export interface IDadosSessao {
   subGrupo: string;
   tecnico: IUser;
   testes: ITeste[];
-  dataFim?: string;
-  dataInicio?: string;
+  dataInicio: string;
+  dataFim: string;
 }

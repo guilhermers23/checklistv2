@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { IDadosSessao } from "../../../Interfaces/ISessions";
 
 interface PropsTable {
@@ -6,6 +7,15 @@ interface PropsTable {
 };
 
 const TableSessions = ({ listaCabecalho, listaSessoes }: PropsTable) => {
+    const converterData = (data: string) => {
+        if (data) {
+            const isoData = (data);
+            const time = dayjs(isoData).format('HH:mm');
+            return time;
+        } else {
+            return 'Não finalizado'
+        }
+    };
 
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-9/10 m-auto my-10">
@@ -35,10 +45,10 @@ const TableSessions = ({ listaCabecalho, listaSessoes }: PropsTable) => {
                                 {sessao.subGrupo}
                             </td>
                             <td className="px-6 py-4">
-                                {sessao.dataInicio}
+                                {converterData(sessao.dataInicio)}
                             </td>
                             <td className="px-6 py-4">
-                                {sessao.dataFim}
+                                {converterData(sessao.dataFim)}
                             </td>
                         </tr>
                     ))}
