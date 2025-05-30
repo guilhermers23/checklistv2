@@ -153,6 +153,7 @@ export default function ListaDeTestes() {
 
       const testesAtualizados = testesFiltrados.map(teste => ({
         _id: teste._id,
+        description: teste.description,
         resultado: teste.resultado,
         observacao: teste.observacao,
       }));
