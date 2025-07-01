@@ -32,6 +32,7 @@ const TableListTests = (
         loading, title, hasUser, admin, hasGruposSelecionado,
         buttonDelete, onchangeResult, onchangeObservation,
         onchangeReset, buttonSave, startSession, finishTest }: PropsTableDefault) => {
+
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-9/10 m-auto my-10">
             <div className="flex justify-between items-center m-2">
@@ -50,11 +51,15 @@ const TableListTests = (
             <div className="m-2 flex gap-5">
                 <button className="button bg-green-500 disabled:bg-green-300"
                     disabled={!hasGruposSelecionado || hasUser || listaDe.length === 0}
-                    onClick={() => startSession()}>Iniciar Testes</button>
+                    onClick={() => startSession()}>
+                    Iniciar Testes
+                </button>
 
                 <button className="button bg-yellow-500 disabled:bg-yellow-300"
                     disabled={!hasGruposSelecionado || hasUser || listaDe.length === 0}
-                    onClick={() => onchangeReset && onchangeReset()}>Resetar Testes</button>
+                    onClick={() => onchangeReset && onchangeReset()}>
+                    Resetar Testes
+                </button>
             </div>
 
             {loading ?
