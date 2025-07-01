@@ -4,12 +4,12 @@ import { IGrupo, ISubGrupo, ITeste } from "../../Interfaces/ITestes";
 import { getAllGrupos, getAllSubGrupos } from "../../API/gruposServices";
 import { UserContext } from "../../Hooks/Context/UserContex";
 import { finishSession, postSession } from "../../API/sessionService";
+import { IDadosSessao } from "../../Interfaces/ISessions";
 import InputFilter from "../../Components/InputFilter";
 import TableListTests from "../../Components/Tables/TableListTests";
 import ModalCadastro from "../../Components/ModalCadastros";
 import AddTeste from "../../Components/Form/AddTeste";
 import AlertErro from "../Error/AlertError";
-import { IDadosSessao } from "../../Interfaces/ISessions";
 
 export default function ListaDeTestes() {
   const [testes, setTestes] = useState<ITeste[]>([]);
@@ -17,6 +17,7 @@ export default function ListaDeTestes() {
   const [subGrupos, setSubGrupos] = useState<ISubGrupo[]>([]);
   const [grupoSelecionado, setGrupoSelecionado] = useState<string>("");
   const [subGrupoSelecionado, setSubGrupoSelecionado] = useState<string>("");
+  const [resultadoSelecionado, setResultadoSelecionado] = useState("");
   const [sessionAtiva, setSessionAtiva] = useState<IDadosSessao>();
   const [update, setUpdate] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -60,9 +61,10 @@ export default function ListaDeTestes() {
   }, [subGrupos, grupoSelecionado]);
 
   // Filtragem de itens baseada nos valores dos selects de grupo e subgrupo
-  const testesFiltrados = testes.filter(({ grupo, subGrupo }) =>
+  const testesFiltrados = testes.filter(({ grupo, subGrupo, resultado }) =>
     (!grupoSelecionado || grupo._id === grupoSelecionado) &&
-    (!subGrupoSelecionado || subGrupo._id === subGrupoSelecionado)
+    (!subGrupoSelecionado || subGrupo._id === subGrupoSelecionado) &&
+    (!resultadoSelecionado || resultado === resultadoSelecionado)
   );
 
   const nomeGrupo = () => {
@@ -214,6 +216,21 @@ export default function ListaDeTestes() {
           value={subGrupoSelecionado}
           setValor={handleSubGrupoSelecionado}
           disabled={!grupoSelecionado} />
+
+        <div className="w-full">
+          <label htmlFor='resultado' className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Resultado
+          </label>
+          <select id='resutado' className="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            onChange={(event) => setResultadoSelecionado(event.target.value)}
+            value={resultadoSelecionado}
+          >
+            <option value="" >Todas</option>
+            <option value="Não Testado">Não Testado</option>
+            <option value="Passou">Passou</option>
+            <option value="Não Passou">Nâo Passou</option>
+          </select>
+        </div>
 
         <div className="w-full content-center">
           {subGrupoSelecionado &&
