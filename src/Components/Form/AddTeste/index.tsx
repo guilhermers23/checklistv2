@@ -32,6 +32,7 @@ const AddTeste = (body: { grupo: string, subgrupo: string }) => {
             console.error(error)
         } finally {
             setLoading(false);
+            window.location.reload();
         }
     };
 
