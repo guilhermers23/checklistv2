@@ -13,7 +13,6 @@ const ListaDeSessoes = () => {
     const findAllSessions = async () => {
         try {
             const dataSessions = await getAllSessions();
-            console.log(dataSessions.data)
             setSessions(dataSessions.data);
         } catch (error) {
             console.error("Ocorreu um erro ao obter as informações! ", error)
