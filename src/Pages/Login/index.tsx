@@ -1,6 +1,7 @@
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../API/loogerUserService";
+import { MessagemToastify } from "../../Components/Toastify";
 import Input from "../../Components/Input";
 import foto from "./assets/telaLogin.png";
 import Cookies from "js-cookie";
@@ -22,7 +23,7 @@ export default function Login() {
     try {
       const response = await loginUser(data);
       Cookies.set("token", response.data.token, { expires: 1 });
-      alert("Usuário logado com sucesso");
+      MessagemToastify("Usuário logado com sucesso", "success");
       navigate("/");
 
     } catch (e) {
@@ -49,6 +50,7 @@ export default function Login() {
         setValor={setEmail}
         value={email}
       />
+
       <Input
         id="password"
         label="Senha"
@@ -57,7 +59,6 @@ export default function Login() {
         setValor={setPassword}
         value={password}
       />
-
     </FormUser>
   );
 };

@@ -2,6 +2,7 @@ import { FormEvent, useContext, useEffect, useState } from "react";
 import { UserContext } from "../Context/UserContex";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../API/loogerUserService";
+import { MessagemToastify } from "../../Components/Toastify";
 
 const useRegister = () => {
     const [name, setName] = useState<string>("");
@@ -28,7 +29,7 @@ const useRegister = () => {
         try {
             const response = { name, email, password };
             await registerUser(response);
-            alert("Usuário cadastrado com sucesso");
+            MessagemToastify("Usuário cadastrado com sucesso", "success");
             navigate("/");
         } catch (error) {
             console.error(error);

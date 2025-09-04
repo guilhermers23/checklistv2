@@ -1,6 +1,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import { getAllGrupos, postSubGrupo } from "../../../API/gruposServices";
 import { IGrupo } from "../../../Interfaces/ITestes";
+import { MessagemToastify } from "../../Toastify";
 import Input from "../../Input";
 import Button from "../../Button";
 
@@ -14,19 +15,19 @@ const AddSubGrupo = () => {
     event.stopPropagation();
 
     if (!grupoId) {
-      alert("Campo Grupo não pode está vazio!");
+      MessagemToastify("Campo Grupo não pode está vazio!", "error");
       return;
     }
 
     try {
       const resSubGrupoNome = { nome: subGrupo[0].toUpperCase() + subGrupo.substring(1), grupoId };
       await postSubGrupo(resSubGrupoNome);
-      alert('SubGrupo cadastrado com sucesso!');
+      MessagemToastify('SubGrupo cadastrado com sucesso!', "success");
       setGrupoId("");
       setSubGrupo("");
     } catch (error) {
       console.error(error)
-      alert("Ocorreu erro ao cadastrar o subgrupo!")
+      MessagemToastify("Ocorreu erro ao cadastrar o subgrupo!", "error")
     }
   };
 

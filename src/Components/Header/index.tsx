@@ -3,16 +3,19 @@ import { useContext, useEffect } from "react";
 import { UserContext } from "../../Hooks/Context/UserContex";
 import { loggedUser } from "../../API/loogerUserService";
 import { CheckBadgeIcon } from "@heroicons/react/20/solid";
+import { MessagemToastify, Toastify } from "../Toastify";
 import Cookies from "js-cookie";
 import MenuDrop from "../MenuDrop";
 import ModoDark from "../ModoDark";
 import Footer from "../Footer";
+
 
 const Header = () => {
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const userLogout = () => {
+    MessagemToastify("Usuário deslogado com sucesso", "success");
     Cookies.remove("token");
     setUser(null);
     navigate("/")
@@ -29,12 +32,11 @@ const Header = () => {
     }
   };
 
-  useEffect(() => {
-    if (Cookies.get("token")) userLogged();
-  }, []);
+  useEffect(() => { if (Cookies.get("token")) userLogged() }, []);
 
   return (
     <>
+      <Toastify />
       <header className="flex h-20 self-center justify-between bg-sky-500 text-white px-4 w-full items-center">
         <Link to="/" className="flex items-center gap-2">
           <CheckBadgeIcon className="size-10" />

@@ -5,6 +5,7 @@ import { getAllGrupos, getAllSubGrupos } from "../../API/gruposServices";
 import { deleteTeste, getAllListaTestes, updateTeste } from "../../API/testesServices";
 import { finishSession, postSession } from "../../API/sessionService";
 import { UserContext } from "../Context/UserContex";
+import { MessagemToastify } from "../../Components/Toastify";
 
 const useListTest = () => {
     const [testes, setTestes] = useState<ITeste[]>([]);
@@ -104,10 +105,10 @@ const useListTest = () => {
         try {
             const data = { resultado, observacao }
             await updateTeste(id, data);
-            alert("Teste salvo com Sucesso!");
+            MessagemToastify("Teste salvo com Sucesso!", "success");
         } catch (error) {
             console.error(error)
-            alert("Ocorreu erro ao salvar o Teste!")
+            MessagemToastify("Ocorreu erro ao salvar o Teste!", "error")
         }
     };
 
@@ -115,11 +116,11 @@ const useListTest = () => {
         setUpdate(false);
         try {
             await deleteTeste(id);
-            alert("Teste excluido com Sucesso!")
+            MessagemToastify("Teste excluido com Sucesso!", 'success')
             setUpdate(true);
         } catch (error) {
             console.error(error);
-            alert("Ocorreu erro ao excluir o teste!");
+            MessagemToastify("Ocorreu erro ao excluir o teste!", "error");
         }
     };
 
@@ -129,10 +130,10 @@ const useListTest = () => {
             console.log(dadosSession)
             const response = await postSession(dadosSession);
             setSessionAtiva(response.data); // Armazena a sessão iniciada
-            alert('Sessão de testes iniciada!');
+            MessagemToastify('Sessão de testes iniciada!', 'success');
         } catch (error) {
             console.error('Erro ao iniciar a sessão de testes:', error);
-            alert("Ocorreu erro ao tentar inicia essa sessão!");
+            MessagemToastify("Ocorreu erro ao tentar inicia essa sessão!", 'error');
         }
     };
 
@@ -140,7 +141,7 @@ const useListTest = () => {
         try {
             if (!sessionAtiva) return;
             if (testesFiltrados.find(teste => teste.resultado === "Não Testado")) {
-                alert("Não é possivel finalizar teste com Resultado como Não Testado")
+                MessagemToastify("Não é possivel finalizar teste com Resultado como Não Testado", 'error')
                 return;
             };
 
@@ -152,12 +153,12 @@ const useListTest = () => {
             }));
             const sessionId = sessionAtiva._id; // ID da sessão ativa
             await finishSession(sessionId, testesAtualizados);
-            alert('Sessão de testes finalizada!');
+            MessagemToastify('Sessão de testes finalizada!', 'success');
             setSessionAtiva(undefined); // Reseta a sessão ativa
 
         } catch (error) {
             console.error('Erro ao finalizar a sessão de testes:', error);
-            alert("Erro ao finalizar a sessão.");
+            MessagemToastify("Erro ao finalizar a sessão.", 'error');
         }
     };
 

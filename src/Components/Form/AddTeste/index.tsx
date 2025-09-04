@@ -1,5 +1,6 @@
 import { FormEvent, useState } from "react";
 import { postTeste } from "../../../API/testesServices";
+import { MessagemToastify } from "../../Toastify";
 import Button from "../../Button";
 import Input from "../../Input";
 
@@ -24,15 +25,15 @@ const AddTeste = (body: { grupo: string, subgrupo: string }) => {
 
         try {
             await postTeste(testeData);
-            alert("Teste adicionado com Sucesso!")
+            MessagemToastify("Teste adicionado com Sucesso!", "success");
             setDescription('');
             setFiles('');
 
         } catch (error) {
             console.error(error)
+            MessagemToastify("Ocorreu erro ao tentar adiconar teste!", "error");
         } finally {
             setLoading(false);
-            window.location.reload();
         }
     };
 
@@ -43,10 +44,11 @@ const AddTeste = (body: { grupo: string, subgrupo: string }) => {
                 className="flex flex-col items-center justify-center gap-6"
             >
                 <h1 className="dark:text-gray-800">Adicionar Teste</h1>
+
                 <Input id="teste"
-                    type="text"
+                    type="area"
                     label="Casos de Uso"
-                    placeholder="Descreva o testa a ser feito..."
+                    placeholder="Descreva o teste a ser feito..."
                     setValor={setDescription}
                     value={description}
                 />
