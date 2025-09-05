@@ -127,7 +127,7 @@ const useListTest = () => {
     const iniciarTestes = async () => {
         try {
             const dadosSession = { grupo: nomeGrupo(), subGrupo: nomeSubGrupo(), tecnico: user?._id, testes: testesFiltrados };
-            console.log(dadosSession)
+            resetarTestes();
             const response = await postSession(dadosSession);
             setSessionAtiva(response.data); // Armazena a sessão iniciada
             MessagemToastify('Sessão de testes iniciada!', 'success');

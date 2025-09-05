@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import { deleteUser, getAllUser } from "../../API/loogerUserService";
 import { UserContext } from "../Context/UserContex";
+import { deleteUser, getAllUser } from "../../API/loogerUserService";
 import { IUser } from "../../Interfaces/IUser";
+import { MessagemToastify } from "../../Components/Toastify";
 
 const useListUsers = () => {
     const [users, setUsers] = useState<IUser[]>([]);
@@ -19,16 +20,17 @@ const useListUsers = () => {
             setUsers(AllUser.data);
         } catch (error) {
             console.error(error);
-            alert("Ocorreu erro ao buscar usuários!")
+            MessagemToastify("Ocorreu erro ao buscar usuários!", "error")
         }
     };
 
     const deletarButton = async (id: string) => {
         try {
             await deleteUser(id);
-            alert("Usuário excluido com sucesso!")
+            MessagemToastify("Usuário excluido com sucesso!", "success")
         } catch (error) {
             console.error(error);
+            MessagemToastify("Ocorreu erro ao excluir usuário!", "error")
         }
     };
 

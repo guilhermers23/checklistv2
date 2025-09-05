@@ -28,7 +28,7 @@ const Header = () => {
       setUser(response.data);
     } catch (error) {
       console.error(error);
-      alert("Ocorreu erro ao buscar Usuário!")
+      MessagemToastify("Ocorreu erro ao buscar Usuário!", "error")
     }
   };
 

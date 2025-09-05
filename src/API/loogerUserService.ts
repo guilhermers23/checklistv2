@@ -11,11 +11,12 @@ export const loginUser = async ({ email, password }: IUser) => {
   return response;
 };
 
-export const registerUser = async ({ name, email, password }: IUser) => {
+export const registerUser = async ({ name, email, password, admin }: IUser) => {
   const response = await axios.post(`${baseURL}/user/created`, {
     name,
     email,
     password,
+    admin
   });
   return response;
 };

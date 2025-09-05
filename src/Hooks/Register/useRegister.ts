@@ -11,6 +11,7 @@ const useRegister = () => {
     const [confirmaSenha, setConfirmaSenha] = useState<string>("");
     const [error, setError] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
+    const [admin, setAdmin] = useState<boolean>(false);
     const { user } = useContext(UserContext);
 
     const navigate = useNavigate();
@@ -27,8 +28,9 @@ const useRegister = () => {
         setLoading(true);
 
         try {
-            const response = { name, email, password };
+            const response = { name, email, password, admin };
             await registerUser(response);
+            console.log(response);
             MessagemToastify("Usuário cadastrado com sucesso", "success");
             navigate("/");
         } catch (error) {
@@ -46,7 +48,11 @@ const useRegister = () => {
         };
     });
 
-    return { name, setName, email, setEmail, password, setPassword, confirmaSenha, setConfirmaSenha, error, loading, handeSubmit }
+    return {
+        name, setName, email, setEmail,
+        password, setPassword, confirmaSenha, setConfirmaSenha,
+        error, loading, handeSubmit, setAdmin, admin
+    }
 };
 
 export default useRegister;

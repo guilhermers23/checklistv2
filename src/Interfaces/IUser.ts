@@ -3,5 +3,5 @@ export interface IUser {
   name?: string;
   email: string;
   readonly password: string;
-  admin?: boolean;
+  admin: boolean;
 }
