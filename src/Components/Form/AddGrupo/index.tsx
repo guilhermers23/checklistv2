@@ -6,7 +6,6 @@ import Input from "../../Input";
 const AddGrupo = () => {
   const [grupo, setGrupo] = useState("");
   const [loading, setLoading] = useState(false);
-  console.log(loading)
 
   const handeSubmit = async (event: FormEvent): Promise<void> => {
     event.preventDefault();

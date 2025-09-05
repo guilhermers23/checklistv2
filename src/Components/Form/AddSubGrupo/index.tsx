@@ -40,9 +40,7 @@ const AddSubGrupo = () => {
     }
   };
 
-  useEffect(() => {
-    findAllGrupos();
-  }, []);
+  useEffect(() => { findAllGrupos() }, []);
 
   return (
     <div className="my-5">

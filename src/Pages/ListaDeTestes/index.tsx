@@ -16,6 +16,7 @@ export default function ListaDeTestes() {
     grupos, grupoSelecionado, subGrupoSelecionado, resultadoSelecionado, setResultadoSelecionado, sessionAtiva, loading, finalizarTestes, functionDeleteTest, functionSaveTest,
     handleChange, handleChangeObs, handleGrupoSelecionado, iniciarTestes, resetarTestes, handleSubGrupoSelecionado, subGruposFiltrados, testesFiltrados
   } = useListTest();
+  const messageError = (!user ? "Você precisar está logado para acessar essa funcionalidade" : "Você não tem permissão para acessar essa funcionalidade , entre em contato com o administrador do sistema.");
 
   return (
     <TableListTests
@@ -70,12 +71,12 @@ export default function ListaDeTestes() {
         <div className="w-full content-center">
           {subGrupoSelecionado &&
             <ModalCadastro title="Adicionar Teste">
-              {user ?
+              {user && user.admin ?
                 <AddTeste
                   grupo={grupoSelecionado}
                   subgrupo={subGrupoSelecionado}
                 /> :
-                <AlertErro />
+                <AlertErro message={messageError} />
               }
             </ModalCadastro>
           }
