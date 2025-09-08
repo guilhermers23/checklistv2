@@ -1,10 +1,9 @@
+import Cookies from "js-cookie";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../API/loogerUserService";
-import { MessagemToastify } from "../../Components/Toastify";
 import Input from "../../Components/Input";
 import foto from "./assets/telaLogin.png";
-import Cookies from "js-cookie";
 import FormUser from "../../Components/Form/FormUser";
 
 export default function Login() {
@@ -23,11 +22,10 @@ export default function Login() {
     try {
       const response = await loginUser(data);
       Cookies.set("token", response.data.token, { expires: 1 });
-      MessagemToastify("Usuário logado com sucesso", "success");
       navigate("/");
 
     } catch (e) {
-      console.error(e);
+      console.error("Erro: ", e);
       setError("Erro ao logar usuário");
     } finally {
       setLoading(false);

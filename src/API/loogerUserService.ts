@@ -3,7 +3,7 @@ import axios from "axios";
 import { baseURL } from "./baseURL";
 import { IUser } from "../Interfaces/IUser";
 
-export const loginUser = async ({ email, password }: IUser) => {
+export const loginUser = async ({ email, password }: Omit<IUser, "admin">) => {
   const response = await axios.post(`${baseURL}/auth/login`, {
     email,
     password,
