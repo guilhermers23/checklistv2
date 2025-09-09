@@ -10,20 +10,6 @@ const useListUsers = () => {
     const { user } = useContext(UserContext);
     const navigate = useNavigate();
 
-    const findAllUsers = async () => {
-        if (!user?.admin) {
-            navigate("/");
-            return
-        }
-        try {
-            const AllUser = await getAllUser();
-            setUsers(AllUser.data);
-        } catch (error) {
-            console.error(error);
-            MessagemToastify("Ocorreu erro ao buscar usuários!", "error")
-        }
-    };
-
     const deletarButton = async (id: string) => {
         try {
             await deleteUser(id);
@@ -34,7 +20,22 @@ const useListUsers = () => {
         }
     };
 
-    useEffect(() => { findAllUsers() }, []);
+    useEffect(() => {
+        const findAllUsers = async () => {
+            if (!user?.admin) {
+                navigate("/");
+                return
+            }
+            try {
+                const AllUser = await getAllUser();
+                setUsers(AllUser.data);
+            } catch (error) {
+                console.error(error);
+                MessagemToastify("Ocorreu erro ao buscar usuários!", "error")
+            }
+        };
+        findAllUsers();
+    }, [user, navigate]);
 
     return { deletarButton, users }
 };

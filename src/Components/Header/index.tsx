@@ -21,18 +21,21 @@ const Header = () => {
     navigate("/")
   };
 
-  const userLogged = async () => {
-    try {
-      const response = await loggedUser();
-      delete response.data.password;
-      setUser(response.data);
-    } catch (error) {
-      console.error(error);
-      MessagemToastify("Ocorreu erro ao buscar Usuário!", "error")
+  useEffect(() => {
+    if (Cookies.get("token")) {
+      const userLogged = async () => {
+        try {
+          const response = await loggedUser();
+          delete response.data.password;
+          setUser(response.data);
+        } catch (error) {
+          console.error(error);
+          MessagemToastify("Ocorreu erro ao buscar Usuário!", "error")
+        }
+      };
+      userLogged();
     }
-  };
-
-  useEffect(() => { if (Cookies.get("token")) userLogged() }, []);
+  }, [setUser]);
 
   return (
     <>
