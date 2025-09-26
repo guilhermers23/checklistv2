@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useState } from "react";
-import { getAllGrupos, postSubGrupo } from "../../../API/gruposServices";
+import { getAllGrupos, postSubGrupo } from "../../../services/gruposServices";
 import { IGrupo } from "../../../Interfaces/ITestes";
 import { MessagemToastify } from "../../Toastify";
 import Input from "../../Input";

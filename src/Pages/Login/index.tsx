@@ -1,11 +1,11 @@
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../../API/loogerUserService";
+import Cookies from "js-cookie";
+import { loginUser } from "../../services/loogerUserService";
 import { MessagemToastify } from "../../Components/Toastify";
 import Input from "../../Components/Input";
 import foto from "./assets/telaLogin.png";
-import Cookies from "js-cookie";
-import FormUser from "../../Components/Form/FormUser";
+import FormUser from "../../components/Form/FormUser";
 
 export default function Login() {
   const [email, setEmail] = useState("");

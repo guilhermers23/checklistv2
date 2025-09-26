@@ -1,5 +1,5 @@
 import useListUsers from "../../Hooks/ListaUsuarios/useListUsers";
-import TableUsers from "../../Components/Tables/TableUsers";
+import TableUsers from "../../components/Tables/TableUsers";
 import useFilterUser from "../../Hooks/ListaUsuarios/useFilterUser";
 
 export default function ListaDeUsuarios() {

@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Headers from "./Components/Header";
-import Home from "./Pages/Home";
-import Error404 from "./Pages/Error/Error404";
-import Login from "./Pages/Login";
-import RegisterForm from "./Pages/Register";
-import ListaDeUsuarios from "./Pages/ListaDeUsuarios";
-import ListaDeSessoes from "./Pages/ListaDeSessoes";
+import Headers from "./components/Header";
+import Home from "./pages/Home";
+import Error404 from "./pages/Error/Error404";
+import Login from "./pages/Login";
+import RegisterForm from "./pages/Register";
+import ListaDeUsuarios from "./pages/ListaDeUsuarios";
+import ListaDeSessoes from "./pages/ListaDeSessoes";
 
 const AppRoutes = () => {
   return (

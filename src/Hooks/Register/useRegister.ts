@@ -1,8 +1,8 @@
 import { FormEvent, useContext, useEffect, useState } from "react";
 import { UserContext } from "../Context/UserContex";
 import { useNavigate } from "react-router-dom";
-import { registerUser } from "../../API/loogerUserService";
-import { MessagemToastify } from "../../Components/Toastify";
+import { registerUser } from "../../services/loogerUserService";
+import { MessagemToastify } from "../../components/Toastify";
 
 const useRegister = () => {
     const [name, setName] = useState<string>("");

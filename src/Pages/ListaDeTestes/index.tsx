@@ -1,11 +1,12 @@
 import { useContext } from "react";
 import { UserContext } from "../../Hooks/Context/UserContex";
-import TableListTests from "../../Components/Tables/TableListTests";
+import TableListTests from "../../components/Tables/TableListTests";
 import useListTest from "../../Hooks/ListaTestes/useListTests";
-import ModalCadastro from "../../Components/ModalCadastros";
-import InputFilter from "../../Components/InputFilter";
-import AddTeste from "../../Components/Form/AddTeste";
+import ModalCadastro from "../../components/ModalCadastros";
+import InputFilter from "../../components/InputFilter";
+import AddTeste from "../../components/Form/AddTeste";
 import AlertErro from "../Error/AlertError";
+
 
 export default function ListaDeTestes() {
   const { user } = useContext(UserContext);

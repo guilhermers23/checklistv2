@@ -1,6 +1,6 @@
 import foto from "./assets/telaLogin.png";
 import Input from "../../Components/Input";
-import FormUser from "../../Components/Form/FormUser";
+import FormUser from "../../components/Form/FormUser";
 import useRegister from "../../Hooks/Register/useRegister";
 
 export default function RegisterForm() {

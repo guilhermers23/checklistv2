@@ -1,7 +1,7 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../../Hooks/Context/UserContex";
-import { loggedUser } from "../../API/loogerUserService";
+import { loggedUser } from "../../services/loogerUserService";
 import { CheckBadgeIcon } from "@heroicons/react/20/solid";
 import { MessagemToastify, Toastify } from "../Toastify";
 import Cookies from "js-cookie";

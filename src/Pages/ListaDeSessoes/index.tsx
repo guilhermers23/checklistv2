@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import TableSessions from "../../Components/Tables/TableSessions";
-import { getAllSessions } from "../../API/sessionService";
+import TableSessions from "../../components/Tables/TableSessions";
+import { getAllSessions } from "../../services/sessionService";
 import { IDadosSessao } from "../../Interfaces/ISessions";
 
 const ListaDeSessoes = () => {

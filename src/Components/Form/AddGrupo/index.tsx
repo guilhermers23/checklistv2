@@ -1,5 +1,5 @@
 import { FormEvent, useState } from "react";
-import { postGrupo } from "../../../API/gruposServices";
+import { postGrupo } from "../../../services/gruposServices";
 import Button from "../../Button";
 import Input from "../../Input";
 
