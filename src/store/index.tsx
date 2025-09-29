@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
-import serviceTeste from "../services/serviceTeste";
+import { api } from "../services/api";
+import userReducer from "./reducers/user";
 
 export const store = configureStore({
     reducer: {
-        [serviceTeste.reducerPath]: serviceTeste.reducer,
+        [api.reducerPath]: api.reducer,
+        user: userReducer
     },
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(serviceTeste.middleware)
+    middleware: (gDM) => gDM().concat(api.middleware)
 });
 
 export type RootReducer = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

@@ -3,7 +3,7 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import { IGrupo, ISubGrupo, ITeste } from "../Interfaces/ITestes";
 import { baseURL } from "./baseURL";
 
-const ServiceTeste = createApi({
+const testeService = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: baseURL
     }),
@@ -26,5 +26,5 @@ const ServiceTeste = createApi({
     })
 });
 
-export const { useGetAllTesteQuery, useGetAllSubGruposQuery, useGetSubGrupoByGrupoQuery, useGetAllGruposQuery } = ServiceTeste;
-export default ServiceTeste;
+export const { useGetAllTesteQuery, useGetAllSubGruposQuery, useGetSubGrupoByGrupoQuery, useGetAllGruposQuery } = testeService;
+export default testeService;

@@ -2,8 +2,8 @@ import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { loginUser } from "../../services/loogerUserService";
-import { MessagemToastify } from "../../Components/Toastify";
-import Input from "../../Components/Input";
+import { MessagemToastify } from "../../components/Toastify";
+import Input from "../../components/Input";
 import foto from "./assets/telaLogin.png";
 import FormUser from "../../components/Form/FormUser";
 
