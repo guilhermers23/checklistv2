@@ -1,7 +1,5 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { useContext, useEffect } from "react";
-import { UserContext } from "../../Hooks/Context/UserContex";
-import { loggedUser } from "../../services/loogerUserService";
+import { useEffect } from "react";
 import { CheckBadgeIcon } from "@heroicons/react/20/solid";
 import { MessagemToastify, Toastify } from "../Toastify";
 import Cookies from "js-cookie";
@@ -11,13 +9,11 @@ import Footer from "../Footer";
 
 
 const Header = () => {
-  const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const userLogout = () => {
     MessagemToastify("Usuário deslogado com sucesso", "success");
     Cookies.remove("token");
-    setUser(null);
     navigate("/")
   };
 

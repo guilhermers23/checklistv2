@@ -1,36 +1,33 @@
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { loginUser } from "../../services/loogerUserService";
-import { MessagemToastify } from "../../components/Toastify";
-import Input from "../../components/Input";
+import { useLoginMutation } from "../../services/userService";
+import FormUser from "../../Components/Form/FormUser";
+import Input from "../../Components/Input";
+import { MessagemToastify } from "../../Components/Toastify";
 import foto from "./assets/telaLogin.png";
-import FormUser from "../../components/Form/FormUser";
 
 export default function Login() {
+  const [login, { isLoading, error }] = useLoginMutation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [erro, setErro] = useState("");
   const navigate = useNavigate();
 
   const handeSubmit = async (event: FormEvent): Promise<void> => {
     event.preventDefault();
     event.stopPropagation();
     const data = { email, password };
-    setLoading(true);
 
-    try {
-      const response = await loginUser(data);
-      Cookies.set("token", response.data.token, { expires: 1 });
-      MessagemToastify("Usuário logado com sucesso", "success");
-      navigate("/");
+    const res = await login({ email: data.email, password: data.password });
+    if ('data' in res && res.data) {
+      Cookies.set("token", res.data.token, { expires: 1 }); // Access res.data safely
+    }
+    MessagemToastify("Usuário logado com sucesso", "success");
+    navigate("/");
 
-    } catch (e) {
-      console.error(e);
-      setError("Erro ao logar usuário");
-    } finally {
-      setLoading(false);
+    if (error) {
+      setErro("Ocorre erro ao logar");
     }
   };
 
@@ -38,9 +35,9 @@ export default function Login() {
     <FormUser title="LOGIN"
       onsubmit={handeSubmit}
       foto={foto}
-      error={error}
+      error={erro}
       buttonTitle="Entrar"
-      loading={!loading}>
+      loading={!isLoading}>
 
       <Input
         id="email"

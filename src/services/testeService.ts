@@ -1,12 +1,16 @@
-import { fetchBaseQuery } from "@reduxjs/toolkit/query";
-import { createApi } from "@reduxjs/toolkit/query/react";
 import { IGrupo, ISubGrupo, ITeste } from "../Interfaces/ITestes";
-import { baseURL } from "./baseURL";
+import { api } from "./api";
 
-const testeService = createApi({
-    baseQuery: fetchBaseQuery({
-        baseUrl: baseURL
-    }),
+type DataTestes = {
+    grupoID: string;
+    subGrupoID: string;
+    description: string;
+    resultado: string;
+    observacao: string;
+    files: string;
+};
+
+const testeService = api.injectEndpoints({
     endpoints: (builder) => ({
         getAllTeste: builder.query<ITeste, void>({
             query: () => "/test"
@@ -23,8 +27,56 @@ const testeService = createApi({
         getSubGrupoByGrupo: builder.query<ISubGrupo, string>({
             query: (grupoId) => `/grupos/subGrupo/${grupoId}`
         }),
+
+        postTeste: builder.mutation<ITeste, DataTestes>({
+            query: (data) => ({
+                url: "/test/created",
+                method: "POST",
+                body: data
+            }),
+            invalidatesTags: ["Testes"]
+        }),
+
+        deleteTeste: builder.mutation<{ sucess: boolean }, string>({
+            query: (id) => ({
+                url: `/test/deleted/${id}`,
+                method: "DELETE",
+            }),
+            invalidatesTags: ["Testes"]
+        }),
+
+        updateTeste: builder.mutation<ITeste, { id: string; body: DataTestes }>({
+            query: ({ id, body }) => ({
+                url: `/test/update/${id}`,
+                method: "PATCH",
+                body
+            }),
+            invalidatesTags: ["Testes"]
+        }),
+
+        postGrupo: builder.mutation<IGrupo, IGrupo>({
+            query: (body) => ({
+                url: "/grupos/created",
+                method: "POST",
+                body
+            }),
+            invalidatesTags: ["Grupos"]
+        }),
+
+        postSubGrupo: builder.mutation<ISubGrupo, ISubGrupo>({
+            query: (body) => ({
+                url: "/grupos/subGrupo/created",
+                method: "POST",
+                body
+            }),
+            invalidatesTags: ["SubGrupo"]
+        }),
     })
 });
 
-export const { useGetAllTesteQuery, useGetAllSubGruposQuery, useGetSubGrupoByGrupoQuery, useGetAllGruposQuery } = testeService;
+
+export const { useGetAllTesteQuery, useGetAllSubGruposQuery,
+    useGetSubGrupoByGrupoQuery, useGetAllGruposQuery,
+    useDeleteTesteMutation, usePostTesteMutation, useUpdateTesteMutation,
+    useLazyGetAllSubGruposQuery, usePostGrupoMutation, usePostSubGrupoMutation } = testeService;
 export default testeService;

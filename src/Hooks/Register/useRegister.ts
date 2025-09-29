@@ -1,8 +1,6 @@
 import { FormEvent, useContext, useEffect, useState } from "react";
-import { UserContext } from "../Context/UserContex";
 import { useNavigate } from "react-router-dom";
-import { registerUser } from "../../services/loogerUserService";
-import { MessagemToastify } from "../../components/Toastify";
+import { MessagemToastify } from "../../Components/Toastify";
 
 const useRegister = () => {
     const [name, setName] = useState<string>("");
@@ -11,7 +9,6 @@ const useRegister = () => {
     const [confirmaSenha, setConfirmaSenha] = useState<string>("");
     const [error, setError] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
-    const { user } = useContext(UserContext);
 
     const navigate = useNavigate();
 

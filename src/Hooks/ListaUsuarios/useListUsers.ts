@@ -1,12 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
-import { deleteUser, getAllUser } from "../../services/loogerUserService";
-import { UserContext } from "../Context/UserContex";
 import { IUser } from "../../Interfaces/IUser";
+import { useEffect, useState } from "react";
 
 const useListUsers = () => {
     const [users, setUsers] = useState<IUser[]>([]);
-    const { user } = useContext(UserContext);
     const navigate = useNavigate();
 
     const findAllUsers = async () => {

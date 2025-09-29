@@ -6,10 +6,10 @@ type AuthUser = { token: string; user: IUser; };
 export const userService = api.injectEndpoints({
     endpoints: (builder) => ({
         login: builder.mutation<AuthUser, { email: string, password: string }>({
-            query: (credentials) => ({
+            query: (body) => ({
                 url: "/auth/login",
                 method: "POST",
-                body: credentials
+                body
             })
         }),
 
@@ -40,5 +40,6 @@ export const userService = api.injectEndpoints({
     })
 });
 
-export const { useLoginMutation, useLoggedUserQuery, useGetAllUserQuery, useDeleteUserMutation, useRegisterUserMutation } = userService;
+export const { useLoginMutation, useLoggedUserQuery,
+    useGetAllUserQuery, useDeleteUserMutation, useRegisterUserMutation } = userService;
 export default userService;

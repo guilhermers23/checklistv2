@@ -1,5 +1,4 @@
 import { FormEvent, useState } from "react";
-import { postTeste } from "../../../services/testesServices";
 import { MessagemToastify } from "../../Toastify";
 import Button from "../../Button";
 import Input from "../../Input";

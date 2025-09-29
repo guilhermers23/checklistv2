@@ -1,11 +1,8 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 import { IGrupo, ISubGrupo, ITeste } from "../../Interfaces/ITestes";
 import { IDadosSessao } from "../../Interfaces/ISessions";
-import { getAllGrupos, getAllSubGrupos } from "../../services/gruposServices";
-import { deleteTeste, getAllListaTestes, updateTeste } from "../../services/testesServices";
 import { finishSession, postSession } from "../../services/sessionService";
-import { UserContext } from "../Context/UserContex";
-import { MessagemToastify } from "../../components/Toastify";
+import { MessagemToastify } from "../../Components/Toastify";
 
 const useListTest = () => {
     const [testes, setTestes] = useState<ITeste[]>([]);
