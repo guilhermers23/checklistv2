@@ -12,15 +12,15 @@ type DataTestes = {
 
 const testeService = api.injectEndpoints({
     endpoints: (builder) => ({
-        getAllTeste: builder.query<ITeste, void>({
+        getAllTeste: builder.query<ITeste[], void>({
             query: () => "/test"
         }),
 
-        getAllGrupos: builder.query<IGrupo, void>({
+        getAllGrupos: builder.query<IGrupo[], void>({
             query: () => "/grupos"
         }),
 
-        getAllSubGrupos: builder.query<ISubGrupo, void>({
+        getAllSubGrupos: builder.query<ISubGrupo[], void>({
             query: () => "/grupos/subGrupo"
         }),
 

@@ -26,7 +26,7 @@ export const userService = api.injectEndpoints({
             providesTags: ["User"]
         }),
 
-        getAllUser: builder.query<IUser, void>({
+        getAllUser: builder.query<IUser[], void>({
             query: () => "/user",
             providesTags: ["User"]
         }),
