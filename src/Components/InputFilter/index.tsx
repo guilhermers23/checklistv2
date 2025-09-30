@@ -16,7 +16,8 @@ const InputFilter = ({ listaDe, selectText, labelTitulo, id, setValor, disabled,
             <label htmlFor={id} className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 {labelTitulo}
             </label>
-            <select id={id} className="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            <select id={id} className="print:bg-transparent print:border-0 print:font-medium 
+           block p-2 w-full text-sm text-gray-800 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-100 dark:border-gray-700 dark:bg-gray-900 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
                 onChange={(event) => setValor(event.target.value)}
                 value={value}
                 disabled={disabled}

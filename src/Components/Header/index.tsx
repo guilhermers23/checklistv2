@@ -49,10 +49,11 @@ const Header = () => {
           <section className="flex items-center gap-10">
             <ModoDark />
             {user?.admin &&
-              <p className="font-bold text-red-400 px-2 bg-sky-300 rounded-2xl">Admin</p>
+              <p className="font-bold text-red-400 px-2 bg-sky-300 rounded-2xl print:hidden">Admin</p>
             }
             <span className="flex items-center gap-2">
-              <h1 className="text-2xl">Olá, {user?.name || "Técnico(a)"}</h1>
+              <h1 className="text-2xl print:hidden">Olá, {user?.name || "Técnico(a)"}</h1>
+              <h1 className="text-2xl hidden print:block">{user?.name || "Técnico(a)"}</h1>
               {user !== null ?
                 <MenuDrop hasAdmin={!user.admin}
                   onClick={userLogout} /> :
