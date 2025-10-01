@@ -5,26 +5,29 @@ import { MessagemToastify } from "../../Components/Toastify";
 import { IDadosSessao } from "../../Interfaces/ISessions";
 import { RootReducer } from "../../store";
 import {
+  useDeleteTesteMutation,
   useGetAllGruposQuery,
   useGetAllSubGruposQuery,
   useGetAllTesteQuery,
-  // updateTeste,
-  // deleteTeste
+  useUpdateTesteMutation,
 } from "../../services/testeService";
 import { finishSession, postSession } from "../../services/sessionService";
-import TableListTests from "../../Components/Tables/TableListTests";
+import TableListTests from "../../components/Tables/TableListTests";
 import ModalCadastro from "../../Components/ModalCadastros";
-import InputFilter from "../../Components/InputFilter";
-import AddTeste from "../../Components/Form/AddTeste";
+import InputFilter from "../../components/InputFilter";
+import AddTeste from "../../components/Form/AddTeste";
 import AlertErro from "../Error/AlertError";
+
 
 const ListaDeTestes = () => {
   const HEAD_TABLE = ["Grupo", "Casos de Uso", "Resultado", "Observações", "", "Ações"];
 
   const [testeTemp, setTesteTemp] = useState<ITeste[]>([]);
   const { data: testes, isLoading: loadingTestes } = useGetAllTesteQuery();
-  const { data: grupos, isLoading: loadingGrupos } = useGetAllGruposQuery();
-  const { data: subGrupos, isLoading: loadingSubGrupos } = useGetAllSubGruposQuery();
+  const { data: grupos } = useGetAllGruposQuery();
+  const { data: subGrupos } = useGetAllSubGruposQuery();
+  const [updateTeste] = useUpdateTesteMutation();
+  const [deleteTeste] = useDeleteTesteMutation();
 
   const [grupoSelecionado, setGrupoSelecionado] = useState("");
   const [subGrupoSelecionado, setSubGrupoSelecionado] = useState("");
@@ -77,9 +80,7 @@ const ListaDeTestes = () => {
   }, [subGrupos, subGrupoSelecionado]);
 
   // Inicializa testeTemp quando testes chegam
-  useEffect(() => {
-    if (testes) setTesteTemp(testes);
-  }, [testes]);
+  useEffect(() => { if (testes) setTesteTemp(testes) }, [testes]);
 
   const handleChange = async (id: string, e: React.ChangeEvent<HTMLSelectElement>) => {
     setTesteTemp((prev) =>
@@ -101,8 +102,8 @@ const ListaDeTestes = () => {
 
   const functionSaveTest = async (id: string, resultado: string, observacao: string | undefined) => {
     try {
-      const data = { resultado, observacao };
-      // await updateTeste(id, data);
+      const data = { id, resultado, observacao };
+      await updateTeste(data);
       MessagemToastify("Teste salvo com Sucesso!", "success");
     } catch (error) {
       console.error(error);
@@ -112,7 +113,7 @@ const ListaDeTestes = () => {
 
   const functionDeleteTest = async (id: string) => {
     try {
-      // await deleteTeste(id);
+      await deleteTeste(id);
       MessagemToastify("Teste excluído com Sucesso!", "success");
     } catch (error) {
       console.error(error);

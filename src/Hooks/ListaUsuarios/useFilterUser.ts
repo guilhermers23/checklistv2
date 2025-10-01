@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { IUser } from "../../Interfaces/IUser";
+import { useSelector } from "react-redux";
+import { RootReducer } from "../../store";
 
 const useFilterUser = (users: IUser[]) => {
-    const [term, setTerm] = useState<string>('');
-    const [filteredUsers, setFilteredUsers] = useState<IUser[]>([]);
+  const { term } = useSelector((state: RootReducer) => state.filter);
+  const [filteredUsers, setFilteredUsers] = useState<IUser[]>(users);
 
-    useEffect(() => { setFilteredUsers(users) }, [users]);
+  const changeSearch = () => {
+    const filter = users.filter(({ name }) => name?.toLowerCase().includes(term.toLowerCase()));
+    setFilteredUsers(filter);
+  };
 
-    const changeSearch = () => {
-        const filter = users.filter(({ name }) => name?.toLowerCase().includes(term.toLowerCase()));
-        setFilteredUsers(filter);
-    };
-
-    return { term, setTerm, filteredUsers, changeSearch }
+  return { term, filteredUsers, changeSearch }
 };
 
 export default useFilterUser;

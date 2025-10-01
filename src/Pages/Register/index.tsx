@@ -1,10 +1,46 @@
-import foto from "./assets/telaLogin.png";
+import { FormEvent, useState } from "react";
+import { useSelector } from "react-redux";
+import { Navigate, useNavigate } from "react-router-dom";
+import { RootReducer } from "../../store";
+import { useRegisterUserMutation } from "../../services/userService";
+import { MessagemToastify } from "../../Components/Toastify";
 import Input from "../../Components/Input";
 import FormUser from "../../components/Form/FormUser";
-import useRegister from "../../Hooks/Register/useRegister";
+import foto from "./assets/telaLogin.png";
 
-export default function RegisterForm() {
-  const { name, setName, email, setEmail, password, confirmaSenha, setPassword, setConfirmaSenha, error, loading, handeSubmit } = useRegister();
+const RegisterForm = () => {
+  const navigate = useNavigate();
+  const { user } = useSelector((state: RootReducer) => state.user);
+  const [registerUser, { isLoading, isSuccess }] = useRegisterUserMutation();
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmaSenha, setConfirmaSenha] = useState<string>("");
+  const [error, setError] = useState<string>("");
+
+  const handeSubmit = async (event: FormEvent): Promise<void> => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (password !== confirmaSenha) {
+      setError("As senhas não coincidem");
+      return;
+    };
+
+    const res = await registerUser({ name, email, password, admin: false });
+    if ("error" in res && "data" in res.error) {
+      MessagemToastify(res.error.data as string, "error");
+      console.error(res.error);
+      return;
+    };
+
+    if (isSuccess) {
+      MessagemToastify("Usuário cadastrado com sucesso", "success"); navigate("/");
+    };
+
+  };
+
+  if (!user || !user.admin) return <Navigate to='/' />;
 
   return (
     <FormUser
@@ -13,7 +49,7 @@ export default function RegisterForm() {
       foto={foto}
       error={error}
       buttonTitle="Cadastrar"
-      loading={!loading}
+      loading={!isLoading}
     >
 
       <Input
@@ -54,3 +90,5 @@ export default function RegisterForm() {
     </FormUser>
   );
 };
+
+export default RegisterForm;

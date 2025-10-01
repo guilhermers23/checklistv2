@@ -14,7 +14,7 @@ import Footer from "../Footer";
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { data: loggedUser, isError } = useLoggedUserQuery();
+  const { data: loggedUser } = useLoggedUserQuery();
   const { user } = useSelector((state: RootReducer) => state.user);
 
   const userLogout = () => {
@@ -28,15 +28,13 @@ const Header = () => {
   useEffect(() => {
     if (Cookies.get("token") && loggedUser) {
       dispatch(setUser(loggedUser));
-    }
+    };
+
+    if (!Cookies.get("token") && !loggedUser) {
+      dispatch(clearUser());
+    };
   }, [loggedUser, dispatch]);
 
-  // 🔑 Feedback de erro da query
-  useEffect(() => {
-    if (isError) {
-      MessagemToastify("Ocorreu erro ao buscar Usuário!", "error");
-    }
-  }, [isError]);
 
   return (
     <>

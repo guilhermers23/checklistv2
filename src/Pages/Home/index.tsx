@@ -1,7 +1,4 @@
 import ListaDeTestes from "../ListaDeTestes";
 
-export default function Home() {
-  return (
-    <ListaDeTestes />
-  );
-};
+const Home = () => <ListaDeTestes />;
+export default Home;

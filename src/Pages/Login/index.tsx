@@ -2,13 +2,13 @@ import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useLoginMutation } from "../../services/userService";
-import FormUser from "../../Components/Form/FormUser";
+import FormUser from "../../components/Form/FormUser";
 import Input from "../../Components/Input";
 import { MessagemToastify } from "../../Components/Toastify";
 import foto from "./assets/telaLogin.png";
 
-export default function Login() {
-  const [login, { isLoading, error }] = useLoginMutation();
+const Login = () => {
+  const [login, { isLoading }] = useLoginMutation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [erro, setErro] = useState("");
@@ -17,17 +17,19 @@ export default function Login() {
   const handeSubmit = async (event: FormEvent): Promise<void> => {
     event.preventDefault();
     event.stopPropagation();
-    const data = { email, password };
+    const res = await login({ email, password });
 
-    const res = await login({ email: data.email, password: data.password });
+    if ("error" in res && "data" in res.error) {
+      MessagemToastify(res.error.data as string, "error");
+      console.error(res.error);
+      setErro(res.error.data as string);
+      return;
+    };
+
     if ('data' in res && res.data) {
       Cookies.set("token", res.data.token, { expires: 1 }); // Access res.data safely
-    }
-    MessagemToastify("Usuário logado com sucesso", "success");
-    navigate("/");
-
-    if (error) {
-      setErro("Ocorre erro ao logar");
+      MessagemToastify("Usuário logado com sucesso", "success");
+      navigate("/");
     }
   };
 
@@ -59,3 +61,5 @@ export default function Login() {
     </FormUser>
   );
 };
+
+export default Login;

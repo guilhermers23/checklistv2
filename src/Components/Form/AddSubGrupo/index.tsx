@@ -1,13 +1,14 @@
-import { FormEvent, useEffect, useState } from "react";
-import { IGrupo } from "../../../Interfaces/ITestes";
+import { FormEvent, useState } from "react";
 import { MessagemToastify } from "../../Toastify";
+import { useGetAllGruposQuery, usePostSubGrupoMutation } from "../../../services/testeService";
 import Input from "../../Input";
 import Button from "../../Button";
 
 const AddSubGrupo = () => {
+  const { data: grupos } = useGetAllGruposQuery();
   const [subGrupo, setSubGrupo] = useState("");
   const [grupoId, setGrupoId] = useState("");
-  const [grupos, setGrupos] = useState<IGrupo[]>([]);
+  const [postSubGrupo] = usePostSubGrupoMutation();
 
   const handleSubmit = async (event: FormEvent): Promise<void> => {
     event.preventDefault();
@@ -30,18 +31,7 @@ const AddSubGrupo = () => {
     }
   };
 
-  const findAllGrupos = async () => {
-    try {
-      const dataGrupos = await getAllGrupos();
-      setGrupos(dataGrupos.data);
-    } catch (error) {
-      console.error("Ocorreu um erro ao obter todos os grupos! ", error)
-    }
-  };
-
-  useEffect(() => {
-    findAllGrupos();
-  }, []);
+  if (!grupos) return [];
 
   return (
     <div className="my-5">

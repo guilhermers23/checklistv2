@@ -1,27 +1,25 @@
 import { FormEvent, useState } from "react";
+import { MessagemToastify } from "../../Toastify";
+import { usePostGrupoMutation } from "../../../services/testeService";
 import Button from "../../Button";
 import Input from "../../Input";
 
 const AddGrupo = () => {
   const [grupo, setGrupo] = useState("");
-  const [loading, setLoading] = useState(false);
-  console.log(loading)
+  const [postGrupo, { isLoading }] = usePostGrupoMutation();
 
   const handeSubmit = async (event: FormEvent): Promise<void> => {
     event.preventDefault();
     event.stopPropagation();
-    setLoading(true);
 
     try {
       const resGrupoNome = { nome: grupo[0].toUpperCase() + grupo.substring(1) };
       await postGrupo(resGrupoNome);
-      alert('Grupo cadastrado com sucesso!');
+      MessagemToastify('Grupo cadastrado com sucesso!', "success")
       setGrupo("");
     } catch (error) {
       console.error(error)
-      alert("Ocorreu erro ao cadastrar o grupo!")
-    } finally {
-      setLoading(false);
+      MessagemToastify("Ocorreu erro ao cadastrar o grupo!", "error");
     }
   };
 
@@ -40,7 +38,7 @@ const AddGrupo = () => {
           setValor={setGrupo}
           value={grupo}
         />
-        <Button type="submit" disabled={loading}>
+        <Button type="submit" disabled={isLoading}>
           Adicionar Grupo
         </Button>
       </form>
