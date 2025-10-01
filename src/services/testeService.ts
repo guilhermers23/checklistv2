@@ -1,4 +1,3 @@
-import { IGrupo, ISubGrupo, ITeste } from "../Interfaces/ITestes";
 import { api } from "./api";
 
 type DataTestes = {
@@ -13,15 +12,18 @@ type DataTestes = {
 const testeService = api.injectEndpoints({
   endpoints: (builder) => ({
     getAllTeste: builder.query<ITeste[], void>({
-      query: () => "/test"
+      query: () => "/test",
+      providesTags: ["Tests"]
     }),
 
     getAllGrupos: builder.query<IGrupo[], void>({
-      query: () => "/grupos"
+      query: () => "/grupos",
+      providesTags: ["Grupos"]
     }),
 
     getAllSubGrupos: builder.query<ISubGrupo[], void>({
-      query: () => "/grupos/subGrupo"
+      query: () => "/grupos/subGrupo",
+      providesTags: ["SubGrupo"]
     }),
 
     getSubGrupoByGrupo: builder.query<ISubGrupo, string>({
@@ -34,7 +36,7 @@ const testeService = api.injectEndpoints({
         method: "POST",
         body: data
       }),
-      invalidatesTags: ["Testes"]
+      invalidatesTags: ["Tests"]
     }),
 
     deleteTeste: builder.mutation<{ sucess: boolean }, string>({
@@ -42,7 +44,7 @@ const testeService = api.injectEndpoints({
         url: `/test/deleted/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Testes"]
+      invalidatesTags: ["Tests"]
     }),
 
     updateTeste: builder.mutation<ITeste, { id: string; resultado: string; observacao: string | undefined; }>({
@@ -51,7 +53,7 @@ const testeService = api.injectEndpoints({
         method: "PATCH",
         body
       }),
-      invalidatesTags: ["Testes"]
+      invalidatesTags: ["Tests"]
     }),
 
     postGrupo: builder.mutation<IGrupo, IGrupo>({

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { IUser } from "../../Interfaces/IUser";
 import { useSelector } from "react-redux";
 import { RootReducer } from "../../store";
 

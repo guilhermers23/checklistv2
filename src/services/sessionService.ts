@@ -1,44 +1,37 @@
-import axios from "axios";
-import Cookies from "js-cookie";
-import { baseURL } from "./baseURL";
-import { ITeste } from "../Interfaces/ITestes";
-
+import { api } from "./api";
 interface DadosSessao {
   grupo: string;
   subGrupo: string;
   tecnico: string | undefined;
   testes: ITeste[];
-}
-
-export const postSession = (dados: DadosSessao) => {
-  const response = axios.post(`${baseURL}/session/start`, dados, {
-    headers: { Authorization: `Bearer ${Cookies.get("token")}` },
-  });
-  return response;
 };
 
-export const finishSession = (
-  sessionId: string | undefined,
-  testesAtualizados: {
-    _id: string | undefined;
-    resultado: string;
-    observacao: string | undefined;
-  }[]
-) => {
-  const body = { testesAtualizados };
-  const response = axios.patch(
-    `${baseURL}/session/${sessionId}/finalize`,
-    body,
-    {
-      headers: { Authorization: `Bearer ${Cookies.get("token")}` },
-    }
-  );
-  return response;
-};
+const sessionService = api.injectEndpoints({
+  endpoints: (builder) => ({
+    getAllSessions: builder.query<IDadosSessao[], void>({
+      query: () => "/session",
+      providesTags: ["Sessions"]
+    }),
 
-export const getAllSessions = () => {
-  const response = axios.get(`${baseURL}/session`, {
-    headers: { Authorization: `Bearer ${Cookies.get("token")}` },
-  });
-  return response;
-};
+    postSession: builder.mutation<IDadosSessao, DadosSessao>({
+      query: (body) => ({
+        url: "/session/start",
+        method: "POST",
+        body
+      }),
+      invalidatesTags: ["Sessions"]
+    }),
+
+    finishSession: builder.mutation<IDadosSessao, { sessionId: string | undefined; testesAtualizados: ITeste[] }>({
+      query: (body) => ({
+        url: `/session/${body.sessionId}/finalize`,
+        method: "PATCH",
+        body
+      }),
+      invalidatesTags: ["Sessions"]
+    }),
+  })
+});
+
+export const { useGetAllSessionsQuery, usePostSessionMutation, useFinishSessionMutation } = sessionService;
+export default sessionService;

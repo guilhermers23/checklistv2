@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootReducer } from "../../store";
 import { useDeleteUserMutation, useGetAllUserQuery } from "../../services/userService";
-import { MessagemToastify } from "../../Components/Toastify";
+import { MessagemToastify } from "../../components/Toastify";
 import useFilterUser from "../../hooks/ListaUsuarios/useFilterUser";
 import TableUsers from "../../components/Tables/TableUsers";
 

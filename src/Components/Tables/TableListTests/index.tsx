@@ -1,12 +1,10 @@
 import { ReactNode } from "react"
-import { ITeste } from "../../../Interfaces/ITestes";
 import ModalCadastro from "../../ModalCadastros";
 import AddGrupo from "../../Form/AddGrupo";
 import AddSubGrupo from "../../Form/AddSubGrupo";
 import Loading from "/loading.png";
 import { DocumentArrowDownIcon } from "@heroicons/react/24/solid";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
-import { IDadosSessao } from "../../../Interfaces/ISessions";
 
 interface PropsTableDefault {
   children?: ReactNode;

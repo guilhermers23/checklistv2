@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { RootReducer } from "../../store";
 import { useRegisterUserMutation } from "../../services/userService";
-import { MessagemToastify } from "../../Components/Toastify";
-import Input from "../../Components/Input";
+import { MessagemToastify } from "../../components/Toastify";
+import Input from "../../components/Input";
 import FormUser from "../../components/Form/FormUser";
 import foto from "./assets/telaLogin.png";
 

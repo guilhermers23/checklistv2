@@ -1,8 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import { ITeste } from "../../Interfaces/ITestes";
-import { MessagemToastify } from "../../Components/Toastify";
-import { IDadosSessao } from "../../Interfaces/ISessions";
+import { MessagemToastify } from "../../components/Toastify";
 import { RootReducer } from "../../store";
 import {
   useDeleteTesteMutation,
@@ -11,12 +9,12 @@ import {
   useGetAllTesteQuery,
   useUpdateTesteMutation,
 } from "../../services/testeService";
-import { finishSession, postSession } from "../../services/sessionService";
 import TableListTests from "../../components/Tables/TableListTests";
-import ModalCadastro from "../../Components/ModalCadastros";
+import ModalCadastro from "../../components/ModalCadastros";
 import InputFilter from "../../components/InputFilter";
 import AddTeste from "../../components/Form/AddTeste";
 import AlertErro from "../Error/AlertError";
+import { useFinishSessionMutation, usePostSessionMutation } from "../../services/sessionService";
 
 
 const ListaDeTestes = () => {
@@ -28,7 +26,8 @@ const ListaDeTestes = () => {
   const { data: subGrupos } = useGetAllSubGruposQuery();
   const [updateTeste] = useUpdateTesteMutation();
   const [deleteTeste] = useDeleteTesteMutation();
-
+  const [postSession] = usePostSessionMutation();
+  const [finishSession] = useFinishSessionMutation();
   const [grupoSelecionado, setGrupoSelecionado] = useState("");
   const [subGrupoSelecionado, setSubGrupoSelecionado] = useState("");
   const [resultadoSelecionado, setResultadoSelecionado] = useState("");
@@ -70,7 +69,7 @@ const ListaDeTestes = () => {
   }, [testes, testeTemp, grupoSelecionado, subGrupoSelecionado, resultadoSelecionado]);
 
   const nomeGrupo = useMemo(() => {
-    if (!grupos) return [];
+    if (!grupos) return "Grupo não encontrado";
     return grupos.find((g) => g._id === grupoSelecionado)?.nome || "";
   }, [grupos, grupoSelecionado]);
 
@@ -122,55 +121,57 @@ const ListaDeTestes = () => {
   };
 
   const iniciarTestes = async () => {
-    try {
-      if (!user?._id) {
-        MessagemToastify("É necessário estar logado para iniciar a sessão!", "error");
-        return;
-      }
+    if (!user?._id) {
+      MessagemToastify("É necessário estar logado para iniciar a sessão!", "error");
+      return;
+    };
 
-      const dadosSession = {
-        grupo: nomeGrupo,
-        subGrupo: nomeSubGrupo,
-        tecnico: user._id,
-        testes: testesFiltrados
-      };
+    const dadosSession = {
+      grupo: nomeGrupo,
+      subGrupo: nomeSubGrupo,
+      tecnico: user._id,
+      testes: testesFiltrados
+    };
 
-      const response = await postSession(dadosSession);
-      setSessionAtiva({ ...response.data, testes: testesFiltrados });
-      MessagemToastify("Sessão de testes iniciada!", "success");
-    } catch (error) {
-      console.error("Erro ao iniciar a sessão de testes:", error);
+    const res = await postSession(dadosSession);
+    if ("error" in res) {
       MessagemToastify("Ocorreu erro ao tentar iniciar essa sessão!", "error");
-    }
+      console.error("Erro ao iniciar a sessão de testes:");
+      return;
+    };
+    MessagemToastify("Sessão de testes iniciada!", "success");
+    setSessionAtiva(res.data);
   };
 
   const finalizarTestes = async () => {
-    try {
-      if (!sessionAtiva) return;
+    if (!sessionAtiva) return;
+    if (testesFiltrados.some((t) => t.resultado === "Não Testado")) {
+      MessagemToastify(
+        "Não é possível finalizar teste com Resultado como 'Não Testado'",
+        "error"
+      );
+      return;
+    };
 
-      if (testesFiltrados.some((t) => t.resultado === "Não Testado")) {
-        MessagemToastify(
-          "Não é possível finalizar teste com Resultado como 'Não Testado'",
-          "error"
-        );
-        return;
-      }
+    // const testesAtualizados = testesFiltrados.map((teste) => ({
+    //   _id: teste._id,
+    //   description: teste.description,
+    //   resultado: teste.resultado,
+    //   observacao: teste.observacao
+    // }));
 
-      const testesAtualizados = testesFiltrados.map((teste) => ({
-        _id: teste._id,
-        description: teste.description,
-        resultado: teste.resultado,
-        observacao: teste.observacao
-      }));
-
-      const sessionId = sessionAtiva._id;
-      await finishSession(sessionId, testesAtualizados);
-      MessagemToastify("Sessão de testes finalizada!", "success");
-      setSessionAtiva(undefined);
-    } catch (error) {
-      console.error("Erro ao finalizar a sessão de testes:", error);
+    const sessionId = sessionAtiva._id;
+    const data = { sessionId, testesAtualizados: testesFiltrados };
+    const res = await finishSession(data);
+    if ("error" in res) {
       MessagemToastify("Erro ao finalizar a sessão.", "error");
-    }
+      console.error("Erro ao finalizar a sessão de testes:");
+      return;
+    };
+
+    MessagemToastify("Sessão de testes finalizada!", "success");
+    setSessionAtiva(undefined);
+
   };
 
   const saveFilter = () => {

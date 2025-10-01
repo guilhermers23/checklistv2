@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useLoginMutation } from "../../services/userService";
 import FormUser from "../../components/Form/FormUser";
-import Input from "../../Components/Input";
-import { MessagemToastify } from "../../Components/Toastify";
+import Input from "../../components/Input";
+import { MessagemToastify } from "../../components/Toastify";
 import foto from "./assets/telaLogin.png";
 
 const Login = () => {
@@ -30,7 +30,7 @@ const Login = () => {
       Cookies.set("token", res.data.token, { expires: 1 }); // Access res.data safely
       MessagemToastify("Usuário logado com sucesso", "success");
       navigate("/");
-    }
+    };
   };
 
   return (

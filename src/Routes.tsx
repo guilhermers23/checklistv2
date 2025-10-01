@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Error404 from "./Pages/Error/Error404";
-import Headers from "./Components/Header";
+import Headers from "./components/Header";
 import Home from "./Pages/Home";
 import RegisterForm from "./Pages/Register";
 import ListaDeUsuarios from "./Pages/ListaDeUsuarios";
