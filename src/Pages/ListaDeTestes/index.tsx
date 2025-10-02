@@ -33,6 +33,7 @@ export default function ListaDeTestes() {
   const [resultadoSelecionado, setResultadoSelecionado] = useState("");
   const [sessionAtiva, setSessionAtiva] = useState<IDadosSessao>();
   const { user } = useSelector((state: RootReducer) => state.user);
+  const messageError = (!user ? "Você precisar está logado para acessar essa funcionalidade" : "Você não tem permissão para acessar essa funcionalidade , entre em contato com o administrador do sistema.");
 
   const handleGrupoSelecionado = (newValue: string) => {
     localStorage.setItem("grupoSelecionado", newValue);
@@ -190,7 +191,6 @@ export default function ListaDeTestes() {
   return (
     <TableListTests
       title="Lista de Testes"
-      listaCabecalho={HEAD_TABLE}
       listaDe={testesFiltrados}
       hasUser={!user}          // ✅ Corrigido
       admin={!user?.admin}
@@ -205,7 +205,7 @@ export default function ListaDeTestes() {
       startSession={iniciarTestes}
       finishTest={finalizarTestes}
     >
-      <div className="m-2 flex gap-5 justify-between">
+      <div className="m-2 flex gap-5 justify-between print:hidden">
         <InputFilter
           id="grupo"
           labelTitulo="Grupo"
@@ -226,15 +226,13 @@ export default function ListaDeTestes() {
         />
 
         <div className="w-full">
-          <label
-            htmlFor="resultado"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
+          <label htmlFor="resultado" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white ">
             Resultado
           </label>
-          <select
-            id="resultado" // ✅ corrigido
-            className="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          <select id="resultado"
+            className="print:bg-transparent print:border-0 print:font-medium
+           block p-2 w-full mb-5 text-sm text-gray-800 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-100 dark:border-gray-700 dark:bg-gray-900 focus:outline-none focus:ring-0 focus:border-gray-200 peer
+          "
             onChange={(event) => setResultadoSelecionado(event.target.value)}
             value={resultadoSelecionado}
           >
@@ -248,18 +246,38 @@ export default function ListaDeTestes() {
         <div className="w-full content-center">
           {subGrupoSelecionado && (
             <ModalCadastro title="Adicionar Teste">
-              {user ? (
-                <AddTeste grupo={grupoSelecionado} subgrupo={subGrupoSelecionado} />
-              ) : (
-                <AlertErro />
-              )}
+              {user && user.admin ?
+                <AddTeste
+                  grupo={grupoSelecionado}
+                  subgrupo={subGrupoSelecionado}
+                /> :
+                <AlertErro message={messageError} />
+              }
             </ModalCadastro>
           )}
         </div>
 
-        <span className="w-full content-center text-xl font-Oswald dark:text-blue-50">
-          Total de Testes: {testesFiltrados.length}
-        </span>
+        <span className="w-full content-around text-end text-md px-5 font-Oswald dark:text-blue-50">Total de Testes: {testesFiltrados.length}</span>
+      </div>
+
+      {/* Secção para impressão */}
+      <div className="w-full justify-between hidden print:flex mb-5">
+        <InputFilter id="grupo"
+          labelTitulo="Grupo"
+          listaDe={gruposFiltrado}
+          selectText="Todos os Grupos..."
+          value={grupoSelecionado}
+          setValor={handleGrupoSelecionado} />
+
+        <InputFilter id="subGrupo"
+          labelTitulo="SubGrupo"
+          listaDe={subGruposFiltrados}
+          selectText="Todos subgrupos..."
+          value={subGrupoSelecionado}
+          setValor={handleSubGrupoSelecionado}
+          disabled={!grupoSelecionado} />
+
+        <span className="w-full content-around text-end text-md px-5 font-Oswald dark:text-blue-50">Total de Testes: {testesFiltrados.length}</span>
       </div>
     </TableListTests>
   );

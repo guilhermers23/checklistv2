@@ -48,24 +48,24 @@ const Header = () => {
           <section className="flex items-center gap-10">
             <DarkMode />
             {user?.admin &&
-              <p className="font-bold text-red-400 px-2 bg-sky-300 rounded-2xl">Admin</p>
+              <p className="font-bold text-red-400 px-2 bg-sky-300 rounded-2xl print:hidden">Admin</p>
             }
             <span className="flex items-center gap-2">
-              <h1 className="text-2xl">Olá, {user?.name || "Técnico(a)"}</h1>
-              {user
-                ? (
-                  <MenuDrop
-                    hasAdmin={!user.admin}
-                    onClick={userLogout}
-                  />
-                ) : (
-                  <button
-                    onClick={() => navigate("/login")}
-                    className="bg-sky-100 py-1 px-5 rounded-lg text-gray-900 font-Kanit active:bg-green-400 hover:shadow-md hover:shadow-gray-400 hover:animate-pulse hover:bg-gradient-to-r hover:from-sky-300 cursor-pointer"
-                  >
-                    Entrar
-                  </button>
-                )
+              <h1 className="text-2xl print:hidden">Olá, {user?.name || "Técnico(a)"}</h1>
+              <h1 className="text-2xl hidden print:block">{user?.name || "Técnico(a)"}</h1>
+              {user !== null ? (
+                <MenuDrop
+                  hasAdmin={!user.admin}
+                  onClick={userLogout}
+                />
+              ) : (
+                <button
+                  onClick={() => navigate("/login")}
+                  className="bg-sky-100 py-1 px-5 rounded-lg text-gray-900 font-Kanit active:bg-green-400 hover:shadow-md hover:shadow-gray-400 hover:animate-pulse hover:bg-gradient-to-r hover:from-sky-300 cursor-pointer"
+                >
+                  Entrar
+                </button>
+              )
               }
             </span>
           </section>

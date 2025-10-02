@@ -8,7 +8,6 @@ import LoadingPNG from "../../../../public/loading.png"
 
 interface PropsTableDefault {
   children?: ReactNode;
-  listaCabecalho: string[];
   listaDe: ITeste[];
   title: string;
   hasUser: boolean;
@@ -26,17 +25,17 @@ interface PropsTableDefault {
 };
 
 const TableListTests = (
-  { children, listaCabecalho, listaDe, hasSession,
+  { children, listaDe, hasSession,
     loading, title, hasUser, admin, hasGruposSelecionado,
     buttonDelete, onchangeResult, onchangeObservation,
     onchangeReset, buttonSave, startSession, finishTest }: PropsTableDefault) => {
 
   return (
-    <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-9/10 m-auto my-10">
+    <div className="relative overflow-x-auto shadow-md sm:rounded-lg m-auto max-w-9/10 my-10">
       <div className="flex justify-between items-center m-2">
         <h1 className="text-xl">{title}</h1>
 
-        {!hasUser &&
+        {(!hasUser && !admin) &&
           <ModalCadastro title="Adicionar Grupos">
             <AddGrupo />
             <AddSubGrupo />
@@ -46,7 +45,7 @@ const TableListTests = (
 
       {children}
 
-      <div className="m-2 flex gap-5">
+      <div className="m-2 flex gap-5 print:hidden">
         <button className="button bg-green-500 disabled:bg-green-300"
           disabled={!hasGruposSelecionado || hasUser || listaDe.length === 0}
           onClick={() => startSession()}>
@@ -57,6 +56,12 @@ const TableListTests = (
           disabled={!hasGruposSelecionado || hasUser || listaDe.length === 0}
           onClick={() => onchangeReset && onchangeReset()}>
           Resetar Testes
+        </button>
+
+        <button className="button bg-amber-500 disabled:bg-amber-300"
+          disabled={!hasGruposSelecionado || hasUser || listaDe.length === 0}
+          onClick={() => window.print()}>
+          Imprimir PDF
         </button>
       </div>
 
@@ -69,17 +74,19 @@ const TableListTests = (
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              {listaCabecalho.map((head) => (
-                <th scope="col" className="px-6 py-3" key={head}>
-                  {head}
-                </th>))}
+              <th scope="col" className="px-6 py-3 print:hidden">Grupo</th>
+              <th scope="col" className="px-6 py-3">Casos de Uso</th>
+              <th scope="col" className="px-6 py-3">Resultado</th>
+              <th scope="col" className="px-6 py-3">Observações</th>
+              <th scope="col" className="px-6 py-3 print:hidden"></th>
+              <th scope="col" className="px-6 py-3 print:hidden">Ações</th>
             </tr>
           </thead>
           <tbody>
             {listaDe.map((item) => (
               <tr key={item._id}
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white" >
+                <th scope="row" className="print:hidden px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white" >
                   {item.grupo.nome}
                 </th>
                 <td className="px-6 py-4">
@@ -99,7 +106,7 @@ const TableListTests = (
                   </select>
                 </td>
                 <td className="px-2 py-4 w-2/10">
-                  <div className="md:w-9/12">
+                  <div className="w-full md:w-8/10 m-auto">
                     <label htmlFor="text"
                       className="block font-Oswald dark:text-gray-400">
                     </label>
@@ -113,17 +120,17 @@ const TableListTests = (
                   </div>
                 </td>
 
-                <td className="py-4 w-10">
+                <td className="py-4 w-10 print:hidden">
                   {item.files ?
                     <a href={item.files} target="_blank" rel="noopener noreferrer"
                       title="Instrução" className="mx-auto">
                       <DocumentArrowDownIcon className="size-5" />
                     </a> :
-                    <ExclamationCircleIcon className="size-5" title="Instrução indisponivel para esse teste" />}
+                    <ExclamationCircleIcon className="size-5 mx-auto" title="Instrução indisponivel para esse teste" />}
                 </td>
 
-                <td className="py-4 px-2 w-15">
-                  <span className="flex gap-2 justify-around">
+                <td className="py-4 px-2 w-15 print:hidden">
+                  <span className="flex gap-2 justify-around md-flex-col px-2">
                     <button className="button disabled:bg-green-400/25 disabled:cursor-not-allowed bg-green-400"
                       onClick={() => buttonSave(item._id, item.resultado, item.observacao)}
                       disabled={hasUser}>Salvar</button>

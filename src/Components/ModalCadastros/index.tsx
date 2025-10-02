@@ -12,7 +12,7 @@ const ModalCadastro = ({ title, children }: PropsModal) => {
 
     return (
         <>
-            <button className="login_button" type="button" onClick={() => setOpen(true)}>
+            <button className="login_button print:hidden" type="button" onClick={() => setOpen(true)}>
                 <span className='flex gap-1 items-center'>
                     <PlusIcon className='size-5' />
                     {title}
