@@ -15,6 +15,7 @@ export default function RegisterForm() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmaSenha, setConfirmaSenha] = useState<string>("");
+  const [admin, setAdmin] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
   const handeSubmit = async (event: FormEvent): Promise<void> => {
@@ -26,7 +27,7 @@ export default function RegisterForm() {
       return;
     };
 
-    const res = await registerUser({ name, email, password, admin: false });
+    const res = await registerUser({ name, email, password, admin });
     if ("error" in res && res.error && "data" in res.error) {
       setError(res.error.data as string);
       console.error(res.error);
@@ -38,6 +39,7 @@ export default function RegisterForm() {
     setName("");
     setPassword("");
     setConfirmaSenha("");
+    setAdmin(false);
   };
 
   if (!user || !user.admin) return <Navigate to='/' />;
@@ -87,13 +89,6 @@ export default function RegisterForm() {
         setValor={setConfirmaSenha}
         value={confirmaSenha}
       />
-
-      <div className="flex items-start mb-4">
-        <input id="default-checkbox" type="checkbox" value="admin" checked={admin}
-          onChange={(e) => setAdmin(e.target.checked)}
-          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-        <label htmlFor="default-checkbox" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Administrador</label>
-      </div>
 
       <div className="flex items-start mb-4">
         <input id="default-checkbox" type="checkbox" value="admin" checked={admin}

@@ -18,8 +18,6 @@ import { useFinishSessionMutation, usePostSessionMutation } from "../../services
 
 
 export default function ListaDeTestes() {
-  const HEAD_TABLE = ["Grupo", "Casos de Uso", "Resultado", "Observações", "", "Ações"];
-
   const [testeTemp, setTesteTemp] = useState<ITeste[]>([]);
   const { data: testes, isLoading: loadingTestes } = useGetAllTesteQuery();
   const { data: grupos } = useGetAllGruposQuery();
