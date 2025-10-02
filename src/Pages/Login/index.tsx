@@ -1,7 +1,6 @@
 import Cookies from "js-cookie";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 import { useLoginMutation } from "../../services/userService";
 import FormUser from "../../Components/Form/FormUser";
 import Input from "../../Components/Input";

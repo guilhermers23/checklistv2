@@ -4,7 +4,7 @@ import AddGrupo from "../../../Components/Form/AddGrupo";
 import AddSubGrupo from "../../../Components/Form/AddSubGrupo";
 import { DocumentArrowDownIcon } from "@heroicons/react/24/solid";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline"; // Corrected import path
-import LoadingPNG from "../../../../public/loading.png"
+import LoadingPNG from "/loading.png"
 
 interface PropsTableDefault {
   children?: ReactNode;
@@ -89,7 +89,7 @@ const TableListTests = (
                 <th scope="row" className="print:hidden px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white" >
                   {item.grupo.nome}
                 </th>
-                <td className="px-6 py-4">
+                <td className="px-6 py-4 text-gray-800 dark:text-gray-200">
                   {item.description}
                 </td>
                 <td className="px-2 py-4">
@@ -130,7 +130,7 @@ const TableListTests = (
                 </td>
 
                 <td className="py-4 px-2 w-15 print:hidden">
-                  <span className="flex gap-2 justify-around md-flex-col px-2">
+                  <span className="flex gap-2 justify-around md:flex-col px-2">
                     <button className="button disabled:bg-green-400/25 disabled:cursor-not-allowed bg-green-400"
                       onClick={() => buttonSave(item._id, item.resultado, item.observacao)}
                       disabled={hasUser}>Salvar</button>

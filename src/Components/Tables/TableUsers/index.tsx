@@ -9,7 +9,7 @@ interface PropsTable {
   chageTerm: () => void;
 };
 
-const TableUsers = ({ users, buttonDelete, term, chageTerm }: PropsTable) => {
+const TableUsers = ({ users, term, buttonDelete, chageTerm }: PropsTable) => {
   const dispacth = useDispatch();
 
   return (
