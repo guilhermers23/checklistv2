@@ -1,18 +1,36 @@
-import useListUsers from "../../Hooks/ListaUsuarios/useListUsers";
-import TableUsers from "../../Components/Tables/TableUsers";
+
+import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootReducer } from "../../store";
+import { useDeleteUserMutation, useGetAllUserQuery } from "../../services/userService";
+import { MessagemToastify } from "../../Components/Toastify";
 import useFilterUser from "../../Hooks/ListaUsuarios/useFilterUser";
+import TableUsers from "../../Components/Tables/TableUsers";
 
 export default function ListaDeUsuarios() {
-    const { users, deletarButton } = useListUsers();
-    const { term, setTerm, changeSearch, filteredUsers } = useFilterUser(users);
+  const { data: users } = useGetAllUserQuery();
+  const [deleteUser] = useDeleteUserMutation();
+  const { user } = useSelector((state: RootReducer) => state.user);
+  const { term, changeSearch, filteredUsers } = useFilterUser(users || []);
 
-    return (
-        <TableUsers
-            term={term}
-            setTerm={setTerm}
-            users={filteredUsers}
-            chageTerm={changeSearch}
-            buttonDelete={deletarButton}
-        />
-    )
+  const deletarButton = async (id: string) => {
+    const res = await deleteUser(id);
+    if ("error" in res) {
+      console.error(res.error);
+      MessagemToastify("Erro ao excluir usuário!", "error");
+    };
+
+    MessagemToastify("Usuário excluido com sucesso!", "success");
+  };
+
+  if (!user || !user.admin) return <Navigate to='/' />;
+
+  return (
+    <TableUsers
+      term={term}
+      users={filteredUsers}
+      chageTerm={changeSearch}
+      buttonDelete={deletarButton}
+    />
+  )
 };

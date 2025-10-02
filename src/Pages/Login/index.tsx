@@ -1,44 +1,45 @@
 import Cookies from "js-cookie";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../../API/loogerUserService";
-import Input from "../../Components/Input";
-import foto from "./assets/telaLogin.png";
+import { useLoginMutation } from "../../services/userService";
 import FormUser from "../../Components/Form/FormUser";
+import Input from "../../Components/Input";
+import { MessagemToastify } from "../../Components/Toastify";
+import foto from "./assets/telaLogin.png";
 
 export default function Login() {
+  const navigate = useNavigate();
+  const [login, { isLoading }] = useLoginMutation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const [erro, setErro] = useState("");
 
   const handeSubmit = async (event: FormEvent): Promise<void> => {
     event.preventDefault();
     event.stopPropagation();
-    const data = { email, password };
-    setLoading(true);
+    const res = await login({ email, password });
 
-    try {
-      const response = await loginUser(data);
-      Cookies.set("token", response.data.token, { expires: 1 });
+    if ("error" in res && res.error && "data" in res.error) {
+      MessagemToastify(res.error.data as string, "error");
+      console.error(res.error);
+      setErro(res.error.data as string);
+      return;
+    };
+
+    if ('data' in res && res.data) {
+      Cookies.set("token", res.data.token, { expires: 1 }); // Access res.data safely
+      MessagemToastify("Usuário logado com sucesso", "success");
       navigate("/");
-
-    } catch (e) {
-      console.error("Erro: ", e);
-      setError("Erro ao logar usuário");
-    } finally {
-      setLoading(false);
-    }
+    };
   };
 
   return (
     <FormUser title="LOGIN"
       onsubmit={handeSubmit}
       foto={foto}
-      error={error}
+      error={erro}
       buttonTitle="Entrar"
-      loading={!loading}>
+      loading={!isLoading}>
 
       <Input
         id="email"

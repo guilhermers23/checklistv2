@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Headers from "./Components/Header";
-import Home from "./Pages/Home";
 import Error404 from "./Pages/Error/Error404";
-import Login from "./Pages/Login";
+import Headers from "./Components/Header";
 import RegisterForm from "./Pages/Register";
 import ListaDeUsuarios from "./Pages/ListaDeUsuarios";
 import ListaDeSessoes from "./Pages/ListaDeSessoes";
+import ListaDeTestes from "./Pages/ListaDeTestes";
+import Login from "./Pages/Login";
 
 const AppRoutes = () => {
   return (
@@ -13,7 +13,7 @@ const AppRoutes = () => {
       <Routes>
         <Route path="*" element={<Error404 />}></Route>
         <Route path="/" element={<Headers />}>
-          <Route index element={<Home />}></Route>
+          <Route index element={<ListaDeTestes />}></Route>
           <Route path="/register" element={<RegisterForm />}></Route>
           <Route path="/users" element={<ListaDeUsuarios />}></Route>
           <Route path="/sessions" element={<ListaDeSessoes />}></Route>

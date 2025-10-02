@@ -1,10 +1,48 @@
-import foto from "./assets/telaLogin.png";
+import { FormEvent, useState } from "react";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { RootReducer } from "../../store";
+import { useRegisterUserMutation } from "../../services/userService";
+import { MessagemToastify } from "../../Components/Toastify";
 import Input from "../../Components/Input";
 import FormUser from "../../Components/Form/FormUser";
-import useRegister from "../../Hooks/Register/useRegister";
+import foto from "./assets/telaLogin.png";
 
 export default function RegisterForm() {
-  const { name, setName, email, setEmail, password, confirmaSenha, setPassword, setConfirmaSenha, error, loading, handeSubmit, admin, setAdmin } = useRegister();
+  const { user } = useSelector((state: RootReducer) => state.user);
+  const [registerUser, { isLoading }] = useRegisterUserMutation();
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmaSenha, setConfirmaSenha] = useState<string>("");
+  const [admin, setAdmin] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
+
+  const handeSubmit = async (event: FormEvent): Promise<void> => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (password !== confirmaSenha) {
+      setError("As senhas não coincidem");
+      return;
+    };
+
+    const res = await registerUser({ name, email, password, admin });
+    if ("error" in res && res.error && "data" in res.error) {
+      setError(res.error.data as string);
+      console.error(res.error);
+      return;
+    };
+
+    MessagemToastify("Usuário cadastrado com sucesso", "success");
+    setEmail("");
+    setName("");
+    setPassword("");
+    setConfirmaSenha("");
+    setAdmin(false);
+  };
+
+  if (!user || !user.admin) return <Navigate to='/' />;
 
   return (
     <FormUser
@@ -13,7 +51,8 @@ export default function RegisterForm() {
       foto={foto}
       error={error}
       buttonTitle="Cadastrar"
-      loading={!loading}>
+      loading={!isLoading}
+    >
 
       <Input
         id="name"
@@ -57,7 +96,6 @@ export default function RegisterForm() {
           className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
         <label htmlFor="default-checkbox" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Administrador</label>
       </div>
-
     </FormUser>
   );
 };
