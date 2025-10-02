@@ -19,7 +19,7 @@ export const userService = api.injectEndpoints({
         method: "POST",
         body
       }),
-      invalidatesTags: ["User"]
+      invalidatesTags: ["Users"]
     }),
 
     loggedUser: builder.query<IUser, void>({
@@ -29,7 +29,7 @@ export const userService = api.injectEndpoints({
 
     getAllUser: builder.query<IUser[], void>({
       query: () => "/user",
-      providesTags: ["User"]
+      providesTags: ["Users"]
     }),
 
     deleteUser: builder.mutation<{ sucess: boolean }, string>({
@@ -37,7 +37,7 @@ export const userService = api.injectEndpoints({
         url: `/user/${id}/delete`,
         method: "DELETE",
       }),
-      invalidatesTags: ["User"]
+      invalidatesTags: ["Users"]
     }),
   })
 });

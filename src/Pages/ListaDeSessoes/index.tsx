@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { useGetAllSessionsQuery } from "../../services/sessionService";
 
-const ListaDeSessoes = () => {
+export default function ListaDeSessoes() {
   const { data: sessions } = useGetAllSessionsQuery();
   if (!sessions) return [];
 
@@ -55,5 +55,3 @@ const ListaDeSessoes = () => {
     </div>
   )
 };
-
-export default ListaDeSessoes;

@@ -13,11 +13,11 @@ import TableListTests from "../../components/Tables/TableListTests";
 import ModalCadastro from "../../components/ModalCadastros";
 import InputFilter from "../../components/InputFilter";
 import AddTeste from "../../components/Form/AddTeste";
-import AlertErro from "../Error/AlertError";
+import AlertErro from "../../../src/pages/Error/AlertError";
 import { useFinishSessionMutation, usePostSessionMutation } from "../../services/sessionService";
 
 
-const ListaDeTestes = () => {
+export default function ListaDeTestes() {
   const HEAD_TABLE = ["Grupo", "Casos de Uso", "Resultado", "Observações", "", "Ações"];
 
   const [testeTemp, setTesteTemp] = useState<ITeste[]>([]);
@@ -100,14 +100,14 @@ const ListaDeTestes = () => {
   };
 
   const functionSaveTest = async (id: string, resultado: string, observacao: string | undefined) => {
-    try {
-      const data = { id, resultado, observacao };
-      await updateTeste(data);
-      MessagemToastify("Teste salvo com Sucesso!", "success");
-    } catch (error) {
-      console.error(error);
+    const data = { id, resultado, observacao };
+    const res = await updateTeste(data);
+    if ("error" in res) {
       MessagemToastify("Ocorreu erro ao salvar o Teste!", "error");
-    }
+      console.error(res.data);
+      return;
+    };
+    MessagemToastify("Teste salvo com Sucesso!", "success");
   };
 
   const functionDeleteTest = async (id: string) => {
@@ -136,7 +136,7 @@ const ListaDeTestes = () => {
     const res = await postSession(dadosSession);
     if ("error" in res) {
       MessagemToastify("Ocorreu erro ao tentar iniciar essa sessão!", "error");
-      console.error("Erro ao iniciar a sessão de testes:");
+      console.error(res.error);
       return;
     };
     MessagemToastify("Sessão de testes iniciada!", "success");
@@ -165,7 +165,7 @@ const ListaDeTestes = () => {
     const res = await finishSession(data);
     if ("error" in res) {
       MessagemToastify("Erro ao finalizar a sessão.", "error");
-      console.error("Erro ao finalizar a sessão de testes:");
+      console.error(res.error);
       return;
     };
 
@@ -264,5 +264,3 @@ const ListaDeTestes = () => {
     </TableListTests>
   );
 };
-
-export default ListaDeTestes;

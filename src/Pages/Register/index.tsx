@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import { useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { RootReducer } from "../../store";
 import { useRegisterUserMutation } from "../../services/userService";
 import { MessagemToastify } from "../../components/Toastify";
@@ -8,10 +8,9 @@ import Input from "../../components/Input";
 import FormUser from "../../components/Form/FormUser";
 import foto from "./assets/telaLogin.png";
 
-const RegisterForm = () => {
-  const navigate = useNavigate();
+export default function RegisterForm() {
   const { user } = useSelector((state: RootReducer) => state.user);
-  const [registerUser, { isLoading, isSuccess }] = useRegisterUserMutation();
+  const [registerUser, { isLoading }] = useRegisterUserMutation();
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -28,16 +27,17 @@ const RegisterForm = () => {
     };
 
     const res = await registerUser({ name, email, password, admin: false });
-    if ("error" in res && "data" in res.error) {
-      MessagemToastify(res.error.data as string, "error");
+    if ("error" in res && res.error && "data" in res.error) {
+      setError(res.error.data as string);
       console.error(res.error);
       return;
     };
 
-    if (isSuccess) {
-      MessagemToastify("Usuário cadastrado com sucesso", "success"); navigate("/");
-    };
-
+    MessagemToastify("Usuário cadastrado com sucesso", "success");
+    setEmail("");
+    setName("");
+    setPassword("");
+    setConfirmaSenha("");
   };
 
   if (!user || !user.admin) return <Navigate to='/' />;
@@ -90,5 +90,3 @@ const RegisterForm = () => {
     </FormUser>
   );
 };
-
-export default RegisterForm;

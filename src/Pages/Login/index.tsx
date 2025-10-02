@@ -7,19 +7,19 @@ import Input from "../../components/Input";
 import { MessagemToastify } from "../../components/Toastify";
 import foto from "./assets/telaLogin.png";
 
-const Login = () => {
+export default function Login() {
+  const navigate = useNavigate();
   const [login, { isLoading }] = useLoginMutation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [erro, setErro] = useState("");
-  const navigate = useNavigate();
 
   const handeSubmit = async (event: FormEvent): Promise<void> => {
     event.preventDefault();
     event.stopPropagation();
     const res = await login({ email, password });
 
-    if ("error" in res && "data" in res.error) {
+    if ("error" in res && res.error && "data" in res.error) {
       MessagemToastify(res.error.data as string, "error");
       console.error(res.error);
       setErro(res.error.data as string);
@@ -61,5 +61,3 @@ const Login = () => {
     </FormUser>
   );
 };
-
-export default Login;
