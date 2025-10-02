@@ -6,10 +6,10 @@ import { CheckBadgeIcon } from "@heroicons/react/20/solid";
 import { RootReducer } from "../../store";
 import { clearUser, setUser } from "../../store/reducers/user";
 import { useLoggedUserQuery } from "../../services/userService";
-import { MessagemToastify, Toastify } from "../Toastify";
-import MenuDrop from "../MenuDrop";
-import DarkMode from "../ModoDark";
-import Footer from "../Footer";
+import { MessagemToastify, Toastify } from "../../Components/Toastify";
+import MenuDrop from "../../Components/MenuDrop";
+import DarkMode from "../../Components/ModoDark";
+import Footer from "../../Components/Footer";
 
 const Header = () => {
   const navigate = useNavigate();

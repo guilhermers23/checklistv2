@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
-import { MessagemToastify } from "../../Toastify";
+import { MessagemToastify } from "../../../Components/Toastify";
 import { usePostGrupoMutation } from "../../../services/testeService";
-import Button from "../../Button";
+import Button from "../../../Components/Button";
 import Input from "../../Input";
 
 const AddGrupo = () => {

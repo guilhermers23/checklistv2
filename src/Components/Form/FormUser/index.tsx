@@ -1,8 +1,7 @@
 import { FormEvent } from "react";
 import { ArrowPathIcon } from "@heroicons/react/24/solid";
-import { Toastify } from "../../Toastify";
-import Button from "../../Button";
-
+import { Toastify } from "../../../Components/Toastify";
+import Button from "../../../Components/Button";
 interface PropsFormUser {
   title: string;
   children: React.ReactNode;

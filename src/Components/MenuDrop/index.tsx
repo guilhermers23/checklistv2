@@ -1,7 +1,7 @@
+import { Link } from "react-router-dom";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { Bars4Icon } from "@heroicons/react/20/solid";
 import { ArrowLeftEndOnRectangleIcon, LockClosedIcon, RectangleStackIcon, UserPlusIcon, UsersIcon } from "@heroicons/react/24/solid";
-import { Link } from "react-router-dom";
 
 interface PropsMenuDrop {
   onClick: () => void;

@@ -2,9 +2,9 @@ import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useLoginMutation } from "../../services/userService";
-import FormUser from "../../components/Form/FormUser";
-import Input from "../../components/Input";
-import { MessagemToastify } from "../../components/Toastify";
+import FormUser from "../../Components/Form/FormUser";
+import Input from "../../Components/Input";
+import { MessagemToastify } from "../../Components/Toastify";
 import foto from "./assets/telaLogin.png";
 
 export default function Login() {

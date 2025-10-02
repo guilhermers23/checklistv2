@@ -1,14 +1,14 @@
 declare interface IGrupo {
   _id?: string;
   nome: string;
-};
+}
 
 declare interface ISubGrupo {
   _id?: string;
   nome: string;
   grupoId: string; // Assumindo que 'grupo' é uma referência ao ID do grupo
   grupo?: IGrupo;
-};
+}
 
 declare interface ITeste {
   _id: string;
@@ -19,7 +19,7 @@ declare interface ITeste {
   completed?: string[];
   observacao?: string;
   files: string;
-};
+}
 
 declare interface IUser {
   _id?: string;
@@ -27,7 +27,7 @@ declare interface IUser {
   email: string;
   readonly password: string;
   admin?: boolean;
-};
+}
 
 declare interface IDadosSessao {
   _id?: string;
@@ -37,4 +37,4 @@ declare interface IDadosSessao {
   testes: ITeste[];
   dataInicio: string;
   dataFim: string;
-};
+}

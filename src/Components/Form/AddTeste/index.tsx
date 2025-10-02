@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import { usePostTesteMutation } from "../../../services/testeService";
-import { MessagemToastify } from "../../Toastify";
-import Button from "../../Button";
+import { MessagemToastify } from "../../../Components/Toastify";
+import Button from "../../../Components/Button";
 import Input from "../../Input";
 
 const AddTeste = (body: { grupo: string, subgrupo: string }) => {

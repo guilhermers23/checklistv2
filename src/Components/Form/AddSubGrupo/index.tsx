@@ -1,8 +1,8 @@
 import { FormEvent, useState } from "react";
-import { MessagemToastify } from "../../Toastify";
+import { MessagemToastify } from "../../../Components/Toastify";
 import { useGetAllGruposQuery, usePostSubGrupoMutation } from "../../../services/testeService";
 import Input from "../../Input";
-import Button from "../../Button";
+import Button from "../../../Components/Button";
 
 const AddSubGrupo = () => {
   const { data: grupos } = useGetAllGruposQuery();

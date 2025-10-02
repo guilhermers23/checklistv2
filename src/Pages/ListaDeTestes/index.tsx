@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import { MessagemToastify } from "../../components/Toastify";
+import { MessagemToastify } from "../../Components/Toastify";
 import { RootReducer } from "../../store";
 import {
   useDeleteTesteMutation,
@@ -9,11 +9,11 @@ import {
   useGetAllTesteQuery,
   useUpdateTesteMutation,
 } from "../../services/testeService";
-import TableListTests from "../../components/Tables/TableListTests";
-import ModalCadastro from "../../components/ModalCadastros";
-import InputFilter from "../../components/InputFilter";
-import AddTeste from "../../components/Form/AddTeste";
-import AlertErro from "../../../src/pages/Error/AlertError";
+import TableListTests from "../../Components/Tables/TableListTests";
+import ModalCadastro from "../../Components/ModalCadastros";
+import InputFilter from "../../Components/InputFilter";
+import AddTeste from "../../Components/Form/AddTeste";
+import AlertErro from "../../Pages/Error/AlertError";
 import { useFinishSessionMutation, usePostSessionMutation } from "../../services/sessionService";
 
 

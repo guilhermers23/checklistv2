@@ -1,10 +1,10 @@
 import { ReactNode } from "react"
-import ModalCadastro from "../../ModalCadastros";
-import AddGrupo from "../../Form/AddGrupo";
-import AddSubGrupo from "../../Form/AddSubGrupo";
-import Loading from "/loading.png";
+import ModalCadastro from "../../../Components/ModalCadastros";
+import AddGrupo from "../../../Components/Form/AddGrupo";
+import AddSubGrupo from "../../../Components/Form/AddSubGrupo";
 import { DocumentArrowDownIcon } from "@heroicons/react/24/solid";
-import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
+import { ExclamationCircleIcon } from "@heroicons/react/24/outline"; // Corrected import path
+import LoadingPNG from "../../../../public/loading.png"
 
 interface PropsTableDefault {
   children?: ReactNode;
@@ -63,7 +63,7 @@ const TableListTests = (
       {loading ?
         <span className="flex justify-center gap-2 items-center font-Kanit m-5 dark:text-gray-200">
           <img className="size-10 animate-spin"
-            src={Loading} alt="" />
+            src={LoadingPNG} alt="Loading" />
           Carregando testes...
         </span> :
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
