@@ -5,6 +5,7 @@ import AddSubGrupo from "../../../Components/Form/AddSubGrupo";
 import { DocumentArrowDownIcon } from "@heroicons/react/24/solid";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline"; // Corrected import path
 import LoadingPNG from "/loading.png"
+//import Modal from "../../Modal";
 
 interface PropsTableDefault {
   children?: ReactNode;
@@ -92,6 +93,9 @@ const TableListTests = (
                 <td className="px-6 py-4 text-gray-800 dark:text-gray-200">
                   {item.description}
                 </td>
+                {/* <td className="px-6 py-4 text-gray-800 dark:text-gray-200">
+                  <Modal teste={item} />
+                </td> */}
                 <td className="px-2 py-4">
                   <label htmlFor="resultado" className="sr-only">
                     Resultado

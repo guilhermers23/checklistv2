@@ -4,14 +4,14 @@ import { useSelector } from "react-redux";
 import { RootReducer } from "../../store";
 import { useDeleteUserMutation, useGetAllUserQuery } from "../../services/userService";
 import { MessagemToastify } from "../../Components/Toastify";
-import useFilterUser from "../../Hooks/ListaUsuarios/useFilterUser";
+import useFilterUser from "../../Hooks/useFilterUser";
 import TableUsers from "../../Components/Tables/TableUsers";
 
 export default function ListaDeUsuarios() {
   const { data: users } = useGetAllUserQuery();
   const [deleteUser] = useDeleteUserMutation();
   const { user } = useSelector((state: RootReducer) => state.user);
-  const { term, changeSearch, filteredUsers } = useFilterUser(users || []);
+  const { changeSearch, filteredUsers } = useFilterUser(users || []);
 
   const deletarButton = async (id: string) => {
     const res = await deleteUser(id);
@@ -27,7 +27,6 @@ export default function ListaDeUsuarios() {
 
   return (
     <TableUsers
-      term={term}
       users={filteredUsers}
       chageTerm={changeSearch}
       buttonDelete={deletarButton}

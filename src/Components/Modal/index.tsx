@@ -2,11 +2,13 @@ import { useState } from "react";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { LuTextSearch } from "react-icons/lu";
 import { FaRegSave, FaRegTrashAlt } from "react-icons/fa";
+import useDeleteSave from "../../Hooks/useSaveDelete";
 
-type Props = { description: string };
-
-const Modal = ({ description }: Props) => {
+type PropsModal = { teste: ITeste }
+const Modal = ({ teste }: PropsModal) => {
   const [openModal, setOpenModal] = useState(false);
+  const { functionDeleteTest, functionSaveTest } = useDeleteSave();
+
   return (
     <>
       <span className='flex gap-1 items-center cursor-pointer'>
@@ -46,7 +48,7 @@ const Modal = ({ description }: Props) => {
               {/* <!-- Modal Content --> */}
               <div className="p-4 md:p-5 space-y-4">
                 <p className="text-base leading-relaxed text-gray-700 dark:text-gray-200">
-                  {description}
+                  {teste.description}
                 </p>
 
                 <div className="flex items-center gap-2">
@@ -54,6 +56,7 @@ const Modal = ({ description }: Props) => {
                     Resultado:
                   </label>
                   <select id="resultado" className="block py-2.5 px-1 text-md text-gray-950 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-200 dark:bg-gray-700 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                    value={teste.resultado}
                   >
                     <option value="Não Testado">Não Testado</option>
                     <option value="Passou">Passou</option>
@@ -62,7 +65,9 @@ const Modal = ({ description }: Props) => {
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <label htmlFor="text" className="block font-Oswald dark:text-gray-400">Observações:</label>
+                  <label htmlFor="text" className="block font-Oswald dark:text-gray-200">
+                    Observações:
+                  </label>
                   <input className="login_input"
                     id="obs"
                     type="text"
@@ -75,7 +80,7 @@ const Modal = ({ description }: Props) => {
               <div className="px-4 pb-2 sm:flex sm:flex-row-reverse sm:px-6">
                 <button
                   type="button"
-                  onClick={() => setOpenModal(false)}
+                  onClick={() => functionDeleteTest(teste._id)}
                   className="inline-flex w-full gap-1 items-center justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 sm:ml-3 sm:w-auto cursor-pointer"
                 >
                   <FaRegTrashAlt /> Excluir
@@ -83,7 +88,7 @@ const Modal = ({ description }: Props) => {
 
                 <button
                   type="button"
-                  onClick={() => setOpenModal(false)}
+                  onClick={() => functionSaveTest(teste._id, teste.description, teste.resultado, teste.observacao)}
                   className="inline-flex w-full gap-1 items-center justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-green-500 sm:ml-3 sm:w-auto cursor-pointer"
                 >
                   <FaRegSave /> Salvar

@@ -47,7 +47,7 @@ const testeService = api.injectEndpoints({
       invalidatesTags: ["Tests"]
     }),
 
-    updateTeste: builder.mutation<ITeste, { id: string; resultado: string; observacao: string | undefined; }>({
+    updateTeste: builder.mutation<ITeste, { id: string; description?: string; resultado: string; observacao: string | undefined; }>({
       query: (body) => ({
         url: `/test/update/${body.id}`,
         method: "PATCH",

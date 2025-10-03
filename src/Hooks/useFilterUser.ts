@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { RootReducer } from "../../store";
+import { RootReducer } from "../store";
 
 const useFilterUser = (users: IUser[]) => {
   const [filteredUsers, setFilteredUsers] = useState<IUser[]>(users);
@@ -11,7 +11,7 @@ const useFilterUser = (users: IUser[]) => {
     setFilteredUsers(filter);
   };
 
-  return { term, filteredUsers, changeSearch }
+  return { filteredUsers, changeSearch }
 };
 
 export default useFilterUser;

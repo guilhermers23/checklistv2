@@ -1,15 +1,16 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { MagnifyingGlassIcon, UserCircleIcon } from "@heroicons/react/20/solid";
 import { setFilter } from "../../../store/reducers/filter";
+import { RootReducer } from "../../../store";
 
 interface PropsTable {
   users: IUser[],
-  term: string;
   buttonDelete: (id: string) => void;
   chageTerm: () => void;
 };
 
-const TableUsers = ({ users, term, buttonDelete, chageTerm }: PropsTable) => {
+const TableUsers = ({ users, buttonDelete, chageTerm }: PropsTable) => {
+  const { term } = useSelector((state: RootReducer) => state.filter);
   const dispacth = useDispatch();
 
   return (
