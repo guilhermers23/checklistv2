@@ -9,12 +9,12 @@ import {
   useGetAllTesteQuery,
   useUpdateTesteMutation,
 } from "../../services/testeService";
+import { useFinishSessionMutation, usePostSessionMutation } from "../../services/sessionService";
 import TableListTests from "../../Components/Tables/TableListTests";
 import ModalCadastro from "../../Components/ModalCadastros";
 import InputFilter from "../../Components/InputFilter";
 import AddTeste from "../../Components/Form/AddTeste";
 import AlertErro from "../../Pages/Error/AlertError";
-import { useFinishSessionMutation, usePostSessionMutation } from "../../services/sessionService";
 
 
 export default function ListaDeTestes() {
@@ -110,13 +110,17 @@ export default function ListaDeTestes() {
   };
 
   const functionDeleteTest = async (id: string) => {
-    try {
-      await deleteTeste(id);
-      MessagemToastify("Teste excluído com Sucesso!", "success");
-    } catch (error) {
-      console.error(error);
+    const responta = confirm("Tem certeza que deseja excluir esse teste?");
+    if (!responta) return;
+
+    const res = await deleteTeste(id);
+    if ("error" in res) {
       MessagemToastify("Ocorreu erro ao excluir o teste!", "error");
+      console.error(res.error);
+      return;
     }
+
+    MessagemToastify("Teste excluído com Sucesso!", "success");
   };
 
   const iniciarTestes = async () => {
